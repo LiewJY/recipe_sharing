@@ -1,6 +1,5 @@
 package com.example.andriod.maeassignment
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
