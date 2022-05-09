@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "2695178483",
+    "project_id": "mae-assignment-f1db0",
+    "storage_bucket": "mae-assignment-f1db0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2695178483:android:22b34323de79d53d992f86",
+        "android_client_info": {
+          "package_name": "com.example.andriod.maeassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2695178483-hfuj5beuubqb6dp60t7uaver31o8iqe6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_7ODtoY8ziPkrpIu-bRn_f8WOHT9iRtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2695178483-hfuj5beuubqb6dp60t7uaver31o8iqe6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
