@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,10 +15,10 @@ import com.example.andriod.maeassignment.databinding.FragmentRegisterBinding
 import com.example.andriod.maeassignment.viewmodel.RegisterViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 
-//import kotlinx.android.synthetic.main.RegisterFragment.view.*
 
 
 class RegisterFragment : Fragment(), View.OnClickListener {
+
     private val viewModel: RegisterViewModel by lazy {
         ViewModelProvider(this).get(RegisterViewModel::class.java)
     }
@@ -54,24 +55,25 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 R.id.btnRegister -> {
                     Log.e("frag", "register")
                     viewModel.register(
+                        txtRegisterName.text.toString(),
                         txtRegisterEmail.text.toString(),
                         txtRegisterPassword.text.toString()
                     )
 
-                    //Log.e("frag", "dd"  + txtName.text.toString())
+
+                    viewModel.registerStatus.observe(this) { result ->
+                        if(result == true) {
+                            Log.e("frag", "in frag return $result")
+                            Toast.makeText(context, "Register Success",Toast.LENGTH_SHORT)
+                            // todo show success message
+                            v!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                        } else {
+                            Log.e("frag", "in frag return $result")
+                            Toast.makeText(context, "Register Failed",Toast.LENGTH_SHORT).show()
+                        }
 
 
-//                    et = findViewById(R.id.txtName) as EditText
-//                    val text: String = et.getText().toString()
-//
-//                    val myEditText = findViewById(R.id.vnosEmaila) as EditText
-//                    val text = myEditText.text.toString()
-
-                    //var bb = edit_text.getText().toString()
-
-
-
-                //RegisterViewModel.register()
+                    }
                 }
             }
         }

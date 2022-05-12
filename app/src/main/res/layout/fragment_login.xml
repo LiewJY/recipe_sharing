@@ -29,7 +29,8 @@
                 android:ems="10"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
 
             <EditText
                 android:id="@+id/txtLoginPassword"
@@ -40,7 +41,8 @@
                 android:ems="10"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
 
             <TextView
                 android:id="@+id/tvForgetPassword"
@@ -48,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:text="@string/action_forget_password"
-                android:textAlignment="viewEnd" />
+                android:textAlignment="viewEnd"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2" />
 
             <Button
                 android:id="@+id/btnSignIn"
@@ -56,14 +59,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:height="48dp"
-                android:text="@string/action_sign_in_short" />
+                android:text="@string/action_sign_in_short"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
             <TextView
                 android:id="@+id/tvRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/action_register"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2" />
 
         </LinearLayout>
 

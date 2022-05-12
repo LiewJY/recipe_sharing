@@ -6,18 +6,15 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
 
-    <string name="action_register">Not registered yet? <u>Register now! </u></string>
+    <string name="action_register">Not registered yet? <u>Register now!</u></string>
     <string name="action_forget_password">Forgot password</string>
     <string name="action_register_short">Register</string>
-    <string name="t_and_c">I Agree To The <u> Terms &amp; Condition </u> </string>
-    <string name="already_have_an_account">Already have an account? <u> Login here</u></string>
+    <string name="t_and_c">I Agree To The <u>Terms &amp; Condition</u></string>
+    <string name="already_have_an_account">Already have an account? <u>Login here</u></string>
 
     <string name="register_title">Create An Account</string>
 
     <string name="prompt_name">Name</string>
-
-
-
 
 
     <string name="title_activity_login">LoginActivity</string>

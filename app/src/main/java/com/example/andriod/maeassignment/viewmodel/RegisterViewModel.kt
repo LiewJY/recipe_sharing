@@ -1,21 +1,29 @@
 package com.example.andriod.maeassignment.viewmodel
 
-import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.andriod.maeassignment.repository.AuthRepository
 
+
 class RegisterViewModel: ViewModel() {
+    //data passing
+    private var _createdUserLiveData = MutableLiveData<Boolean>()
+    val registerStatus: MutableLiveData<Boolean>
+        get() = _createdUserLiveData
 
-    var authRepository = AuthRepository()
+    fun register(name: String, email: String,password: String) {
+       // Log.e("frag", "in view model$name  $email  $password")
 
+        // TODO: add validation
 
-    public fun register(email: String, password: String) {
-
-        Log.e("frag", "in view model$email  $password")
-
-        // TODO: add validation 
-
-        authRepository.register(email, password)
+//        if (name.isEmpty()) {
+//            Log.e("frag", "no name")
+//
+//            return
+//        }
+        _createdUserLiveData = AuthRepository().register(name, email, password)
     }
+
+
 
 }

@@ -7,11 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentLoginBinding
+import com.example.andriod.maeassignment.viewmodel.LoginViewModel
+import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment : Fragment(), View.OnClickListener{
+
+    private val viewModel: LoginViewModel by lazy {
+        ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +48,28 @@ class LoginFragment : Fragment(), View.OnClickListener{
 
                 R.id.btnSignIn -> {
                     Log.e("frag", "login")
+                    viewModel.login(
+                        txtLoginEmail.text.toString(),
+                        txtLoginPassword.text.toString()
+                    )
+
+                    viewModel.loginStatus.observe(this) { result ->
+                        if (result == true) {
+                            //todo login suceess
+                            Log.e("frag", "login end")
+
+                            //open home page
+                            v!!.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+                        } else {
+                            //todo login false
+
+                        }
+                    }
+
+
+
+
+
 
                 }
 
@@ -53,3 +82,6 @@ class LoginFragment : Fragment(), View.OnClickListener{
     }
 
 }
+
+
+
