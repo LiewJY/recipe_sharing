@@ -42,7 +42,6 @@ class LoginFragment : Fragment(), View.OnClickListener{
                 R.id.btnSignIn -> {
                     Log.e("frag", "login")
 
-
                 }
 
             }

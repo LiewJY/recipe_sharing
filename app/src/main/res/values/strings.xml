@@ -12,6 +12,7 @@
     <string name="t_and_c">I Agree To The <u> Terms &amp; Condition </u> </string>
     <string name="already_have_an_account">Already have an account? <u> Login here</u></string>
 
+    <string name="register_title">Create An Account</string>
 
     <string name="prompt_name">Name</string>
 

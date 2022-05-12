@@ -1,19 +1,27 @@
 package com.example.andriod.maeassignment
 
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.delay
+import androidx.appcompat.app.AppCompatDelegate
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //forced light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+
         setContentView(R.layout.activity_main)
+        //        handler.postDelayed(setContentView(R.layout.activity_auth) ,5000)
+        supportActionBar?.hide()
+
 
         setContentView(R.layout.activity_auth)
+
+
+        //hide action bar
+
 //        val handler = Handler()
 //        handler.postDelayed(setContentView(R.layout.activity_auth) ,5000)
 
