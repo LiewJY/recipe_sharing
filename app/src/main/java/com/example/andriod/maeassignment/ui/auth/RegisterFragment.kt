@@ -65,7 +65,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                     viewModel.registerStatus.observe(this) { result ->
                         if(result == true) {
                             Log.e("frag", "in frag return $result")
-                            Toast.makeText(context, "Register Success",Toast.LENGTH_SHORT)
+                            Toast.makeText(context, "Register Success",Toast.LENGTH_SHORT).show()
                             // todo show success message
                             v!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                         } else {

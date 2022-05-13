@@ -36,6 +36,8 @@ class AuthRepository {
         val logoutMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         auth = FirebaseAuth.getInstance()
         auth.signOut()
+        if (auth.currentUser == null) {logoutMutableLiveData.value = true}
+
         return logoutMutableLiveData
     }
 

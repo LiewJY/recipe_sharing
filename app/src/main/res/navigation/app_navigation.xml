@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_add"
         android:name="com.example.andriod.maeassignment.ui.app.AddFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_add"
         tools:layout="@layout/fragment_add" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_profile"
         android:name="com.example.andriod.maeassignment.ui.app.ProfileFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

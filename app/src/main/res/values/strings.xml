@@ -16,7 +16,7 @@
 
     <string name="prompt_name">Name</string>
 
-
+    <!--for bottom navigation-->
     <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_Profile">Profile</string>

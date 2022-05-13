@@ -8,7 +8,7 @@ class LogoutViewModel: ViewModel() {
 
     //data passing
     private var _logoutUserLiveData = MutableLiveData<Boolean>()
-    val loginStatus: MutableLiveData<Boolean>
+    val logoutStatus: MutableLiveData<Boolean>
         get() = _logoutUserLiveData
 
     fun logout() {
