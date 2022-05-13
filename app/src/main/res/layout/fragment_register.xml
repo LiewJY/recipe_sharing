@@ -18,24 +18,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="20dp">
 
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                android:id="@+id/filledTextField"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="Enter something"-->
-            <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
-
-            <!--                &lt;!&ndash;this is the actual edit text which takes the input-->
-
-            <!--                the actual useful id is below&ndash;&gt;-->
-            <!--                <com.google.android.material.textfield.TextInputEditText-->
-            <!--                    android:id="@+id/edit_text"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content" />-->
-
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
-
             <TextView
                 android:id="@+id/tvRegisterTitle"
                 android:layout_width="match_parent"
@@ -46,54 +28,79 @@
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txtRegisterName"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/containerRegisterName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:autofillHints=""
-                android:ems="10"
                 android:hint="@string/prompt_name"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
+                app:errorEnabled="true">
+                <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtRegisterName"
+                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#757575" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/txtRegisterEmail"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/containerRegisterEmail"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:autofillHints=""
-                android:ems="10"
                 android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:minHeight="48dp"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
+                app:errorEnabled="true">
+                <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtRegisterEmail"
+                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#757575" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/txtRegisterPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/containerRegisterPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
                 android:hint="@string/prompt_password"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
+                app:errorEnabled="true">
+                <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtRegisterPassword"
+                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColorHint="#757575" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/txtRegisterConfirmPassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/containerRegisterConfirmPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
                 android:hint="@string/prompt_confirm_password"
-                android:inputType="textPassword"
-                android:minHeight="48dp"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
-                android:textColorHint="#757575" />
+                app:errorEnabled="true">
+                <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtRegisterConfirmPassword"
+                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColorHint="#757575" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <CheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

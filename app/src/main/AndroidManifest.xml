@@ -10,13 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MAEAssignment">
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name=".ui.app.AppActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.HomeActivity"
-            android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.MAEAssignment.NoActionBar" />
+            android:name=".ui.auth.AuthActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

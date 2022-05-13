@@ -4,15 +4,23 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/font/roboto.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_app.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_app_acrivity.xml" value="0.33" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_auth.xml" value="0.18" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_home.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_main.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_primary.xml" value="0.33" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_register.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_add.xml" value="0.25" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_blank.xml" value="0.12635869565217392" />
-        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_login.xml" value="0.1" />
-        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_login.xml" value="0.18" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_notifications.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_profile.xml" value="0.2890123984608807" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

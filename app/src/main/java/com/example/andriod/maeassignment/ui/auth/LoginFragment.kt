@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,26 +36,19 @@ class LoginFragment : Fragment(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
-        Log.e("frag", "clicked")
-
         if (v != null) {
             when(v.id){
                 R.id.tvRegister -> {
-                    Log.e("frag", "reg")
                     v!!.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
                 }
-
                 R.id.btnSignIn -> {
-                    Log.e("frag", "login")
                     viewModel.login(
                         txtLoginEmail.text.toString(),
                         txtLoginPassword.text.toString()
                     )
-
                     viewModel.loginStatus.observe(this) { result ->
                         if (result == true) {
                             //todo login suceess
-                            Log.e("frag", "login end")
 
                             //open home page
                             v!!.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)

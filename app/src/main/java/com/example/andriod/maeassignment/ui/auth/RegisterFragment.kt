@@ -38,6 +38,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
 
         // Giving the binding access to the OverviewViewModel
         //binding.viewModel = viewModel
+        //binding.containerRegisterName.setOnClickListener(this)
 
 
         return binding.root
@@ -59,8 +60,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                         txtRegisterEmail.text.toString(),
                         txtRegisterPassword.text.toString()
                     )
-
-
+                    //validation code
+                    //containerRegisterName.error = "dddd"
                     viewModel.registerStatus.observe(this) { result ->
                         if(result == true) {
                             Log.e("frag", "in frag return $result")

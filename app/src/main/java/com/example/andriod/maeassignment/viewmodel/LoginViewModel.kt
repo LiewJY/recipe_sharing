@@ -9,13 +9,18 @@ class LoginViewModel: ViewModel() {
     private var _loginUserLiveData = MutableLiveData<Boolean>()
     val loginStatus: MutableLiveData<Boolean>
         get() = _loginUserLiveData
-
+    private var _isLoginLiveData = MutableLiveData<Boolean>()
+    val isLogin: MutableLiveData<Boolean>
+        get() = _isLoginLiveData
 
     fun login(email: String, password: String) {
         // todo add validation
 
         _loginUserLiveData = AuthRepository().login(email, password)
+    }
 
+    fun isLogin() {
+        _isLoginLiveData= AuthRepository().isLogin()
     }
 
 

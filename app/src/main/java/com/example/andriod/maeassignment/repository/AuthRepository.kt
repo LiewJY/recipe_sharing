@@ -24,6 +24,13 @@ class AuthRepository {
 //    val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
 //         value = firebaseAuth.currentUser
 //    }
+    fun isLogin(): MutableLiveData<Boolean> {
+        val isLoginMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        auth = FirebaseAuth.getInstance()
+        isLoginMutableLiveData.value = false
+        if (auth.currentUser != null) {isLoginMutableLiveData.value = true}
+        return isLoginMutableLiveData
+    }
 
     fun logout(): MutableLiveData<Boolean> {
         val logoutMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
