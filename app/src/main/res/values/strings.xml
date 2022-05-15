@@ -1,29 +1,48 @@
 <resources>
     <string name="app_name">MAE Assignment - share</string>
-
-    <string name="action_sign_in_short">Sign in</string>
+    <!--text field hint-->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_confirm_password">Confirm Password</string>
-
+    <string name="prompt_name">Name</string>
+    <!--action -->
+    <string name="action_sign_in_short">Sign in</string>
     <string name="action_register">Not registered yet? <u>Register now!</u></string>
     <string name="action_forget_password">Forgot password</string>
     <string name="action_register_short">Register</string>
     <string name="t_and_c">I Agree To The <u>Terms &amp; Condition</u></string>
     <string name="already_have_an_account">Already have an account? <u>Login here</u></string>
-
-    <string name="register_title">Create An Account</string>
-
-    <string name="prompt_name">Name</string>
+    <!--title-->
+    <string name="title_register">Create An Account</string>
 
     <!--for bottom navigation-->
     <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_Profile">Profile</string>
 
+<!--for add recipe page-->
+    <!--text field hint-->
+    <string name="prompt_recipe_title">Recipe Title</string>
+    <string name="prompt_recipe_desc">Recipe Description</string>
+
+
+    <!--action -->
+    <string name="action_select_image">Select Image</string>
+    <string name="action_add">Add</string>
+    <string name="action_publish">Publish</string>
+
+
+
+    <!--title-->
+    <string name="title_add_recipe">Add Recipe</string>
+    <string name="title_add_ingredients"><u>Add Ingredients</u></string>
+    <string name="title_add_method"><u>Add Methods</u></string>
+
+
+
+
 
     <!--not in use-->
-
     <string name="title_activity_login">LoginActivity</string>
 
     <string name="action_sign_in">Sign in or register</string>

@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
-                android:text="@string/register_title"
+                android:text="@string/title_register"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
                 android:textStyle="bold" />

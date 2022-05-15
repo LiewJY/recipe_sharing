@@ -7,8 +7,10 @@ import com.example.andriod.maeassignment.repository.AuthRepository
 class LoginViewModel: ViewModel() {
     //data passing
     private var _loginUserLiveData = MutableLiveData<Boolean>()
+
     val loginStatus: MutableLiveData<Boolean>
         get() = _loginUserLiveData
+
     private var _isLoginLiveData = MutableLiveData<Boolean>()
     val isLogin: MutableLiveData<Boolean>
         get() = _isLoginLiveData

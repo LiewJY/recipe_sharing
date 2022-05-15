@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
 
         viewModel.isLogin()
         viewModel.isLogin.observe(this) { status ->

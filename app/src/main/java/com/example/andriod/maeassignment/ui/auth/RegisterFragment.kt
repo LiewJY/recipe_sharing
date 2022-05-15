@@ -24,13 +24,14 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //Log.e("frag", "open")
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater,
             R.layout.fragment_register,container,false)
+        //(activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
         //register event handler (for the button)
         binding.tvRegisterLogin.setOnClickListener(this)

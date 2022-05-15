@@ -37,28 +37,3 @@ class AppActivity : AppCompatActivity() {
     }
 }
 
-//        val navController = Navigation.findNavController(this, R.id.app_host_fragment)
-//        val bottomNavigationView =
-//            findViewById<BottomNavigationView>(R.id.app_bottom_nav)
-//        setupWithNavController(bottomNavigationView, navController)
-
-//        //Initialize Bottom Navigation View.
-//        //Initialize Bottom Navigation View.
-//        val navView = findViewById<BottomNavigationView>(R.id.bottomNav_view)
-//
-//        //Pass the ID's of Different destinations
-//
-//        //Pass the ID's of Different destinations
-//        val appBarConfiguration: AppBarConfiguration = Builder(
-//            R.id.navigation_home,
-//            R.id.navigation_add,
-//            R.id.navigation_profile,
-//        )
-//            .build()
-//
-//        //Initialize NavController.
-//
-//        //Initialize NavController.
-//        val navController: NavController = Navigation.findNavController(this, R.id.navHostFragment)
-//        setupActionBarWithNavController(this, navController, appBarConfiguration)
-//        setupWithNavController(navView, navController)
