@@ -4,5 +4,7 @@ object Firebase {
     //for firebase collections
     //define collection user
     const val USERS: String = "users"
+    const val RECIPES: String = "recipes"
+
 
 }

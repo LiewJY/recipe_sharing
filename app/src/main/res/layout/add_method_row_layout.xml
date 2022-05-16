@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--        <Button-->
+        <!--            android:id="@+id/button"-->
+        <!--            android:layout_width="48dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="5dp"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:layout_marginEnd="5dp"-->
+        <!--            android:layout_marginBottom="5dp"-->
+        <!--            android:text="x"-->
+        <!--            />-->
+        <!--        android:layout_toEndOf="@+id/button"-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_method"
+            app:errorEnabled="true">
+            <!--this is the actual edit text which takes the input
+    the actual useful id is below-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtMethods"
+                style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:textColorHint="#757575" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

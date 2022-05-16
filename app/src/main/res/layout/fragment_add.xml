@@ -45,6 +45,7 @@
                         android:textColorHint="#757575" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/containerRecipeDesc"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -92,18 +93,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                </LinearLayout>
 
-                    <com.google.android.material.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddIngredient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginBottom="10dp"
-                        android:drawableEnd="@android:drawable/ic_input_add"
                         android:text="@string/action_add"
                         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
-
-                </LinearLayout>
 
 <!--                adding method-->
                 <TextView
@@ -120,18 +119,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                </LinearLayout>
 
-                    <com.google.android.material.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAddMethod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginBottom="10dp"
-                        android:drawableEnd="@android:drawable/ic_input_add"
                         android:text="@string/action_add"
-                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
-
-                </LinearLayout>
+                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+                    />
 
 
                 <com.google.android.material.button.MaterialButton
@@ -140,8 +138,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:text="@string/action_publish"
-                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+                    />
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp" />
 
             </LinearLayout>
         </ScrollView>
