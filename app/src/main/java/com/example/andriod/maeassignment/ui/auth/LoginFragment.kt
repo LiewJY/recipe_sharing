@@ -34,6 +34,8 @@ class LoginFragment : Fragment(), View.OnClickListener{
         //register event handler (for the button)
         binding.btnSignIn.setOnClickListener(this)
         binding.tvRegister.setOnClickListener(this)
+        binding.tvForgetPassword.setOnClickListener(this)
+
 
 
         return binding.root
@@ -42,6 +44,9 @@ class LoginFragment : Fragment(), View.OnClickListener{
     override fun onClick(v: View?) {
         if (v != null) {
             when(v.id){
+                R.id.tvForgetPassword -> {
+                    v!!.findNavController().navigate(R.id.action_loginFragment_to_forgetPasswordFragment)
+                }
                 R.id.tvRegister -> {
                     v!!.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
                 }
@@ -57,7 +62,6 @@ class LoginFragment : Fragment(), View.OnClickListener{
                             //open home page
                             val intent = Intent(activity, AppActivity::class.java)
                             startActivity(intent)
-                            //v!!.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
                         } else {
                             //todo login false
 

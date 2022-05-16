@@ -25,16 +25,13 @@ import java.util.*
 
 
 class AddFragment : Fragment(), View.OnClickListener {
-    // initiate viewBinding
-    private var _binding: FragmentAddBinding? = null
-    private val vbinding get() = _binding!!
-
-    //    for image picker
-    private  var imageUrl: Uri? = null
-
     private val viewModel: AddViewModel by lazy {
         ViewModelProvider(this).get(AddViewModel::class.java)
     }
+    //    for image picker
+    private  var imageUrl: Uri? = null
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -93,14 +90,21 @@ class AddFragment : Fragment(), View.OnClickListener {
         //add ingredients and methods into array list
         loadIngredients()
         loadMethods()
-       viewModel.addRecipe(
+        viewModel.addRecipe(
             txtRecipeTitle.text.toString(),
             txtRecipeDesc.text.toString(),
             imageUrl,
             ingredientsList,
             methodList,
-
             )
+        //todo return success message
+        viewModel.addRecipeStatus.observe(this) { result ->
+            if (result == true) {
+                Toast.makeText(context, "Recipe Added", Toast.LENGTH_SHORT).show()
+            }else {
+                //todo
+            }
+        }
 
 
     }

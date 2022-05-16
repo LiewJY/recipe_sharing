@@ -12,15 +12,21 @@
     <string name="action_register_short">Register</string>
     <string name="t_and_c">I Agree To The <u>Terms &amp; Condition</u></string>
     <string name="already_have_an_account">Already have an account? <u>Login here</u></string>
+    <string name="action_send_email">Send Email</string>
+    <string name="action_go_back_to_login">Return to Login</string>
+
+
     <!--title-->
     <string name="title_register">Create An Account</string>
+    <string name="title_forgot_password">Password Recovery</string>
+
 
     <!--for bottom navigation-->
     <string name="title_home">Home</string>
     <string name="title_add">Add</string>
     <string name="title_Profile">Profile</string>
 
-<!--for add recipe page-->
+    <!--for add recipe page-->
     <!--text field hint-->
     <string name="prompt_recipe_title">Recipe Title</string>
     <string name="prompt_recipe_desc">Recipe Description</string>
@@ -35,14 +41,10 @@
     <string name="action_publish">Publish</string>
 
 
-
     <!--title-->
     <string name="title_add_recipe">Add Recipe</string>
     <string name="title_add_ingredients"><u>Add Ingredients</u></string>
     <string name="title_add_method"><u>Add Methods</u></string>
-
-
-
 
 
     <!--not in use-->

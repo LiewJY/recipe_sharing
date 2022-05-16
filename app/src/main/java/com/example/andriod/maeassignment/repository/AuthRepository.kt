@@ -24,6 +24,23 @@ class AuthRepository {
 //    val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
 //         value = firebaseAuth.currentUser
 //    }
+    fun forgotPassword(email: String): MutableLiveData<Boolean> {
+        val forgotPasswordMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        forgotPasswordMutableLiveData.value = false
+        auth = FirebaseAuth.getInstance()
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener{ sentEmail ->
+                if (sentEmail.isSuccessful) {
+                    forgotPasswordMutableLiveData.value = true
+                    Log.e("frag", "sent email SUCCESS")
+                } else {
+                    Log.e("frag", "FAIL")
+                    forgotPasswordMutableLiveData.value = false
+                }
+            }
+        return forgotPasswordMutableLiveData
+    }
+
     fun isLogin(): MutableLiveData<Boolean> {
         val isLoginMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         auth = FirebaseAuth.getInstance()
