@@ -11,8 +11,15 @@ class ForgetPasswordViewModel: ViewModel(){
         get() = _forgotPasswordLiveData
 
     fun forgotPassword(email: String) {
+        //todo validation
+        validation(email)
         _forgotPasswordLiveData = AuthRepository().forgotPassword(email)
 
     }
+
+    private fun validation(email: String) {
+        //todo validation
+    }
+
 
 }

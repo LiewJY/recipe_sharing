@@ -70,7 +70,6 @@ class AuthRepository {
                     Log.e("frag", "FAIL")
                     loginMutableLiveData.value = false
                 }
-
             }
         return loginMutableLiveData
     }
@@ -101,7 +100,6 @@ class AuthRepository {
                             if (addDetails.isSuccessful) {
                                 //pass data
                                 newUserMutableLiveData.value = true
-                                //Log.e("frag", "in repo result ${(newUserMutableLiveData as MutableLiveData<Boolean>).value}")
                                 Log.e("frag", "SUCCESS")
                             }
                         }

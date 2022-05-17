@@ -3,7 +3,7 @@ package com.example.andriod.maeassignment.viewmodel.app
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.andriod.maeassignment.repository.AddRepository
+import com.example.andriod.maeassignment.repository.RecipeRepository
 
 
 class AddViewModel : ViewModel() {
@@ -16,7 +16,7 @@ class AddViewModel : ViewModel() {
 
     fun addRecipe(recipeTitle: String, recipeDesc: String, imageUrl: Uri?, ingredientsList: ArrayList<String>, methodList: ArrayList<String>,
     ) {
-        _addRecipeLiveData = AddRepository().addRecipe(recipeTitle, recipeDesc, imageUrl, ingredientsList, methodList)
+        _addRecipeLiveData = RecipeRepository().addRecipe(recipeTitle, recipeDesc, imageUrl, ingredientsList, methodList)
     }
 
 

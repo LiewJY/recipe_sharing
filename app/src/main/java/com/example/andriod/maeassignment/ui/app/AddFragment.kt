@@ -33,6 +33,7 @@ class AddFragment : Fragment(), View.OnClickListener {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -108,6 +109,7 @@ class AddFragment : Fragment(), View.OnClickListener {
 
 
     }
+
 
     private  fun loadMethods() {
         methodList.clear()

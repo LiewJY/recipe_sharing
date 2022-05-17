@@ -11,7 +11,6 @@ import com.example.andriod.maeassignment.databinding.ActivityAppBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-
 class AppActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAppBinding
@@ -36,5 +35,6 @@ class AppActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
 }
 

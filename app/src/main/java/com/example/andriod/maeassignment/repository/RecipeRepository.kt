@@ -6,14 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.utils.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 
-class AddRepository {
+class RecipeRepository {
 
     private val mFireStore = FirebaseFirestore.getInstance()
+
     //private lateinit var  auth: FirebaseAuth
 
     //for firestore image
@@ -21,24 +24,54 @@ class AddRepository {
     private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
     private lateinit var imageLink: String
 
-    //private var user : FirebaseAuth? = null
+    //for read data
+    private val mFirebaseDatabase = FirebaseDatabase.getInstance()
 
-    fun uploadImage(imageUrl: Uri?) {
-        //add image to firestore first
-        if (imageUrl != null) {
-            var uri = Uri.parse(imageUrl.toString())
-            val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + UUID.randomUUID().toString())
-            //val uploadTask = imageRef.putFile(imageUrl.)
-            val uploadTask = imageRef?.putFile(uri)
-            uploadTask.addOnSuccessListener {
-                val downloadUrl = imageRef.downloadUrl
-                downloadUrl.addOnSuccessListener {
-                    imageLink = it.toString()
-                    Log.e("frag", "SUCCESS url   $imageLink")
+
+    fun getRecipes(): ArrayList<Recipe> {
+        //val getRecipeMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+
+        var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
+        Log.e("frag", "SUCCESS get")
+        mFireStore.collection(Firebase.RECIPES).get()
+            .addOnSuccessListener { recipes ->
+                if(recipes != null) {
+                    val data = recipes.toObjects<Recipe>()
+                    data.toList()
+//                    getRecipeMutableLiveData.value = ArrayList(data)
+                    recipeArrayList = ArrayList(data)
+                    Log.e("frag", "SUCCESS get ${data.toList()}")
+                    Log.e("frag", "SUCCESS get $recipeArrayList")
+                    //Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
+                    Log.e("frag", "SUCCESS get $data")
                 }
             }
-        }
+        return recipeArrayList
+
+
+//        mFirebaseDatabase.getReference(Firebase.USERS)
+//            .addValueEventListener(object:ValueEventListener {
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    if (snapshot.exists()){
+//                        Log.e("frag", "SUCCESS get 1")
+//
+//                        for (recipesSnapshot in snapshot.children){
+//                            val recipe = recipesSnapshot.getValue(Recipe::class.java)
+//                            recipeArrayList.add(recipe!!)
+//                            Log.e("frag", "SUCCESS COUNT ADD")
+//
+//                        }
+//                        //userRecyclerview.adapter = MyAdapter(recipeArrayList)
+//                    }
+//            }
+//                override fun onCancelled(error: DatabaseError) {
+//                    TODO("Not yet implemented")
+//                }
+//            })
+
     }
+
+
     fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
         val addRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         if (imageUrl != null) {
