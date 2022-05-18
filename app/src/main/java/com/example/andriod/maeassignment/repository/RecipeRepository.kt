@@ -28,25 +28,25 @@ class RecipeRepository {
     private val mFirebaseDatabase = FirebaseDatabase.getInstance()
 
 
-    fun getRecipes(): ArrayList<Recipe> {
-        //val getRecipeMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+    fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
+        val getRecipeMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
 
-        var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
+        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
         mFireStore.collection(Firebase.RECIPES).get()
             .addOnSuccessListener { recipes ->
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
                     data.toList()
-//                    getRecipeMutableLiveData.value = ArrayList(data)
-                    recipeArrayList = ArrayList(data)
+                    getRecipeMutableLiveData.value = ArrayList(data)
+                    //recipeArrayList = ArrayList(data)
                     Log.e("frag", "SUCCESS get ${data.toList()}")
-                    Log.e("frag", "SUCCESS get $recipeArrayList")
-                    //Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
+                    //Log.e("frag", "SUCCESS get $recipeArrayList")
+                    Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
                     Log.e("frag", "SUCCESS get $data")
                 }
             }
-        return recipeArrayList
+        return getRecipeMutableLiveData
 
 
 //        mFirebaseDatabase.getReference(Firebase.USERS)
