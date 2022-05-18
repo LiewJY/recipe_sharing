@@ -74,6 +74,10 @@ class RecipeRepository {
 
     fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
         val addRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        //get the uid first
+        val uid = mFireStore.collection(Firebase.RECIPES).document()
+        Log.e("frag", "SUCCESS get uid ${uid.id}")
+
         if (imageUrl != null) {
             //image is present
             // upload the image to firebase
@@ -87,6 +91,7 @@ class RecipeRepository {
                     //store data to firebase with info
                     imageLink = it.toString()
                     val recipe = Recipe(
+                        id = uid.id,
                         userid = currentFirebaseUser!!.uid,
                         title = recipeTitle,
                         desc = recipeDesc,
@@ -109,6 +114,7 @@ class RecipeRepository {
         }else {
             //no image
             val recipe = Recipe(
+                id = uid.id,
                 userid = currentFirebaseUser!!.uid,
                 title = recipeTitle,
                 desc = recipeDesc,
@@ -116,13 +122,16 @@ class RecipeRepository {
                 methods = methodList,
             )
             mFireStore.collection(Firebase.RECIPES)
-                .add(recipe)
+                .document(uid.id)
+                .set(recipe)
                 .addOnCompleteListener{ addRecipe ->
                     if(addRecipe.isSuccessful){
                         Log.e("frag", "SUCCESS added recipe with no image")
                     }
                 }
         }
+
+
         return addRecipeMutableLiveData
     }
 

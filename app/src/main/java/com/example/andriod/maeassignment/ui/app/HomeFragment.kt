@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +16,7 @@ import com.example.andriod.maeassignment.databinding.FragmentHomeBinding
 import com.example.andriod.maeassignment.viewmodel.app.HomeViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 //    private lateinit var dbref : DatabaseReference
     private lateinit var recyclerView : RecyclerView
 //    private lateinit var userArrayList : ArrayList<Recipe>
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
 
             recyclerView = view.findViewById(R.id.recipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = context?.let { HomeAdapter(it, recipes) }
+            recyclerView.adapter = context?.let { HomeAdapter(it, recipes, this) }
         }
 
     }
@@ -68,5 +69,14 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onItemClick(position: Int) {
+        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+//        val clickedItem = recipeList[position]
+//        clickedItem.text1 = "Clicked"
+//        adapter.notifyItemChanged(position)
+        }
+
+
 
 }
