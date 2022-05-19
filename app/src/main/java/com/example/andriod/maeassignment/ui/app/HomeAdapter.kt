@@ -19,12 +19,10 @@ class HomeAdapter(private val context: Context,
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recipes_item,
             parent,false)
         return MyViewHolder(itemView)
-
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -41,7 +39,7 @@ class HomeAdapter(private val context: Context,
 
         holder.itemView.setOnClickListener(View.OnClickListener {
             Log.e("frag", "test ${currentitem.title} ${currentitem.id}")
-
+            listener.onItemClick(currentitem.id)
         })
 
 
@@ -53,25 +51,13 @@ class HomeAdapter(private val context: Context,
     }
 
 
-     inner class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+     inner class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title : TextView = itemView.findViewById(R.id.tvHomeRecipeTitle)
         val user : TextView = itemView.findViewById(R.id.tvHomeName)
         val desc : TextView = itemView.findViewById(R.id.tvHomeDesc)
         val image : ImageView = itemView.findViewById(R.id.imageRecipes)
-
-         init {
-             itemView.setOnClickListener(this)
-         }
-
-         override fun onClick(v: View?) {
-             val position = adapterPosition
-             if (position != RecyclerView.NO_POSITION) {
-                 listener.onItemClick(position)
-             }
-         }
-
     }
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(position: String)
     }
 }

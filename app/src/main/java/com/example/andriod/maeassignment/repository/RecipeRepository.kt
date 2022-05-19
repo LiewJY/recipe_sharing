@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.utils.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
@@ -25,11 +25,27 @@ class RecipeRepository {
     private lateinit var imageLink: String
 
     //for read data
-    private val mFirebaseDatabase = FirebaseDatabase.getInstance()
+    //private val mFirebaseDatabase = FirebaseDatabase.getInstance()
 
+    fun getRecipe(recipeId: String): MutableLiveData<Recipe> {
+        val getRecipeMutableLiveData: MutableLiveData<Recipe> = MutableLiveData<Recipe>()
+
+        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
+        Log.e("frag", "SUCCESS get")
+        mFireStore.collection(Firebase.RECIPES).document(recipeId).get()
+            .addOnSuccessListener { recipes ->
+                if(recipes != null) {
+                    //val data = recipes.toObject<Recipe>()
+                    getRecipeMutableLiveData.value = recipes.toObject<Recipe>()
+                    //recipeArrayList = ArrayList(data)
+                    //Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
+                }
+            }
+        return getRecipeMutableLiveData
+    }
 
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
-        val getRecipeMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+        val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
 
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
@@ -38,37 +54,15 @@ class RecipeRepository {
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
                     data.toList()
-                    getRecipeMutableLiveData.value = ArrayList(data)
+                    getRecipesMutableLiveData.value = ArrayList(data)
                     //recipeArrayList = ArrayList(data)
                     Log.e("frag", "SUCCESS get ${data.toList()}")
                     //Log.e("frag", "SUCCESS get $recipeArrayList")
-                    Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
+                    Log.e("frag", "SUCCESS get ${getRecipesMutableLiveData.value}")
                     Log.e("frag", "SUCCESS get $data")
                 }
             }
-        return getRecipeMutableLiveData
-
-
-//        mFirebaseDatabase.getReference(Firebase.USERS)
-//            .addValueEventListener(object:ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()){
-//                        Log.e("frag", "SUCCESS get 1")
-//
-//                        for (recipesSnapshot in snapshot.children){
-//                            val recipe = recipesSnapshot.getValue(Recipe::class.java)
-//                            recipeArrayList.add(recipe!!)
-//                            Log.e("frag", "SUCCESS COUNT ADD")
-//
-//                        }
-//                        //userRecyclerview.adapter = MyAdapter(recipeArrayList)
-//                    }
-//            }
-//                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
-
+        return getRecipesMutableLiveData
     }
 
 
@@ -100,7 +94,8 @@ class RecipeRepository {
                         image = imageLink,
                     )
                     mFireStore.collection(Firebase.RECIPES)
-                        .add(recipe)
+                        .document(uid.id)
+                        .set(recipe)
                         .addOnCompleteListener{ addRecipe ->
                             if(addRecipe.isSuccessful){
                                 Log.e("frag", "SUCCESS added recipe with image   $imageLink")

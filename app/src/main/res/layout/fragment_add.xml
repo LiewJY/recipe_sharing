@@ -68,7 +68,7 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_preview"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="194dp"
                     android:scaleType="centerCrop" />
 
                 <com.google.android.material.button.MaterialButton

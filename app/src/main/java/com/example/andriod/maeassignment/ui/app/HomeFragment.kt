@@ -1,5 +1,6 @@
 package com.example.andriod.maeassignment.ui.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentHomeBinding
 import com.example.andriod.maeassignment.viewmodel.app.HomeViewModel
+
 
 
 class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
@@ -55,28 +57,16 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         )
         viewModel.getRecipes()
 
-
-
-
-        //userArrayList = arrayListOf<Recipe>()
-        //viewModel.getRecipes()
-
-        //register event handler (for the button)
-//        binding.btnAddImage.setOnClickListener(this)
-
-
-
-
         return binding.root
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(position: String) {
         Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
-//        val clickedItem = recipeList[position]
-//        clickedItem.text1 = "Clicked"
-//        adapter.notifyItemChanged(position)
+        //open recipe page
+        val intent = Intent(activity, RecipeActivity::class.java)
+        intent.putExtra("recipeId", position)
+        startActivity(intent)
+
         }
-
-
 
 }

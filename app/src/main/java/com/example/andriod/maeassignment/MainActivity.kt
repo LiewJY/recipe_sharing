@@ -11,7 +11,6 @@ import com.example.andriod.maeassignment.viewmodel.LoginViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
     private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(this).get(LoginViewModel::class.java)
     }
@@ -20,9 +19,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //forced light mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//        FirebaseApp.initializeApp(applicationContext)
 
-
-        //setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
+        setContentView(R.layout.activity_main)
 
         viewModel.isLogin()
         viewModel.isLogin.observe(this) { status ->

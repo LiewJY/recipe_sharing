@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="20dp">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRegisterTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                 android:text="@string/action_register_short"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvRegisterLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

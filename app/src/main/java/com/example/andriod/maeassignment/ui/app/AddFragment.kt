@@ -118,7 +118,7 @@ class AddFragment : Fragment(), View.OnClickListener {
             view = this.method_parent_linear_layout.getChildAt(i)
             val methods: EditText = view.findViewById(R.id.txtMethods)
             methodList.add(methods.text.toString())
-            Toast.makeText(context, "Method at $i is ${methodList[i]}  ", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Method at $i is ${methodList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private  fun loadIngredients() {
@@ -129,7 +129,7 @@ class AddFragment : Fragment(), View.OnClickListener {
             view = this.ingredient_parent_linear_layout.getChildAt(i)
             val ingredients: EditText = view.findViewById(R.id.txtIngredients)
             ingredientsList.add(ingredients.text.toString())
-            Toast.makeText(context, "Ingredient at $i is ${ingredientsList[i]}  ", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "Ingredient at $i is ${ingredientsList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private fun addIngredient() {

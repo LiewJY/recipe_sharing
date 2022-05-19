@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <!-- media-->
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageRecipes"
             android:layout_width="match_parent"
             android:layout_height="194dp"
@@ -23,14 +23,14 @@
             android:padding="16dp">
 
             <!-- Title, secondary and supporting text -->
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvHomeRecipeTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_recipe_title"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvHomeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
                 android:textColor="?android:attr/textColorSecondary" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvHomeDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -32,19 +32,31 @@
     <string name="prompt_recipe_desc">Recipe Description</string>
     <string name="prompt_ingredient">Ingredient</string>
     <string name="prompt_method">Method</string>
-
-
     <!--action -->
     <string name="action_select_image">Select Image</string>
     <string name="action_add">Add +</string>
     <string name="action_remove">Remove</string>
     <string name="action_publish">Publish</string>
-
-
     <!--title-->
     <string name="title_add_recipe">Add Recipe</string>
     <string name="title_add_ingredients"><u>Add Ingredients</u></string>
     <string name="title_add_method"><u>Add Methods</u></string>
+
+    <!--for view recipe page-->
+    <!--text field hint-->
+
+    <!--action -->
+<!--    <string name="action_select_image">Select Image</string>-->
+
+    <!--title-->
+    <string name="title_ingredients"><u>Ingredients</u></string>
+    <string name="title_method"><u>Methods</u></string>
+    <string name="title_comment"><u>Comments</u></string>
+    <string name="mock_comment">This is comment lore ipsum /n /n dccxc xcxcxc xcxcxc xcxcx xcxc xcxc xcxc xcx xcxc xcxc xcx xcxc xcx ddd</string>
+
+
+
+
 
 
     <!--not in use-->
