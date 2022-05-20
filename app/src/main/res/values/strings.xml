@@ -44,6 +44,7 @@
 
     <!--for view recipe page-->
     <!--text field hint-->
+    <string name="prompt_ingredient_method">Ingredient / Method</string>
 
     <!--action -->
 <!--    <string name="action_select_image">Select Image</string>-->

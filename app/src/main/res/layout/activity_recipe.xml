@@ -20,78 +20,93 @@
                 android:background="@color/md_theme_light_primary"
                 android:minHeight="?attr/actionBarSize"
                 android:theme="?attr/actionBarTheme" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="56dp"
-            android:layout_marginRight="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeBarLayout">
+            app:layout_constraintTop_toBottomOf="@+id/recipeBarLayout"
+            tools:layout_editor_absoluteX="20dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvRecipeTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="0dp"
-                android:paddingTop="20dp"
-                android:text="@string/prompt_recipe_title"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
-                android:textStyle="bold" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvRecipeAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:text="@string/prompt_name"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
-                android:textStyle="bold" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRecipeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="0dp"
+                    android:text="@string/prompt_recipe_title"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                    android:textStyle="bold" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/imageRecipes"
-                android:layout_width="match_parent"
-                android:layout_height="194dp"
-                android:scaleType="centerCrop" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRecipeAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/prompt_name"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageRecipes"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:paddingBottom="20dp"
+                    android:scaleType="centerCrop" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvRecipeDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:text="@string/prompt_recipe_desc"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
-                android:textStyle="bold" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRecipeDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/prompt_recipe_desc"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:textStyle="bold" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvRecipeIngredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:text="@string/title_ingredients"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
-                android:textStyle="bold" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRecipeIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/title_ingredients"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
+                <!--            ingredient recycler view-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ingredientRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/ingredient_method_item">
+                </androidx.recyclerview.widget.RecyclerView>
 
-<!--            ingredient recycler view-->
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvRecipeMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/title_method"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
+                <!--            method recycler view-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/methodRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/ingredient_method_item">
+                </androidx.recyclerview.widget.RecyclerView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvRecipeMethod"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:text="@string/title_method"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
-                android:textStyle="bold" />
-<!--            method recycler view-->
-
-<!--            for comment-->
+                <!--            for comment-->
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvComment"
                     android:layout_width="match_parent"
@@ -100,17 +115,18 @@
                     android:text="@string/title_comment"
                     android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
                     android:textStyle="bold" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvMockComment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:text="@string/mock_comment"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
-                android:textStyle="bold" />
 
-        </LinearLayout>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMockComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/mock_comment"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
 
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

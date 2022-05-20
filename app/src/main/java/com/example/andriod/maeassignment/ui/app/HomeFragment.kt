@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentHomeBinding
+import com.example.andriod.maeassignment.ui.app.recipe.RecipeActivity
 import com.example.andriod.maeassignment.viewmodel.app.HomeViewModel
 
 

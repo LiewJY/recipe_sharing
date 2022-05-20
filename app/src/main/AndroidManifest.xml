@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MAEAssignment">
         <activity
-            android:name=".ui.app.RecipeActivity"
+            android:name=".ui.app.recipe.RecipeActivity"
             android:exported="false" />
         <activity
             android:name=".ui.app.AppActivity"

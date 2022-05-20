@@ -4,6 +4,9 @@
     <color name="md_theme_light_primary_varient">#006D32</color>
     <color name="md_theme_light_primary">#00853D</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="card_outline">#33033017</color>
+    <color name="colour">#FFBB86FC</color>
+
 
 
 

@@ -15,17 +15,16 @@ import com.example.andriod.maeassignment.models.Recipe
 class HomeAdapter(private val context: Context,
                   private val recipeList: List<Recipe>,
                   private val listener: OnItemClickListener)
-    : RecyclerView.Adapter<HomeAdapter.MyViewHolder>() {
+    : RecyclerView.Adapter<HomeAdapter.RecipesViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipesViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.recipes_item,
             parent,false)
-        return MyViewHolder(itemView)
+        return RecipesViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
 
         val currentitem = recipeList[position]
 
@@ -41,17 +40,13 @@ class HomeAdapter(private val context: Context,
             Log.e("frag", "test ${currentitem.title} ${currentitem.id}")
             listener.onItemClick(currentitem.id)
         })
-
-
-
     }
 
     override fun getItemCount(): Int {
         return recipeList.size
     }
 
-
-     inner class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+     class RecipesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title : TextView = itemView.findViewById(R.id.tvHomeRecipeTitle)
         val user : TextView = itemView.findViewById(R.id.tvHomeName)
         val desc : TextView = itemView.findViewById(R.id.tvHomeDesc)
