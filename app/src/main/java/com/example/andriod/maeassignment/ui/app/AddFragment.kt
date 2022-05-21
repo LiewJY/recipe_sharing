@@ -8,7 +8,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
@@ -49,15 +51,19 @@ class AddFragment : Fragment(), View.OnClickListener {
         binding.btnAddMethod.setOnClickListener(this)
         binding.btnPublish.setOnClickListener(this)
 
+
         Glide.with(this)
             .load("http://via.placeholder.com/300.png")
             .placeholder(android.R.drawable.ic_menu_report_image)
             .into(binding.imagePreview)
 
         return binding.root
+        //val buttonRemove: Button = addView.findViewById(R.id.remove) as Button
+
     }
 
     override fun onClick(v: View?) {
+
         if (v != null) {
             when (v.id) {
                 R.id.btnAddImage -> {
@@ -72,16 +78,14 @@ class AddFragment : Fragment(), View.OnClickListener {
                 R.id.btnPublish -> {
                     publishRecipe()
                 }
-//                R.id.button -> {
-//                    //onDelete()
-//                    //ingredient_parent_linear_layout.removeView((view))
-//                }
             }
         }
     }
-//    fun onDelete(v: View) {
-//        this.ingredient_parent_linear_layout.removeView(v.context as View)
-//    }
+    fun onDelete(v: View) {
+        Log.e("frag", "od pressed")
+        this.ingredient_parent_linear_layout.removeView(v.parent as View)
+    }
+
     private var ingredientsList = ArrayList<String>()
     private var methodList = ArrayList<String>()
 
@@ -136,7 +140,13 @@ class AddFragment : Fragment(), View.OnClickListener {
         // this method inflates the single item layout
         // inside the parent linear layout
         val inflater = LayoutInflater.from(context).inflate(R.layout.add_ingredient_row_layout, null)
-        this.ingredient_parent_linear_layout.addView(inflater)
+        this.ingredient_parent_linear_layout.addView(inflater, this.ingredient_parent_linear_layout.childCount -1)
+        //add control for remove button
+        val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
+        buttonRemove.setOnClickListener{
+            Log.e("frag", "remove pressed")
+            (inflater.parent as LinearLayout).removeView(inflater)
+        }
     }
     private fun addMethod() {
         // this method inflates the single item layout

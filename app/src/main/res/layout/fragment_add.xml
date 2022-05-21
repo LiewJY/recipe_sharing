@@ -123,14 +123,13 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnAddMethod"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/action_add"
-                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
-                    />
+                    android:id="@+id/btnAddMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/action_add"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
 
                 <com.google.android.material.button.MaterialButton

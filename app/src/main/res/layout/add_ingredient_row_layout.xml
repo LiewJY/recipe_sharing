@@ -9,22 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <Button-->
-<!--            android:id="@+id/button"-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginEnd="5dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:text="x"-->
-<!--            />-->
-<!--        android:layout_toEndOf="@+id/button"-->
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRemove"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="20dp"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:iconTint="#848A7E"
+            tools:ignore="SpeakableTextPresentCheck" />
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/containerIngredients"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/btnRemove"
             android:hint="@string/prompt_ingredient"
             app:errorEnabled="true">
             <!--this is the actual edit text which takes the input
@@ -37,6 +39,8 @@
                 android:inputType="none"
                 android:textColorHint="#757575" />
         </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
     </RelativeLayout>
