@@ -47,17 +47,26 @@
     <string name="prompt_ingredient_method">Ingredient / Method</string>
 
     <!--action -->
-<!--    <string name="action_select_image">Select Image</string>-->
+    <!--    <string name="action_select_image">Select Image</string>-->
 
     <!--title-->
     <string name="title_ingredients"><u>Ingredients</u></string>
     <string name="title_method"><u>Methods</u></string>
     <string name="title_comment"><u>Comments</u></string>
-    <string name="mock_comment">This is comment lore ipsum /n /n dccxc xcxcxc xcxcxc xcxcx xcxc xcxc xcxc xcx xcxc xcxc xcx xcxc xcx ddd</string>
+    <string name="mock_comment">This is comment lore ipsum /n /n dccxc xcxcxc xcxcxc xcxcx
+        xcxc xcxc xcxc xcx xcxc xcxc xcx xcxc xcx ddd</string>
 
+    <!--for profile page-->
+    <!--text field hint-->
 
+    <!--action -->
+    <string name="action_logout">Logout</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_my_recipe">My Recipe</string>
+    <string name="action_favourite">Favourite</string>
 
-
+    <!--title-->
+    <string name="title_account">Account</string>
 
 
     <!--not in use-->
