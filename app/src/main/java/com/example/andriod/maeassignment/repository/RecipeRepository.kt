@@ -26,6 +26,43 @@ class RecipeRepository {
 
     //for read data
     //private val mFirebaseDatabase = FirebaseDatabase.getInstance()
+    
+    //delete
+    fun deleteRecipe(recipeId: String): MutableLiveData<Boolean> {
+        val deleteRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        deleteRecipeMutableLiveData.value = false
+        mFireStore.collection(Firebase.RECIPES).document(recipeId).delete()
+            .addOnSuccessListener {
+                deleteRecipeMutableLiveData.value = true
+                Log.e("frag", "SUCCESS delete")
+            }
+        deleteRecipeMutableLiveData
+
+        return deleteRecipeMutableLiveData
+    }
+
+
+
+    fun getRecipesByAuthor(): MutableLiveData<ArrayList<Recipe>> {
+        val getRecipesByAuthorMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+
+        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
+        Log.e("frag", "SUCCESS get")
+        mFireStore.collection(Firebase.RECIPES).whereEqualTo("userid", currentFirebaseUser!!.uid).get()
+            .addOnSuccessListener { recipes ->
+                if(recipes != null) {
+                    val data = recipes.toObjects<Recipe>()
+                    data.toList()
+                    getRecipesByAuthorMutableLiveData.value = ArrayList(data)
+                    //recipeArrayList = ArrayList(data)
+                    Log.e("frag", "SUCCESS get ${data.toList()}")
+                    //Log.e("frag", "SUCCESS get $recipeArrayList")
+                    Log.e("frag", "SUCCESS get ${getRecipesByAuthorMutableLiveData.value}")
+                    Log.e("frag", "SUCCESS get $data")
+                }
+            }
+        return getRecipesByAuthorMutableLiveData
+    }
 
     fun getRecipe(recipeId: String): MutableLiveData<Recipe> {
         val getRecipeMutableLiveData: MutableLiveData<Recipe> = MutableLiveData<Recipe>()
@@ -33,10 +70,10 @@ class RecipeRepository {
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
         mFireStore.collection(Firebase.RECIPES).document(recipeId).get()
-            .addOnSuccessListener { recipes ->
-                if(recipes != null) {
+            .addOnSuccessListener { recipe ->
+                if(recipe != null) {
                     //val data = recipes.toObject<Recipe>()
-                    getRecipeMutableLiveData.value = recipes.toObject<Recipe>()
+                    getRecipeMutableLiveData.value = recipe.toObject<Recipe>()
                     //recipeArrayList = ArrayList(data)
                     //Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
                 }
@@ -68,6 +105,7 @@ class RecipeRepository {
 
     fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
         val addRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        addRecipeMutableLiveData.value = false
         //get the uid first
         val uid = mFireStore.collection(Firebase.RECIPES).document()
         Log.e("frag", "SUCCESS get uid ${uid.id}")
@@ -99,10 +137,13 @@ class RecipeRepository {
                         .addOnCompleteListener{ addRecipe ->
                             if(addRecipe.isSuccessful){
                                 Log.e("frag", "SUCCESS added recipe with image   $imageLink")
+                                addRecipeMutableLiveData.value = true
+
                             }
                         }
                 }
                 downloadUrl.addOnFailureListener {
+                    addRecipeMutableLiveData.value = true
                     Log.e("frag", "failed to add recipe with image")
                 }
             }

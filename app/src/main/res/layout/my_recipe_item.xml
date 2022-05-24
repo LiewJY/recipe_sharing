@@ -54,6 +54,28 @@
                 android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMyRecipeEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/action_edit"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnMyRecipeDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_delete"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 

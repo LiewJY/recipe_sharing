@@ -1,60 +1,69 @@
 package com.example.andriod.maeassignment.ui.app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
+import com.example.andriod.maeassignment.databinding.FragmentMyRecipeBinding
+import com.example.andriod.maeassignment.viewmodel.MyRecipeViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MyRecipeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MyRecipeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var recyclerView : RecyclerView
+
+    private val viewModel: MyRecipeViewModel by lazy {
+        ViewModelProvider(this).get(MyRecipeViewModel::class.java)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        val myDataset = Datasource().loadAffirmations()
+
+        //load data into recycler view
+        viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
+            Log.e("frag", "SUCCESS frag get $recipes")
+
+            recyclerView = view.findViewById(R.id.myRecipeRecyclerView)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = context?.let { MyRecipeAdapter(it, recipes, this) }
+        }
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_recipe, container, false)
+        val binding = DataBindingUtil.inflate<FragmentMyRecipeBinding>(
+            inflater,
+            R.layout.fragment_my_recipe, container, false
+        )
+        viewModel.getRecipeByAuthor()
+
+
+        return binding.root
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyRecipeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyRecipeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onDeleteClick(recipeId: String) {
+        //delete the recipe
+        viewModel.deleteRecipe(recipeId)
+        viewModel.deleteRecipeStatus.observe(this) {result ->
+            if(result == true){
+                Log.e("frag", "delete success frag")
+            }else
+            {
+
             }
+        }
     }
+
 }

@@ -26,7 +26,7 @@ tools:context=".ui.app.MyRecipeFragment">
     <!-- TODO: Update blank fragment layout -->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipeRecyclerView"
+        android:id="@+id/myRecipeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
@@ -36,7 +36,7 @@ tools:context=".ui.app.MyRecipeFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/recipes_item">
+        tools:listitem="@layout/my_recipe_item">
 <!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"-->
 
     </androidx.recyclerview.widget.RecyclerView>

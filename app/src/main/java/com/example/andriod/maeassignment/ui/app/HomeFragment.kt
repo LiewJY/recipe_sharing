@@ -61,11 +61,11 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         return binding.root
     }
 
-    override fun onItemClick(position: String) {
-        Toast.makeText(context, "Item $position clicked", Toast.LENGTH_SHORT).show()
+    override fun onItemClick(recipeId: String) {
+        Toast.makeText(context, "Item $recipeId clicked", Toast.LENGTH_SHORT).show()
         //open recipe page
         val intent = Intent(activity, RecipeActivity::class.java)
-        intent.putExtra("recipeId", position)
+        intent.putExtra("recipeId", recipeId)
         startActivity(intent)
 
         }

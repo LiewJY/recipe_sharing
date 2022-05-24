@@ -27,11 +27,20 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
         super.onCreate(savedInstanceState)
         //hide actiton bar
         supportActionBar?.hide()
-
-        //action bar
+        //recipeToolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp)
+//        supportActionBar?.title = "test"
+//        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_home_black_24dp)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        //action bar
 
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.recipeToolbar.setNavigationIcon(R.drawable.ic_home_black_24dp)
+        binding.recipeToolbar.setOnClickListener{
+            finish()
+        }
+
 
         val recipeId = intent.getStringExtra("recipeId")
         //Log.e("frag", "$recipeId")

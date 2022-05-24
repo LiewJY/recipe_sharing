@@ -45,10 +45,6 @@
     <!--for view recipe page-->
     <!--text field hint-->
     <string name="prompt_ingredient_method">Ingredient / Method</string>
-
-    <!--action -->
-    <!--    <string name="action_select_image">Select Image</string>-->
-
     <!--title-->
     <string name="title_ingredients"><u>Ingredients</u></string>
     <string name="title_method"><u>Methods</u></string>
@@ -56,17 +52,37 @@
     <string name="mock_comment">This is comment lore ipsum /n /n dccxc xcxcxc xcxcxc xcxcx
         xcxc xcxc xcxc xcx xcxc xcxc xcx xcxc xcx ddd</string>
 
-    <!--for profile page-->
+    <!--for account page-->
     <!--text field hint-->
-
     <!--action -->
     <string name="action_logout">Logout</string>
     <string name="action_profile">Profile</string>
     <string name="action_my_recipe">My Recipe</string>
     <string name="action_favourite">Favourite</string>
-
     <!--title-->
     <string name="title_account">Account</string>
+
+    <!--for profile page-->
+    <!--text field hint-->
+    <!--action -->
+    <string name="action_save">Save</string>
+<!--    <string name="action_profile">Profile</string>-->
+<!--    <string name="action_my_recipe">My Recipe</string>-->
+<!--    <string name="action_favourite">Favourite</string>-->
+    <!--title-->
+    <string name="title_profile">My Profile</string>
+
+    <!--for edit recipe (my recipe) page-->
+    <!--text field hint-->
+    <!--action -->
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+
+    <!--    <string name="action_profile">Profile</string>-->
+    <!--    <string name="action_my_recipe">My Recipe</string>-->
+    <!--    <string name="action_favourite">Favourite</string>-->
+    <!--title-->
+<!--    <string name="title_delete">My Profile</string>-->
 
 
     <!--not in use-->

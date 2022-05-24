@@ -53,6 +53,6 @@ class HomeAdapter(private val context: Context,
         val image : ImageView = itemView.findViewById(R.id.imageRecipes)
     }
     interface OnItemClickListener {
-        fun onItemClick(position: String)
+        fun onItemClick(recipeId: String)
     }
 }
