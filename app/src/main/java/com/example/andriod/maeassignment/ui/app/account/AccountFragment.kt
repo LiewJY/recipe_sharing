@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.ui.app
+package com.example.andriod.maeassignment.ui.app.account
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.andriod.maeassignment.MainActivity
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentAccountBinding
-import com.example.andriod.maeassignment.viewmodel.LogoutViewModel
+import com.example.andriod.maeassignment.viewmodel.app.account.LogoutViewModel
 
 class AccountFragment : Fragment(),  View.OnClickListener{
 

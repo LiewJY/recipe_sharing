@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.ui.app
+package com.example.andriod.maeassignment.ui.app.account
 
 import android.os.Bundle
 import android.view.LayoutInflater

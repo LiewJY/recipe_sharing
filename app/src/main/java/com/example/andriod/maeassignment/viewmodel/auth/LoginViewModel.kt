@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.viewmodel
+package com.example.andriod.maeassignment.viewmodel.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

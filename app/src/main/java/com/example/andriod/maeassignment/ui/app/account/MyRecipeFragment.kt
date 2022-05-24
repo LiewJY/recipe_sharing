@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.ui.app
+package com.example.andriod.maeassignment.ui.app.account
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentMyRecipeBinding
-import com.example.andriod.maeassignment.viewmodel.MyRecipeViewModel
+import com.example.andriod.maeassignment.viewmodel.app.account.MyRecipeViewModel
 
 
 class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {

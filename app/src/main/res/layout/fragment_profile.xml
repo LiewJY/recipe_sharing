@@ -9,7 +9,7 @@ tools:layout="@layout/fragment_profile">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.app.ProfileFragment">
+    tools:context=".ui.app.account.ProfileFragment">
 
 
     <LinearLayout

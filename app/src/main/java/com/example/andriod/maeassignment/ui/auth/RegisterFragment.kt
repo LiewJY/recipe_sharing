@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentRegisterBinding
-import com.example.andriod.maeassignment.viewmodel.RegisterViewModel
+import com.example.andriod.maeassignment.viewmodel.auth.RegisterViewModel
 import kotlinx.android.synthetic.main.fragment_register.*
 
 

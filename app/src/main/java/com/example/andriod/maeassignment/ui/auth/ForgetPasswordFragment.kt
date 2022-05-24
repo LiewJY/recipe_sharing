@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentForgetPasswordBinding
-import com.example.andriod.maeassignment.viewmodel.ForgetPasswordViewModel
+import com.example.andriod.maeassignment.viewmodel.auth.ForgetPasswordViewModel
 import kotlinx.android.synthetic.main.fragment_forget_password.*
 
 class ForgetPasswordFragment : Fragment(), View.OnClickListener {

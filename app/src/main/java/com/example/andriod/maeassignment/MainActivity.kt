@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.example.andriod.maeassignment.ui.app.AppActivity
-import com.example.andriod.maeassignment.viewmodel.LoginViewModel
+import com.example.andriod.maeassignment.viewmodel.auth.LoginViewModel
 
 
 class MainActivity : AppCompatActivity() {

@@ -12,7 +12,7 @@ import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentLoginBinding
 import com.example.andriod.maeassignment.ui.app.AppActivity
-import com.example.andriod.maeassignment.viewmodel.LoginViewModel
+import com.example.andriod.maeassignment.viewmodel.auth.LoginViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 
 

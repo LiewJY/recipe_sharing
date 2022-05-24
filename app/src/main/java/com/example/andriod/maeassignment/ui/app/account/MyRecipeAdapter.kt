@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.ui.app
+package com.example.andriod.maeassignment.ui.app.account
 
 import android.content.Context
 import android.util.Log
@@ -16,7 +16,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MyRecipeAdapter (private val context: Context,
                                 private val recipeList: List<Recipe>,
-                                private val listener: OnItemClickListener)
+                                private val listener: OnItemClickListener
+)
     : RecyclerView.Adapter<MyRecipeAdapter.MyRecipeViewHolder>() {
 
 
