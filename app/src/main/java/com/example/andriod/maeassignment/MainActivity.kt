@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.example.andriod.maeassignment.ui.app.AppActivity
-import com.example.andriod.maeassignment.ui.auth.AuthActivity
 import com.example.andriod.maeassignment.viewmodel.LoginViewModel
 
 
@@ -22,19 +21,21 @@ class MainActivity : AppCompatActivity() {
 //        FirebaseApp.initializeApp(applicationContext)
 
         supportActionBar?.hide()
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
 
         viewModel.isLogin()
         viewModel.isLogin.observe(this) { status ->
             if(status == true) {
+                finish()
                 val startApp = Intent(applicationContext, AppActivity::class.java)
                 startActivity(startApp)
             //Log.e("frag", "home")
             } else {
                 //supportActionBar?.hide()
-                val startAuth = Intent(applicationContext, AuthActivity::class.java)
-                startActivity(startAuth)
+//                val startAuth = Intent(applicationContext, AuthActivity::class.java)
+//                startActivity(startAuth)
                 // Log.e("frag", "auth")
+                setContentView(R.layout.activity_main)
             }
         }
 

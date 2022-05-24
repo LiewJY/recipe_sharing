@@ -10,9 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.andriod.maeassignment.MainActivity
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentAccountBinding
-import com.example.andriod.maeassignment.ui.auth.AuthActivity
 import com.example.andriod.maeassignment.viewmodel.LogoutViewModel
 
 class AccountFragment : Fragment(),  View.OnClickListener{
@@ -47,8 +47,9 @@ class AccountFragment : Fragment(),  View.OnClickListener{
                             Toast.makeText(context, "Logout Success", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    //go to auth
-                    val intent = Intent(activity, AuthActivity::class.java)
+                    //go to main
+                    activity?.finish()
+                    val intent = Intent(activity, MainActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.tvProfile -> {

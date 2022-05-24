@@ -60,6 +60,7 @@ class LoginFragment : Fragment(), View.OnClickListener{
                             //todo login suceess
 
                             //open home page
+                            activity?.finish()
                             val intent = Intent(activity, AppActivity::class.java)
                             startActivity(intent)
                         } else {
