@@ -32,6 +32,19 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
+            inflater,
+            R.layout.fragment_home, container, false
+        )
+        viewModel.getRecipes()
+
+        return binding.root
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val myDataset = Datasource().loadAffirmations()
@@ -45,20 +58,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
             recyclerView.adapter = context?.let { HomeAdapter(it, recipes, this) }
         }
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
-            inflater,
-            R.layout.fragment_home, container, false
-        )
-        viewModel.getRecipes()
-
-        return binding.root
     }
 
     override fun onItemClick(recipeId: String) {

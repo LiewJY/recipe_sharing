@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_navigation_myRecipe_to_navigaton_edit"
             app:destination="@id/navigaton_edit" />
+        <action
+            android:id="@+id/action_navigation_myRecipe_to_navigation_editRecipe"
+            app:destination="@id/navigation_editRecipe" />
     </fragment>
     <fragment
         android:id="@+id/navigation_favourite"
@@ -53,7 +56,12 @@
         tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/navigaton_edit"
-        android:name="com.example.andriod.maeassignment.ui.app.account.EditFragment"
+        android:name="com.example.andriod.maeassignment.ui.app.account.EditProfileFragment"
         android:label="fragment_edit"
-        tools:layout="@layout/fragment_edit" />
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/navigation_editRecipe"
+        android:name="com.example.andriod.maeassignment.ui.app.account.EditRecipeFragment"
+        android:label="fragment_edit_recipe"
+        tools:layout="@layout/fragment_edit_recipe" />
 </navigation>

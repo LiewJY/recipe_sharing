@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp">
+
+    <!-- Title, secondary and supporting text -->
+<!--    <com.google.android.material.textview.MaterialTextView-->
+<!--        android:id="@+id/tvEditEmailTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/title_change_email"-->
+<!--        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6" />-->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEditEmailClose"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:paddingTop="20dp"
+        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+        app:icon="@android:drawable/ic_menu_close_clear_cancel"
+        app:iconTint="#848A7E"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/containerEditEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prompt_email"
+        app:errorEnabled="true">
+        <!--this is the actual edit text which takes the input
+        the actual useful id is below-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEditEmail"
+            style="@style/TextAppearance.MdcTypographyStyles.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#757575" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEditEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/action_change_email"
+        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+
+</LinearLayout>

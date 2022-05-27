@@ -36,7 +36,7 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.recipeToolbar.setNavigationIcon(R.drawable.ic_home_black_24dp)
+        binding.recipeToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
         binding.recipeToolbar.setOnClickListener{
             finish()
         }

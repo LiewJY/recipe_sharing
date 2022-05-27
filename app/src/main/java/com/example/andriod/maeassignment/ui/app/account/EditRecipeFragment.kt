@@ -1,4 +1,4 @@
-package com.example.andriod.maeassignment.ui.app
+package com.example.andriod.maeassignment.ui.app.account
 
 import android.app.Activity
 import android.content.Intent
@@ -13,52 +13,89 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.andriod.maeassignment.R
-import com.example.andriod.maeassignment.databinding.FragmentAddBinding
-import com.example.andriod.maeassignment.viewmodel.app.AddViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
+import com.example.andriod.maeassignment.databinding.FragmentEditRecipeBinding
+import com.example.andriod.maeassignment.viewmodel.app.account.EditRecipeViewModel
+import kotlinx.android.synthetic.main.fragment_add.ingredient_parent_linear_layout
+import kotlinx.android.synthetic.main.fragment_add.method_parent_linear_layout
+import kotlinx.android.synthetic.main.fragment_edit_recipe.*
 import java.io.FileNotFoundException
 import java.util.*
 
+class EditRecipeFragment : Fragment(), View.OnClickListener {
 
-class AddFragment : Fragment(), View.OnClickListener {
-    private val viewModel: AddViewModel by lazy {
-        ViewModelProvider(this).get(AddViewModel::class.java)
+    private var recipeId :String? = null
+    private val viewModel: EditRecipeViewModel by lazy {
+        ViewModelProvider(this).get(EditRecipeViewModel::class.java)
     }
+
     //    for image picker
     private  var imageUrl: Uri? = null
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentAddBinding>(
+        val binding = DataBindingUtil.inflate<FragmentEditRecipeBinding>(
             inflater,
-            R.layout.fragment_add, container, false
+            R.layout.fragment_edit_recipe, container, false
         )
+
+        binding.editRecipeToolbar.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
+
+
+
         //register event handler (for the button)
-        binding.btnAddImage.setOnClickListener(this)
+        binding.btnEditImage.setOnClickListener(this)
         binding.btnAddIngredient.setOnClickListener(this)
         binding.btnAddMethod.setOnClickListener(this)
-        binding.btnPublish.setOnClickListener(this)
+        binding.btnUpdate.setOnClickListener(this)
 
+        recipeId = arguments?.getString("id")
+        viewModel.getRecipe(recipeId.toString())
+        Log.e("frag", "got in edit $recipeId")
 
-        Glide.with(this)
-            .load("http://via.placeholder.com/300.png")
-            .placeholder(android.R.drawable.ic_menu_report_image)
-            .into(binding.imagePreview)
 
         return binding.root
-        //val buttonRemove: Button = addView.findViewById(R.id.remove) as Button
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val testdata = arrayOf("no 1", "no 2", "no 3", "no 4")
+
+
+        viewModel.recipeData.observe(viewLifecycleOwner) { recipeData ->
+            //title and desc
+            this.txtEditRecipeTitle.setText(recipeData.title)
+            this.txtEditRecipeDesc.setText(recipeData.desc)
+
+            //image
+            Glide.with(this)
+                .load(recipeData.image)
+                .placeholder(R.mipmap.ic_launcher_round)
+                .into(image_preview)
+
+            //ingredients & methods
+            recipeData.ingredients.forEach{ ingredients ->
+                addIngredientFromFirebase(ingredients)
+                Log.e("frag", "for each $ingredients")
+            }
+            recipeData.methods.forEach{ methods ->
+                addMethodFromFirebase(methods)
+                Log.e("frag", "for each $methods")
+            }
+
+        }
 
     }
 
@@ -66,7 +103,7 @@ class AddFragment : Fragment(), View.OnClickListener {
 
         if (v != null) {
             when (v.id) {
-                R.id.btnAddImage -> {
+                R.id.btnEditImage -> {
                     launchGallery()
                 }
                 R.id.btnAddIngredient -> {
@@ -75,34 +112,37 @@ class AddFragment : Fragment(), View.OnClickListener {
                 R.id.btnAddMethod -> {
                     addMethod()
                 }
-                R.id.btnPublish -> {
-                    publishRecipe()
+                R.id.btnUpdate -> {
+                    updateRecipe()
                 }
             }
         }
     }
-    fun onDelete(v: View) {
-        Log.e("frag", "od pressed")
-        this.ingredient_parent_linear_layout.removeView(v.parent as View)
-    }
+//    fun onDelete(v: View) {
+//        Log.e("frag", "od pressed")
+//        this.ingredient_parent_linear_layout.removeView(v.parent as View)
+//    }
 
     private var ingredientsList = ArrayList<String>()
     private var methodList = ArrayList<String>()
 
-    private fun publishRecipe() {
-        Log.e("frag", "publish")
+    private fun updateRecipe() {
+        Log.e("frag", "update")
         //add ingredients and methods into array list
         loadIngredients()
         loadMethods()
-        viewModel.addRecipe(
-            txtRecipeTitle.text.toString(),
-            txtRecipeDesc.text.toString(),
+
+
+        viewModel.updateRecipe(
+            recipeId.toString(),
+            txtEditRecipeTitle.text.toString(),
+            txtEditRecipeDesc.text.toString(),
             imageUrl,
             ingredientsList,
             methodList,
-            )
+        )
         //todo return success message
-        viewModel.addRecipeStatus.observe(this) { result ->
+        viewModel.updateRecipeStatus.observe(this) { result ->
             if (result == true) {
                 Toast.makeText(context, "Recipe Added", Toast.LENGTH_SHORT).show()
             }else {
@@ -136,11 +176,37 @@ class AddFragment : Fragment(), View.OnClickListener {
             //Toast.makeText(context, "Ingredient at $i is ${ingredientsList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun addIngredient() {
+    private fun addIngredientFromFirebase(ingredient : String) {
         // this method inflates the single item layout
         // inside the parent linear layout
         val inflater = LayoutInflater.from(context).inflate(R.layout.add_ingredient_row_layout, null)
         this.ingredient_parent_linear_layout.addView(inflater)
+        inflater.findViewById<EditText>(R.id.txtIngredients).setText(ingredient)
+//        add control for remove button
+        val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
+        buttonRemove.setOnClickListener{
+            Log.e("frag", "remove pressed")
+            (inflater.parent as LinearLayout).removeView(inflater)
+        }
+    }
+    private fun addMethodFromFirebase(method : String) {
+        // this method inflates the single item layout
+        // inside the parent linear layout
+        val inflater = LayoutInflater.from(context).inflate(R.layout.add_method_row_layout, null)
+        this.method_parent_linear_layout.addView(inflater)
+        inflater.findViewById<EditText>(R.id.txtMethods).setText(method)
+        //add control for remove button
+        val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
+        buttonRemove.setOnClickListener{
+            Log.e("frag", "remove pressed")
+            (inflater.parent as LinearLayout).removeView(inflater)
+        }
+    }
+    private fun addIngredient() {
+        // this method inflates the single item layout
+        // inside the parent linear layout
+        val inflater = LayoutInflater.from(context).inflate(R.layout.add_ingredient_row_layout, null)
+        this.ingredient_parent_linear_layout.addView(inflater, this.ingredient_parent_linear_layout.childCount)
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
@@ -152,23 +218,24 @@ class AddFragment : Fragment(), View.OnClickListener {
         // this method inflates the single item layout
         // inside the parent linear layout
         val inflater = LayoutInflater.from(context).inflate(R.layout.add_method_row_layout, null)
-        this.method_parent_linear_layout.addView(inflater)
+        this.method_parent_linear_layout.addView(inflater, this.method_parent_linear_layout.childCount)
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed method")
+            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
         }
     }
 
-//    for image picker
+//    //    for image picker
     private fun launchGallery() {
         val photoPickerIntent = Intent(Intent.ACTION_PICK)
         photoPickerIntent.type = "image/*"
         pickImageResultLauncher.launch(photoPickerIntent)
     }
+
     private var pickImageResultLauncher = registerForActivityResult(
-        StartActivityForResult()
+        ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
@@ -177,7 +244,7 @@ class AddFragment : Fragment(), View.OnClickListener {
                 Glide.with(this)
                     .load(selectedImage)
                     .into(this.image_preview)
-                 //Log.e("frag", "ing")
+                //Log.e("frag", "ing")
                 imageUrl = selectedImage
                 Log.e("frag", "img url = $imageUrl   img selecred = $selectedImage")
 
@@ -186,4 +253,5 @@ class AddFragment : Fragment(), View.OnClickListener {
             }
         }
     }
+
 }

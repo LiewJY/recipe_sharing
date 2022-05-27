@@ -10,105 +10,94 @@ tools:layout="@layout/fragment_profile">
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.app.account.ProfileFragment">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/profileBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/profileToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_theme_light_primary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_ios_24"
+            app:title="@string/title_profile"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="20dp">
+        android:layout_marginTop="56dp"
+        app:layout_constraintTop_toBottomOf="@+id/profileBarLayout">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvProfileTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="20dp"
-            android:text="@string/title_profile"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:layout_margin="20dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerEditName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_name"
-            app:errorEnabled="true">
-            <!--this is the actual edit text which takes the input
-            the actual useful id is below-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditName"
-                style="@style/TextAppearance.MdcTypographyStyles.Body1"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvProfileTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:paddingBottom="20dp"
+                android:text="@string/title_profile"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                android:textStyle="bold" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerEditEmail"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_email"
-            app:errorEnabled="true">
-            <!--this is the actual edit text which takes the input
-            the actual useful id is below-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditEmail"
-                style="@style/TextAppearance.MdcTypographyStyles.Body1"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/containerEditName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerEditPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_password"
-            app:errorEnabled="true">
-            <!--this is the actual edit text which takes the input
-            the actual useful id is below-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditPassword"
-                style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                android:hint="@string/prompt_name"
+                app:errorEnabled="true">
+                <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtEditName"
+                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#757575" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangeEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:text="@string/action_change_email"
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/containerEditConfirmPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/prompt_confirm_password"
-            app:errorEnabled="true">
-            <!--this is the actual edit text which takes the input
-            the actual useful id is below-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEditConfirmPassword"
-                style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChangePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:textColorHint="#757575" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="10dp"
+                android:text="@string/action_change_password"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/action_save"
-            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/action_save"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

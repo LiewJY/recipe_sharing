@@ -46,6 +46,7 @@ class MyRecipeAdapter (private val context: Context,
 
         holder.edit.setOnClickListener {
             Log.e("frag", "edit ${currentitem.title} ${currentitem.id}")
+            listener.onEditClick(currentitem.id)
 
         }
         holder.delete.setOnClickListener {
@@ -81,6 +82,7 @@ class MyRecipeAdapter (private val context: Context,
     }
     interface OnItemClickListener {
         fun onDeleteClick(recipeId: String)
+        fun onEditClick(recipeId: String)
     }
 
 }

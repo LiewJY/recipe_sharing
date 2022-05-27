@@ -65,24 +65,37 @@
     <!--for profile page-->
     <!--text field hint-->
     <!--action -->
-    <string name="action_save">Save</string>
-<!--    <string name="action_profile">Profile</string>-->
-<!--    <string name="action_my_recipe">My Recipe</string>-->
-<!--    <string name="action_favourite">Favourite</string>-->
+    <string name="action_change_email">Change Email</string>
+    <string name="action_change_password">Change Password</string>
+    <!--    <string name="action_favourite">Favourite</string>-->
     <!--title-->
     <string name="title_profile">My Profile</string>
+    <string name="title_change_email">Change Email Address</string>
 
     <!--for edit recipe (my recipe) page-->
     <!--text field hint-->
     <!--action -->
     <string name="action_edit">Edit</string>
+    <string name="action_update">Update</string>
     <string name="action_delete">Delete</string>
-
-    <!--    <string name="action_profile">Profile</string>-->
-    <!--    <string name="action_my_recipe">My Recipe</string>-->
-    <!--    <string name="action_favourite">Favourite</string>-->
     <!--title-->
-<!--    <string name="title_delete">My Profile</string>-->
+    <string name="title_my_recipe">My Recipe</string>
+    <string name="title_edit_recipe">Edit Recipe</string>
+    <string name="title_edit_ingredients"><u>Ingredients</u></string>
+    <string name="title_edit_method"><u>Methods</u></string>
+
+
+    <!--for favourite page-->
+    <!--text field hint-->
+    <!--action -->
+    <!--    <string name="action_edit">Edit</string>-->
+    <!--    <string name="action_delete">Delete</string>-->
+    <!--title-->
+    <string name="title_favourite">Favourite</string>
+
+
+    <!--    general action (shared)-->
+    <string name="action_save">Save</string>
 
 
     <!--not in use-->

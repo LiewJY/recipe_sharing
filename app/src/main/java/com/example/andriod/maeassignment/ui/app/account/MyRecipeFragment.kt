@@ -5,13 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentMyRecipeBinding
+import com.example.andriod.maeassignment.viewmodel.app.account.EditRecipeViewModel
 import com.example.andriod.maeassignment.viewmodel.app.account.MyRecipeViewModel
 
 
@@ -23,9 +26,12 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         ViewModelProvider(this).get(MyRecipeViewModel::class.java)
     }
 
+    private val editViewModel: EditRecipeViewModel by lazy {
+        ViewModelProvider(this).get(EditRecipeViewModel::class.java)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val myDataset = Datasource().loadAffirmations()
 
         //load data into recycler view
         viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
@@ -48,7 +54,9 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         )
         viewModel.getRecipeByAuthor()
 
-
+        binding.myRecipeToolbar.setOnClickListener{
+            activity?.onBackPressed()
+        }
         return binding.root
 
     }
@@ -59,11 +67,35 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         viewModel.deleteRecipeStatus.observe(this) {result ->
             if(result == true){
                 Log.e("frag", "delete success frag")
+                refresh()
+                //fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
             }else
             {
 
             }
         }
+    }
+
+    fun refresh() {
+
+        viewModel.getRecipeByAuthor()
+
+        //load data into recycler view
+        viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
+            Log.e("frag", "SUCCESS frag get $recipes")
+
+            recyclerView = requireView().findViewById(R.id.myRecipeRecyclerView)
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = context?.let { MyRecipeAdapter(it, recipes, this) }
+        }
+    }
+
+    override fun onEditClick(recipeId: String) {
+        //edit the recipe send data then go to edit page
+        Log.e("frag", "send to edit $recipeId")
+        val bundle = bundleOf("id" to recipeId)
+        findNavController().navigate(R.id.action_navigation_myRecipe_to_navigation_editRecipe, bundle)
+
     }
 
 }
