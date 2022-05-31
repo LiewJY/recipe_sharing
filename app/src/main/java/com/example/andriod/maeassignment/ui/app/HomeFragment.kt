@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,19 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentHomeBinding
+import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.ui.app.recipe.RecipeActivity
 import com.example.andriod.maeassignment.viewmodel.app.HomeViewModel
-
 
 
 class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 //    private lateinit var dbref : DatabaseReference
     private lateinit var recyclerView : RecyclerView
-//    private lateinit var userArrayList : ArrayList<Recipe>
-
+    private lateinit var aa : ArrayList<Recipe>
+    private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
+    var adapter: HomeAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,14 +39,39 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentHomeBinding>(
+         binding = DataBindingUtil.inflate<FragmentHomeBinding>(
             inflater,
             R.layout.fragment_home, container, false
         )
         viewModel.getRecipes()
 
+        binding.txtSearch.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+//                context?.let { HomeAdapter(it, aa, null).filter.filter(query) }
+                Log.e("frag", "submit $query")
+
+                adapter?.filter?.filter(query)
+
+                return true;
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                Log.e("frag", "query $query")
+
+                adapter?.filter?.filter(query)
+
+//                context?.let { HomeAdapter(it, aa, null).getFilter().filter(query) };
+
+                //context?.let { HomeAdapter(it, aa, null).filter.filter(query) }
+
+                return true;
+            }
+
+        })
+
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        val myDataset = Datasource().loadAffirmations()
@@ -52,14 +79,15 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         //load data into recycler view
         viewModel.recipesData.observe(viewLifecycleOwner) { recipes ->
             Log.e("frag", "SUCCESS frag get $recipes")
-
+//            aa = recipes;
+            adapter = context?.let { HomeAdapter(it, recipes, this) }
             recyclerView = view.findViewById(R.id.recipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = context?.let { HomeAdapter(it, recipes, this) }
+            recyclerView.adapter = adapter
         }
 
-    }
 
+    }
     override fun onItemClick(recipeId: String) {
         Toast.makeText(context, "Item $recipeId clicked", Toast.LENGTH_SHORT).show()
         //open recipe page
@@ -70,3 +98,4 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         }
 
 }
+

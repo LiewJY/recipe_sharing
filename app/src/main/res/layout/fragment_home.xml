@@ -10,16 +10,27 @@
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/appToolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/md_theme_light_primary"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme" />
+<!--                <com.google.android.material.appbar.MaterialToolbar-->
+<!--                    android:id="@+id/appToolbar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@color/md_theme_light_primary"-->
+<!--                    android:minHeight="?attr/actionBarSize"-->
+<!--                    android:theme="?attr/actionBarTheme" />-->
+               <androidx.appcompat.widget.SearchView
+                   android:id="@+id/txtSearch"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   app:queryHint="@string/prompt_search"
+                   android:padding="5dp"
+                   android:theme="@style/ThemeOverlay.Material3.Toolbar.Surface"
+                   >
+
+               </androidx.appcompat.widget.SearchView>
             </com.google.android.material.appbar.AppBarLayout>
 
             <!-- TODO: Update blank fragment layout -->

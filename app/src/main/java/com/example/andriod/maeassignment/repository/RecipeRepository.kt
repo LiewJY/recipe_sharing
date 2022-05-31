@@ -76,15 +76,18 @@ class RecipeRepository {
                 desc = recipeDesc,
                 ingredients = ingredientsList,
                 methods = methodList,
-                image = imageLink,
+//                image = imageLink,
             )
             mFireStore.collection(Firebase.RECIPES)
                 .document(recipeId)
-                .set(recipe)
+                .update("title", recipe.title,
+            "desc", recipe.desc,
+                    "ingredients", recipe.ingredients,
+                    "methods", recipe.methods)
                 .addOnCompleteListener{ addRecipe ->
                     if(addRecipe.isSuccessful){
                         updateRecipeMutableLiveData.value = true
-                        Log.e("frag", "SUCCESS added recipe with no image")
+                        Log.e("frag", "SUCCESS update recipe with no image")
                     }
                 }
         }

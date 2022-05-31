@@ -26,6 +26,10 @@
     <string name="title_add">Add</string>
     <string name="title_Profile">Profile</string>
 
+    <!--for search-->
+    <string name="prompt_search">Search Recipe</string>
+
+
     <!--for add recipe page-->
     <!--text field hint-->
     <string name="prompt_recipe_title">Recipe Title</string>
