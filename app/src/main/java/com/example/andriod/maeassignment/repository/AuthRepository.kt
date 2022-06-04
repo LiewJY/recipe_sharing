@@ -25,15 +25,16 @@ class AuthRepository {
 //         value = firebaseAuth.currentUser
 //    }
 
+
+
     fun changeEmail(newEmail: String): MutableLiveData<Boolean> {
         val changeEmailMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         changeEmailMutableLiveData.value = false
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             Log.e("frag", " email change have user")
-
         }
-        auth.currentUser!!.updatePassword("testing@gmail.com")?.addOnCompleteListener { changeEmail ->
+        auth.currentUser!!.updateEmail(newEmail)?.addOnCompleteListener { changeEmail ->
             if (changeEmail.isSuccessful) {
                 Log.e("frag", " email change SUCCESS")
                 changeEmailMutableLiveData.value = true

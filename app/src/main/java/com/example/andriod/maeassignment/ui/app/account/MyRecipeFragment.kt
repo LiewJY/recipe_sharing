@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentMyRecipeBinding
-import com.example.andriod.maeassignment.viewmodel.app.account.EditRecipeViewModel
 import com.example.andriod.maeassignment.viewmodel.app.account.MyRecipeViewModel
 
 
@@ -26,9 +25,9 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         ViewModelProvider(this).get(MyRecipeViewModel::class.java)
     }
 
-    private val editViewModel: EditRecipeViewModel by lazy {
-        ViewModelProvider(this).get(EditRecipeViewModel::class.java)
-    }
+//    private val editViewModel: EditRecipeViewModel by lazy {
+//        ViewModelProvider(this).get(EditRecipeViewModel::class.java)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
+import com.example.andriod.maeassignment.models.User
 import com.example.andriod.maeassignment.utils.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -112,6 +113,33 @@ class RecipeRepository {
     }
 
 
+    //get favourite recipe from this logged in user
+    fun getFavourite(): MutableLiveData<ArrayList<Recipe>> {
+        val getFavouriteRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+        Log.e("frag", "SUCCESS get")
+        var listFavorites = ArrayList<String>()
+        listFavorites.add("")
+        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+            .addOnSuccessListener { fav ->
+                val  gg = fav.toObject<User>()
+                for (item in gg!!.favourite) {
+                    listFavorites.add(item)
+                    Log.e("frag", "test get ${item}")
+                }
+                mFireStore.collection(Firebase.RECIPES).whereIn("id", listFavorites).get()
+                    .addOnSuccessListener { favourite ->
+                        if(favourite != null) {
+                        val data = favourite.toObjects<Recipe>()
+                        data.toList()
+                            getFavouriteRecipesMutableLiveData.value = ArrayList(data)
+                        Log.e("frag", "SUCCESS get ${data.toList()}")
+                        Log.e("frag", "SUCCESS get $data")
+                    }
+                    }
+            }
+        return getFavouriteRecipesMutableLiveData
+    }
+
     //get recipe from this logged in user
     fun getRecipesByAuthor(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesByAuthorMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
@@ -133,6 +161,8 @@ class RecipeRepository {
             }
         return getRecipesByAuthorMutableLiveData
     }
+
+
     //get a single recipe
     fun getRecipe(recipeId: String): MutableLiveData<Recipe> {
         val getRecipeMutableLiveData: MutableLiveData<Recipe> = MutableLiveData<Recipe>()
@@ -150,6 +180,7 @@ class RecipeRepository {
             }
         return getRecipeMutableLiveData
     }
+
     //get all recipe in database
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()

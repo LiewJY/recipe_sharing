@@ -9,24 +9,23 @@
     android:layout_margin="8dp"
     app:cardElevation="2dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.checkbox.MaterialCheckBox>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvIngMetItem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            >
+            android:text="@string/prompt_ingredient_method"
+            android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
+            android:textColor="?android:attr/textColorSecondary" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            </com.google.android.material.checkbox.MaterialCheckBox>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvIngMetItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/prompt_ingredient_method"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
-                android:textColor="?android:attr/textColorSecondary" />
-
-        </LinearLayout>
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

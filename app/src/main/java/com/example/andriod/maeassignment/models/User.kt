@@ -8,4 +8,5 @@ data class User (
     // todo implement
     val mobile: Long = 0,
     val image: String = "",
+    val favourite: ArrayList<String> = ArrayList(),
         )
