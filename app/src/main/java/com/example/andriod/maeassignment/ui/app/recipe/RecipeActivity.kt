@@ -49,7 +49,7 @@ class RecipeActivity : AppCompatActivity(){
             if (recipe != null) {
                 Log.e("frag", "obserce $recipe")
                 binding.tvRecipeTitle.text = recipe.title
-                binding.tvRecipeAuthor.text = recipe.userid
+                binding.tvRecipeAuthor.text = recipe.name
                 Glide.with(this)
                     .load(recipe.image)
                     .placeholder(R.mipmap.ic_launcher_round)
@@ -81,7 +81,7 @@ class RecipeActivity : AppCompatActivity(){
                     Toast.makeText(this, "${binding.tvRecipeTitle.text} added to favourite.", Toast.LENGTH_SHORT).show()
                 }
                 else if (status == false){
-                    Toast.makeText(this, "${binding.tvRecipeTitle.text} is already in favourite.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "${binding.tvRecipeTitle.text} is already in favourite.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

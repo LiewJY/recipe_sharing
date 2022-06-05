@@ -38,7 +38,7 @@ class HomeAdapter(private val context: Context,
         val currentitem = recipeFilterList[position]
 
         holder.title.text = currentitem.title
-        holder.user.text = currentitem.userid
+        holder.user.text = currentitem.name
         holder.desc.text = currentitem.desc
         Glide.with(context)
             .load(currentitem.image)

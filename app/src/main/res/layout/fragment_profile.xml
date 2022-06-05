@@ -55,23 +55,19 @@ tools:layout="@layout/fragment_profile">
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
                 android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/containerEditName"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <Space
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_name"
-                app:errorEnabled="true">
-                <!--this is the actual edit text which takes the input
-                the actual useful id is below-->
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtEditName"
-                    style="@style/TextAppearance.MdcTypographyStyles.Body1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:textColorHint="#757575" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:minHeight="100dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/action_edit_profile"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnChangeEmail"
                 android:layout_width="match_parent"
@@ -89,13 +85,7 @@ tools:layout="@layout/fragment_profile">
                 android:text="@string/action_change_password"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="@string/action_save"
-                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
 
         </LinearLayout>
 

@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentProfileBinding
 import com.example.andriod.maeassignment.viewmodel.app.account.EditProfileViewModel
@@ -37,7 +38,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         binding.btnChangeEmail.setOnClickListener(this)
         binding.btnChangePassword.setOnClickListener(this)
-        binding.btnSave.setOnClickListener(this)
+        binding.btnEditProfile.setOnClickListener(this)
 
 
         return binding.root
@@ -65,13 +66,26 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
                 }
                 R.id.btnChangePassword -> {
+                    val dialog = context?.let { BottomSheetDialog(it) }
+                    val dialogLayout=layoutInflater.inflate(R.layout.dialog_change_password,null)
+                    dialog?.setContentView(dialogLayout)
+                    dialog?.show()
 
+                    dialogLayout.findViewById<Button>(R.id.btnEditPasswordClose).setOnClickListener {
+                        dialog?.dismiss()
+                    }
+                    dialogLayout.findViewById<Button>(R.id.btnEditPassword).setOnClickListener {
+                        Log.e("frag" , "change")
+                        val newPassword = dialogLayout.findViewById<EditText>(R.id.txtEditPassword).text.toString()
+                        recipeViewModel.changePassword(newPassword)
+                        Log.e("frag" , "change to $newPassword")
+                    }
 
                 }
-//                R.id.btnSave -> {
-//
-//
-//                }
+                R.id.btnEditProfile -> {
+                    findNavController().navigate(R.id.action_navigation_profile_to_navigaton_edit)
+
+                }
             }
         }
     }

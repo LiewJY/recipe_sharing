@@ -7,6 +7,5 @@ data class User (
     val email: String = "",  //done
     // todo implement
     val mobile: Long = 0,
-    val image: String = "",
-    val favourite: ArrayList<String> = ArrayList(),
+    val favourite: ArrayList<String> = ArrayList(), //done
         )

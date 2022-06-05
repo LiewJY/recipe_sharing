@@ -25,6 +25,8 @@ class RecipeRepository {
     private var storageReference = FirebaseStorage.getInstance().reference
     private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
     private lateinit var imageLink: String
+    private lateinit var  userInfo: User
+
 
     //get favourite recipe from this logged in user
     fun getFavourite(): MutableLiveData<ArrayList<Recipe>> {
@@ -99,8 +101,8 @@ class RecipeRepository {
                     //store data to firebase with info
                     imageLink = it.toString()
                     val recipe = Recipe(
-                        id = recipeId,
-                        userid = currentFirebaseUser!!.uid,
+//                        id = recipeId,
+//                        userid = currentFirebaseUser!!.uid,
                         title = recipeTitle,
                         desc = recipeDesc,
                         ingredients = ingredientsList,
@@ -109,9 +111,13 @@ class RecipeRepository {
                     )
                     mFireStore.collection(Firebase.RECIPES)
                         .document(recipeId)
-                        .set(recipe)
-                        .addOnCompleteListener{ addRecipe ->
-                            if(addRecipe.isSuccessful){
+                        .update("title", recipe.title,
+                            "desc", recipe.desc,
+                            "ingredients", recipe.ingredients,
+                            "methods", recipe.methods,
+                            "image", recipe.image)
+                        .addOnCompleteListener{ updateRecipe ->
+                            if(updateRecipe.isSuccessful){
                                 Log.e("frag", "SUCCESS added recipe with image   $imageLink")
                                 updateRecipeMutableLiveData.value = true
 
@@ -126,8 +132,8 @@ class RecipeRepository {
         }else {
             //no image update
             val recipe = Recipe(
-                id = recipeId,
-                userid = currentFirebaseUser!!.uid,
+//                id = recipeId,
+//                userid = currentFirebaseUser!!.uid,
                 title = recipeTitle,
                 desc = recipeDesc,
                 ingredients = ingredientsList,
@@ -202,10 +208,9 @@ class RecipeRepository {
         mFireStore.collection(Firebase.RECIPES).document(recipeId).get()
             .addOnSuccessListener { recipe ->
                 if(recipe != null) {
-                    //val data = recipes.toObject<Recipe>()
                     getRecipeMutableLiveData.value = recipe.toObject<Recipe>()
-                    //recipeArrayList = ArrayList(data)
-                    //Log.e("frag", "SUCCESS get ${getRecipeMutableLiveData.value}")
+
+
                 }
             }
         return getRecipeMutableLiveData
@@ -237,6 +242,10 @@ class RecipeRepository {
     fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
         val addRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         addRecipeMutableLiveData.value = false
+        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+            .addOnSuccessListener {
+                userInfo = it.toObject<User>()!!
+            }
         //get the uid first
         val uid = mFireStore.collection(Firebase.RECIPES).document()
         Log.e("frag", "SUCCESS get uid ${uid.id}")
@@ -256,6 +265,7 @@ class RecipeRepository {
                     val recipe = Recipe(
                         id = uid.id,
                         userid = currentFirebaseUser!!.uid,
+                        name = userInfo.name,
                         title = recipeTitle,
                         desc = recipeDesc,
                         ingredients = ingredientsList,

@@ -53,18 +53,18 @@ class AccountFragment : Fragment(),  View.OnClickListener{
                     startActivity(intent)
                 }
                 R.id.tvProfile -> {
-                    Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "Profile", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_navigation_account_to_navigation_profile)
                     //findNavController().navigate(R.id.action_accountFragment_to_profileFragment)
 
                 }
                 R.id.tvMyPost -> {
-                    Toast.makeText(context, "My Recipe", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "My Recipe", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_navigation_account_to_navigation_myRecipe)
 
                 }
                 R.id.tvFavourite -> {
-                    Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, "Favourite", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_navigation_account_to_navigation_favourite)
 
                 }

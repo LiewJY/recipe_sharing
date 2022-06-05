@@ -15,7 +15,8 @@
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/activity_register.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/add_ingredient_row_layout.xml" value="0.1" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/add_method_row_layout.xml" value="0.12962962962962962" />
-        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/dialog_change_email.xml" value="0.11" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/dialog_change_email.xml" value="0.21" />
+        <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/dialog_change_password.xml" value="0.19623770842240273" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/edit_recipe_item.xml" value="0.14450619923044036" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/favourite_item.xml" value="0.1248396750748183" />
         <entry key="..\:/Users/liewj/AndroidStudioProjects/MAEAssignment/app/src/main/res/layout/fragment_account.xml" value="0.2" />

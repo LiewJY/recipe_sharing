@@ -10,12 +10,16 @@ class EditProfileViewModel: ViewModel() {
     val changeEmailStatus: MutableLiveData<Boolean>
         get() = _changeEmailLiveData
 
+    private var _changePasswordLiveData = MutableLiveData<Boolean>()
+    val changePassowrdStatus: MutableLiveData<Boolean>
+        get() = _changePasswordLiveData
+
     fun changeEmail(newEmail : String) {
         _changeEmailLiveData = AuthRepository().changeEmail(newEmail)
     }
 
     fun changePassword(newPasword : String) {
-        //_changeEmailLiveData = AuthRepository().changeEmail(newEmail)
+        _changePasswordLiveData = AuthRepository().changePassword(newPasword)
     }
 
 

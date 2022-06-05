@@ -36,15 +36,16 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.andriod.maeassignment.ui.app.account.ProfileFragment"
         android:label="navigation_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigaton_edit"
+            app:destination="@id/navigaton_edit" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_myRecipe"
         android:name="com.example.andriod.maeassignment.ui.app.account.MyRecipeFragment"
         android:label="fragment_my_recipe"
         tools:layout="@layout/fragment_my_recipe" >
-        <action
-            android:id="@+id/action_navigation_myRecipe_to_navigaton_edit"
-            app:destination="@id/navigaton_edit" />
         <action
             android:id="@+id/action_navigation_myRecipe_to_navigation_editRecipe"
             app:destination="@id/navigation_editRecipe" />
