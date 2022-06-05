@@ -47,7 +47,7 @@
                     android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
                     android:textStyle="bold" />
                 <RelativeLayout
-                    android:id="@+id/reletiveLayout"
+                    android:id="@+id/relativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -137,14 +137,83 @@
                     android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvMockComment"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPost"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:paddingTop="20dp"
+                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+                        android:text="@string/action_Post"
+                        app:iconTint="#848A7E"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/containerIngredients"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/btnPost"
+                        android:hint="@string/prompt_comment"
+                        app:errorEnabled="true">
+                        <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txtIngredients"
+                            style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none"
+                            android:textColorHint="#757575" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                </RelativeLayout>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
-                    android:text="@string/mock_comment"
-                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
-                    android:textStyle="bold" />
+                    android:layout_margin="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <!-- Title, secondary and supporting text -->
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvReviewerTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="John Doe"
+                                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1" />
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvReviewerContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="This is a great recipe to make easy yet delicious."
+                                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
+                                android:textColor="?android:attr/textColorSecondary" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

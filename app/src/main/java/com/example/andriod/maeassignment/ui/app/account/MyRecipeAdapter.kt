@@ -39,11 +39,6 @@ class MyRecipeAdapter (private val context: Context,
             .placeholder(R.mipmap.ic_launcher_round)
             .into(holder.image)
 
-//        holder.itemView.setOnClickListener(View.OnClickListener {
-//            Log.e("frag", "test ${currentitem.title} ${currentitem.id}")
-//            listener.onItemClick(currentitem.id)
-//        })
-
         holder.edit.setOnClickListener {
             Log.e("frag", "edit ${currentitem.title} ${currentitem.id}")
             listener.onEditClick(currentitem.id)

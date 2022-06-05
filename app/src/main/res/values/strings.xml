@@ -56,8 +56,6 @@
     <string name="title_ingredients"><u>Ingredients</u></string>
     <string name="title_method"><u>Methods</u></string>
     <string name="title_comment"><u>Comments</u></string>
-    <string name="mock_comment">This is comment lore ipsum /n /n dccxc xcxcxc xcxcxc xcxcx
-        xcxc xcxc xcxc xcx xcxc xcxc xcx xcxc xcx ddd</string>
 
     <!--for account page-->
     <!--text field hint-->
@@ -66,6 +64,10 @@
     <string name="action_profile">Profile</string>
     <string name="action_my_recipe">My Recipe</string>
     <string name="action_favourite">Favourite</string>
+    <string name="action_Post">Post</string>
+
+    <!--text field hint-->
+    <string name="prompt_comment">Comment</string>
     <!--title-->
     <string name="title_account">Account</string>
 
