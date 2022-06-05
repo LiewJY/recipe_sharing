@@ -2,9 +2,11 @@ package com.example.andriod.maeassignment.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,15 +14,21 @@ import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentLoginBinding
 import com.example.andriod.maeassignment.ui.app.AppActivity
+import com.example.andriod.maeassignment.utils.Validation
 import com.example.andriod.maeassignment.viewmodel.auth.LoginViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
-class LoginFragment : Fragment(), View.OnClickListener{
+class LoginFragment : Fragment(), View.OnClickListener {
 
-    private val viewModel: LoginViewModel by lazy {
+    private val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(this).get(LoginViewModel::class.java)
     }
+
+
+
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +36,7 @@ class LoginFragment : Fragment(), View.OnClickListener{
     ): View? {
 
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,
+        binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater,
             R.layout.fragment_login,container,false)
 
         //register event handler (for the button)
@@ -36,10 +44,21 @@ class LoginFragment : Fragment(), View.OnClickListener{
         binding.tvRegister.setOnClickListener(this)
         binding.tvForgetPassword.setOnClickListener(this)
 
+        Log.e("frag", "on create view")
+
 
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.e("frag", "on view created")
+
+        validationListener()
+
+    }
+
 
     override fun onClick(v: View?) {
         if (v != null) {
@@ -51,29 +70,25 @@ class LoginFragment : Fragment(), View.OnClickListener{
                     v!!.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
                 }
                 R.id.btnSignIn -> {
-                    viewModel.login(
-                        txtLoginEmail.text.toString(),
-                        txtLoginPassword.text.toString()
-                    )
-                    viewModel.loginStatus.observe(this) { result ->
-                        if (result == true) {
-                            //todo login suceess
+                    if (validationError() == true) {
+                        loginViewModel.login(
+                            txtLoginEmail.text.toString(),
+                            txtLoginPassword.text.toString()
+                        )
+                        loginViewModel.loginStatus.observe(this) { result ->
+                            if (result == true) {
+                                Toast.makeText(context, "Login Success", Toast.LENGTH_SHORT).show()
+                                //open home page
+                                activity?.finish()
+                                val intent = Intent(activity, AppActivity::class.java)
+                                startActivity(intent)
 
-                            //open home page
-                            activity?.finish()
-                            val intent = Intent(activity, AppActivity::class.java)
-                            startActivity(intent)
-                        } else {
-                            //todo login false
-
+                            } else {
+                                Toast.makeText(context, "Login Failed. Incorrect email or password.", Toast.LENGTH_SHORT).show()
+                            }
                         }
+
                     }
-
-
-
-
-
-
                 }
 
             }
@@ -83,6 +98,43 @@ class LoginFragment : Fragment(), View.OnClickListener{
 
 
     }
+
+    private fun validationListener() {
+        binding.txtLoginEmail.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerLoginEmail.helperText = Validation.emailValidation(binding.txtLoginEmail.text.toString())
+            }
+        }
+        binding.txtLoginPassword.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerLoginPassword.helperText = Validation.passwordValidation(binding.txtLoginPassword.text.toString())
+            }
+        }
+
+    }
+    private fun validationError(): Boolean {
+        binding.containerLoginEmail.helperText = Validation.emailValidation(binding.txtLoginEmail.text.toString())
+        binding.containerLoginPassword.helperText = Validation.passwordValidation(binding.txtLoginPassword.text.toString())
+
+        if(binding.containerLoginEmail.helperText != null || binding.txtLoginEmail.text.toString() == null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerLoginEmail.helperText}", Snackbar.LENGTH_SHORT).show()
+            Log.e("frag", "error ddd")
+
+            return false
+        }
+        if(binding.containerLoginPassword.helperText != null || binding.txtLoginPassword.text.toString() == null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerLoginPassword.helperText}", Snackbar.LENGTH_SHORT).show()
+            Log.e("frag", "error pwd")
+
+            return false
+        }
+        return true
+    }
+
 
 }
 

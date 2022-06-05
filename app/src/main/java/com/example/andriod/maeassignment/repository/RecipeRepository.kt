@@ -36,8 +36,8 @@ class RecipeRepository {
         listFavorites.add("")
         mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener { fav ->
-                val  gg = fav.toObject<User>()
-                for (item in gg!!.favourite) {
+                val  userFavourite = fav.toObject<User>()
+                for (item in userFavourite!!.favourite) {
                     listFavorites.add(item)
                     Log.e("frag", "test get ${item}")
                 }

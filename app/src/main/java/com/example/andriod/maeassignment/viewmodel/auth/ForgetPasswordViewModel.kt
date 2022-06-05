@@ -6,8 +6,8 @@ import com.example.andriod.maeassignment.repository.AuthRepository
 
 class ForgetPasswordViewModel: ViewModel(){
     //data passing
-    private var _forgotPasswordLiveData = MutableLiveData<Boolean>()
-    val forgotPasswordStatus: MutableLiveData<Boolean>
+    private var _forgotPasswordLiveData = MutableLiveData<String>()
+    val forgotPasswordStatus: MutableLiveData<String>
         get() = _forgotPasswordLiveData
 
     fun forgotPassword(email: String) {

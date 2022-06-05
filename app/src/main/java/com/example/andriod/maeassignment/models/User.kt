@@ -6,6 +6,6 @@ data class User (
     val name: String = "",  //done
     val email: String = "",  //done
     // todo implement
-    val mobile: Long = 0,
+    val mobile: Long = 0, //done
     val favourite: ArrayList<String> = ArrayList(), //done
         )
