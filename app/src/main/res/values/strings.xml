@@ -70,6 +70,8 @@
     <string name="prompt_comment">Comment</string>
     <!--title-->
     <string name="title_account">Account</string>
+    <string name="title_manage_account">Manage My Account</string>
+
 
     <!--for profile page-->
     <!--text field hint-->

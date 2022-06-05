@@ -7,6 +7,23 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/AddRecipeBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/AddRecipeToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_theme_light_primary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:title="@string/title_add_recipe"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -15,18 +32,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvAddRecipe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
-                    android:text="@string/title_add_recipe"
-                    android:textAlignment="viewStart"
-                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAddRecipe"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingBottom="20dp"-->
+<!--                    android:text="@string/title_add_recipe"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"-->
+<!--                    android:textStyle="bold" />-->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/containerRecipeTitle"
