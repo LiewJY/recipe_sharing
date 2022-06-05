@@ -11,8 +11,18 @@ class RecipeViewModel : ViewModel() {
     val recipesData: MutableLiveData<Recipe>
         get() = _recipesLiveData
 
+    private var _addFavouriteLiveData = MutableLiveData<Boolean>()
+    val addFavourite: MutableLiveData<Boolean>
+        get() = _addFavouriteLiveData
+
+
     fun getRecipe(recipeId: String) {
         _recipesLiveData = RecipeRepository().getRecipe(recipeId)
+
+    }
+
+    fun addFavourite(recipeId: String) {
+        _addFavouriteLiveData = RecipeRepository().addFavourite(recipeId)
 
     }
 

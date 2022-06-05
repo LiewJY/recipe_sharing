@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 
 class IngredientMethodAdapter(
-                    private val recipeList: ArrayList<String>,
-                    private val listener: OnItemClickListener)
+                    private val recipeList: ArrayList<String>)
     : RecyclerView.Adapter<IngredientMethodAdapter.IngredientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.ingredient_method_item,
-            parent,false)
+            parent, false
+        )
         return IngredientViewHolder(itemView)
     }
 
@@ -35,24 +35,10 @@ class IngredientMethodAdapter(
         return recipeList.size
     }
 
-    inner class IngredientViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-        val field : TextView = itemView.findViewById(R.id.tvIngMetItem)
-        init {
-            itemView.setOnClickListener(this)
-        }
+    inner class IngredientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        override fun onClick(v: View?) {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
-            }
-        }
-    }
-    interface OnItemClickListener {
-        fun onItemClick(position: Int) {
-            Log.e("frag", "clicked dddd")
+    val field: TextView = itemView.findViewById(R.id.tvIngMetItem)
+}
 
-        }
-    }
+
 }

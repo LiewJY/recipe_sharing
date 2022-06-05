@@ -47,6 +47,9 @@
     <string name="title_add_method"><u>Add Methods</u></string>
 
     <!--for view recipe page-->
+    <!--action -->
+    <string name="action_add_favourite">Favourite</string>
+
     <!--text field hint-->
     <string name="prompt_ingredient_method">Ingredient / Method fdfdfdfdfdfdfdfd dfdfd dfdfdf dfdfd dfdfdf dfdfdf dfdfdf dfdf dfdfd fdfdfdfdfdfdfdf dfdfdf dfdfd fdfd fdf d fdfd</string>
     <!--title-->
@@ -100,6 +103,7 @@
 
     <!--    general action (shared)-->
     <string name="action_save">Save</string>
+    <string name="action_favourite_remove">Remove</string>
 
 
     <!--not in use-->

@@ -12,9 +12,17 @@ class FavouriteViewModel: ViewModel() {
     val favouriteRecipesData: MutableLiveData<ArrayList<Recipe>>
         get() = _favouriteRecipesLiveData
 
+    private var _removeFavouriteLiveData = MutableLiveData<Boolean>()
+    val removeFavourite: MutableLiveData<Boolean>
+        get() = _removeFavouriteLiveData
+
     fun getFavouriteRecipes() {
         _favouriteRecipesLiveData = RecipeRepository().getFavourite()
         //RecipeRepository().getRecipes()
+    }
+
+    fun removeFavouriteRecipes(recipeId: String) {
+        _removeFavouriteLiveData = RecipeRepository().removeFavourite(recipeId)
     }
 
 }

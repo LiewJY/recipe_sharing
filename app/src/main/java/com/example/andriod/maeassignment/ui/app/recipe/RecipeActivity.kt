@@ -12,7 +12,7 @@ import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.ActivityRecipeBinding
 import com.example.andriod.maeassignment.viewmodel.app.RecipeViewModel
 
-class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickListener {
+class RecipeActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityRecipeBinding
     private lateinit var ingredientRecyclerView : RecyclerView
@@ -22,6 +22,7 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
     private val viewModel: RecipeViewModel by lazy {
         ViewModelProvider(this).get(RecipeViewModel::class.java)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +37,11 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.recipeToolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24)
         binding.recipeToolbar.setOnClickListener{
             finish()
         }
-
-
         val recipeId = intent.getStringExtra("recipeId")
         //Log.e("frag", "$recipeId")
         viewModel.getRecipe(recipeId!!)
@@ -57,17 +57,13 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
 
                 binding.tvRecipeDesc.text = recipe.desc
 
-        //val myDataset = Datasource().loadAffirmations()
-                //Log.e("frag", "SUCCESS frag get ${recipe.ingredients}")
-
-
                 ingredientRecyclerView = binding.ingredientRecyclerView
-                ingredientRecyclerView.adapter = IngredientMethodAdapter( recipe.ingredients,this)
+                ingredientRecyclerView.adapter = IngredientMethodAdapter( recipe.ingredients)
                 ingredientRecyclerView.isNestedScrollingEnabled = false
                 ingredientRecyclerView.layoutManager = LinearLayoutManager(this)
 
                 methodRecyclerView = binding.methodRecyclerView
-                methodRecyclerView.adapter = IngredientMethodAdapter( recipe.methods,this)
+                methodRecyclerView.adapter = IngredientMethodAdapter( recipe.methods)
                 methodRecyclerView.isNestedScrollingEnabled = false
                 methodRecyclerView.layoutManager = LinearLayoutManager(this)
                 //binding.tvRecipeIngredient.text = recipe.ingredients.toString()
@@ -78,11 +74,19 @@ class RecipeActivity : AppCompatActivity(), IngredientMethodAdapter.OnItemClickL
             }
         }
 
-    }
-    override fun onItemClick(position: Int) {
-        Log.e("frag", "clicked dddd")
+        binding.btnFavourite.setOnClickListener{
+            viewModel.addFavourite(recipeId)
+            viewModel.addFavourite.observe(this) { status ->
+                if (status == true) {
+                    Toast.makeText(this, "${binding.tvRecipeTitle.text} added to favourite.", Toast.LENGTH_SHORT).show()
+                }
+                else if (status == false){
+                    Toast.makeText(this, "${binding.tvRecipeTitle.text} is already in favourite.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
-        Toast.makeText(this, "Item $position clicked", Toast.LENGTH_SHORT).show()
 
     }
+
 }

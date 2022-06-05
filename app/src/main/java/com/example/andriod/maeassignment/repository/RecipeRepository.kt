@@ -7,6 +7,7 @@ import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.models.User
 import com.example.andriod.maeassignment.utils.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
@@ -24,6 +25,60 @@ class RecipeRepository {
     private var storageReference = FirebaseStorage.getInstance().reference
     private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
     private lateinit var imageLink: String
+
+    //get favourite recipe from this logged in user
+    fun getFavourite(): MutableLiveData<ArrayList<Recipe>> {
+        val getFavouriteRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
+        Log.e("frag", "SUCCESS get")
+        var listFavorites = ArrayList<String>()
+        listFavorites.add("")
+        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+            .addOnSuccessListener { fav ->
+                val  gg = fav.toObject<User>()
+                for (item in gg!!.favourite) {
+                    listFavorites.add(item)
+                    Log.e("frag", "test get ${item}")
+                }
+                mFireStore.collection(Firebase.RECIPES).whereIn("id", listFavorites).get()
+                    .addOnSuccessListener { favourite ->
+                        if(favourite != null) {
+                            val data = favourite.toObjects<Recipe>()
+                            data.toList()
+                            getFavouriteRecipesMutableLiveData.value = ArrayList(data)
+                            Log.e("frag", "SUCCESS get ${data.toList()}")
+                            Log.e("frag", "SUCCESS get $data")
+                        }
+                    }
+            }
+        return getFavouriteRecipesMutableLiveData
+    }
+
+    fun addFavourite(recipeId: String): MutableLiveData<Boolean> {
+        val addFavouriteRecipesMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        Log.e("frag", "SUCCESS get")
+        addFavouriteRecipesMutableLiveData.value = false
+        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
+            .update("favourite", FieldValue.arrayUnion(recipeId))
+            .addOnSuccessListener {
+                Log.e("frag", "test fav add SUCCESS")
+                addFavouriteRecipesMutableLiveData.value = true
+            }
+        return addFavouriteRecipesMutableLiveData
+    }
+
+    fun removeFavourite(recipeId: String): MutableLiveData<Boolean> {
+        val removeFavouriteRecipesMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        Log.e("frag", "SUCCESS get")
+        removeFavouriteRecipesMutableLiveData.value = false
+        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
+            .update("favourite", FieldValue.arrayRemove(recipeId))
+            .addOnSuccessListener {
+                Log.e("frag", "test fav add SUCCESS")
+                removeFavouriteRecipesMutableLiveData.value = true
+            }
+        return removeFavouriteRecipesMutableLiveData
+    }
+
 
     fun updateRecipe(recipeId: String ,recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
         val updateRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
@@ -113,32 +168,7 @@ class RecipeRepository {
     }
 
 
-    //get favourite recipe from this logged in user
-    fun getFavourite(): MutableLiveData<ArrayList<Recipe>> {
-        val getFavouriteRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
-        Log.e("frag", "SUCCESS get")
-        var listFavorites = ArrayList<String>()
-        listFavorites.add("")
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
-            .addOnSuccessListener { fav ->
-                val  gg = fav.toObject<User>()
-                for (item in gg!!.favourite) {
-                    listFavorites.add(item)
-                    Log.e("frag", "test get ${item}")
-                }
-                mFireStore.collection(Firebase.RECIPES).whereIn("id", listFavorites).get()
-                    .addOnSuccessListener { favourite ->
-                        if(favourite != null) {
-                        val data = favourite.toObjects<Recipe>()
-                        data.toList()
-                            getFavouriteRecipesMutableLiveData.value = ArrayList(data)
-                        Log.e("frag", "SUCCESS get ${data.toList()}")
-                        Log.e("frag", "SUCCESS get $data")
-                    }
-                    }
-            }
-        return getFavouriteRecipesMutableLiveData
-    }
+
 
     //get recipe from this logged in user
     fun getRecipesByAuthor(): MutableLiveData<ArrayList<Recipe>> {
