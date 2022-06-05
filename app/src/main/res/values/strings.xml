@@ -81,9 +81,14 @@
     <string name="action_change_email">Change Email</string>
     <string name="action_change_password">Change Password</string>
     <!--    <string name="action_favourite">Favourite</string>-->
+    <!--    <string name="action_favourite">Favourite</string>-->
+    <!--text field hint-->
+    <string name="prompt_phone_number">Phone Number</string>
     <!--title-->
     <string name="title_profile">My Profile</string>
     <string name="title_change_email">Change Email Address</string>
+    <string name="title_edit_profile">Edit Profile</string>
+
 
     <!--for edit recipe (my recipe) page-->
     <!--text field hint-->

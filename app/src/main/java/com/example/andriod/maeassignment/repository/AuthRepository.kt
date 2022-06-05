@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.toObject
 
 
 class AuthRepository {
@@ -24,7 +25,40 @@ class AuthRepository {
 //    val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
 //         value = firebaseAuth.currentUser
 //    }
-fun changePassword(newPassword: String): MutableLiveData<Boolean> {
+
+    fun updateUserDetails(name: String, mobile: Long): MutableLiveData<Boolean> {
+        val updateUserDetailsMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        Log.e("frag", "SUCCESS get")
+        updateUserDetailsMutableLiveData.value = false
+        auth = FirebaseAuth.getInstance()
+        val user = User(
+            name = name,
+            mobile = mobile,
+        )
+        mFireStore.collection(Firebase.USERS).document(auth.currentUser!!.uid)
+            .update("user", user.name,
+            "mobile", user.mobile)
+            .addOnSuccessListener {
+                    updateUserDetailsMutableLiveData.value = true
+            }
+        return updateUserDetailsMutableLiveData
+    }
+
+    fun getUserDetails(): MutableLiveData<User> {
+        val getUserDetailsMutableLiveData: MutableLiveData<User> = MutableLiveData<User>()
+        Log.e("frag", "SUCCESS get")
+        auth = FirebaseAuth.getInstance()
+        mFireStore.collection(Firebase.USERS).document(auth.currentUser!!.uid).get()
+            .addOnSuccessListener { user ->
+                if(user != null) {
+                    getUserDetailsMutableLiveData.value = user.toObject<User>()
+                }
+            }
+        return getUserDetailsMutableLiveData
+}
+
+
+    fun changePassword(newPassword: String): MutableLiveData<Boolean> {
     val changePasswordMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     changePasswordMutableLiveData.value = false
     auth = FirebaseAuth.getInstance()
@@ -58,7 +92,12 @@ fun changePassword(newPassword: String): MutableLiveData<Boolean> {
         auth.currentUser!!.updateEmail(newEmail)?.addOnCompleteListener { changeEmail ->
             if (changeEmail.isSuccessful) {
                 Log.e("frag", " email change SUCCESS")
-                changeEmailMutableLiveData.value = true
+                mFireStore.collection(Firebase.USERS)
+                    .document(auth.currentUser!!.uid)
+                    .update("email", newEmail)
+                    .addOnSuccessListener {
+                        changeEmailMutableLiveData.value = true
+                    }
             } else {
                 Log.e("frag", "FAIL")
                 changeEmailMutableLiveData.value = false
