@@ -25,9 +25,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private val loginViewModel: LoginViewModel by lazy {
         ViewModelProvider(this).get(LoginViewModel::class.java)
     }
-
-
-
     private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
@@ -43,20 +40,12 @@ class LoginFragment : Fragment(), View.OnClickListener {
         binding.btnSignIn.setOnClickListener(this)
         binding.tvRegister.setOnClickListener(this)
         binding.tvForgetPassword.setOnClickListener(this)
-
-        Log.e("frag", "on create view")
-
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("frag", "on view created")
-
         validationListener()
-
     }
 
 
