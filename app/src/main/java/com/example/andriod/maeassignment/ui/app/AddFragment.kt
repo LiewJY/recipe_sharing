@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentAddBinding
+import com.example.andriod.maeassignment.utils.Validation
 import com.example.andriod.maeassignment.viewmodel.app.AddViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add.*
 import java.io.FileNotFoundException
 import java.util.*
@@ -30,6 +32,10 @@ class AddFragment : Fragment(), View.OnClickListener {
     private val viewModel: AddViewModel by lazy {
         ViewModelProvider(this).get(AddViewModel::class.java)
     }
+    private lateinit var binding: FragmentAddBinding
+
+    private var ingredientsList = ArrayList<String>()
+    private var methodList = ArrayList<String>()
     //    for image picker
     private  var imageUrl: Uri? = null
 
@@ -41,7 +47,7 @@ class AddFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentAddBinding>(
+        binding = DataBindingUtil.inflate<FragmentAddBinding>(
             inflater,
             R.layout.fragment_add, container, false
         )
@@ -58,8 +64,11 @@ class AddFragment : Fragment(), View.OnClickListener {
             .into(binding.imagePreview)
 
         return binding.root
-        //val buttonRemove: Button = addView.findViewById(R.id.remove) as Button
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        validationListener()
     }
 
     override fun onClick(v: View?) {
@@ -76,42 +85,83 @@ class AddFragment : Fragment(), View.OnClickListener {
                     addMethod()
                 }
                 R.id.btnPublish -> {
-                    publishRecipe()
+                    //add ingredients and methods into array list
+                    loadIngredients()
+                    loadMethods()
+                    if (validationError() == true) {
+                        viewModel.addRecipe(
+                            txtRecipeTitle.text.toString(),
+                            txtRecipeDesc.text.toString(),
+                            imageUrl,
+                            ingredientsList,
+                            methodList,
+                        )
+                        viewModel.addRecipeStatus.observe(this) { result ->
+                            if (result == 1) {
+                                Toast.makeText(context, "Recipe added", Toast.LENGTH_SHORT).show()
+                            }else if (result == 2) {
+                                Toast.makeText(context, "Recipe failed to add", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+
                 }
             }
         }
     }
-    fun onDelete(v: View) {
-        Log.e("frag", "od pressed")
-        this.ingredient_parent_linear_layout.removeView(v.parent as View)
-    }
 
-    private var ingredientsList = ArrayList<String>()
-    private var methodList = ArrayList<String>()
 
-    private fun publishRecipe() {
-        Log.e("frag", "publish")
-        //add ingredients and methods into array list
-        loadIngredients()
-        loadMethods()
-        viewModel.addRecipe(
-            txtRecipeTitle.text.toString(),
-            txtRecipeDesc.text.toString(),
-            imageUrl,
-            ingredientsList,
-            methodList,
-            )
-        //todo return success message
-        viewModel.addRecipeStatus.observe(this) { result ->
-            if (result == true) {
-                Toast.makeText(context, "Recipe Added", Toast.LENGTH_SHORT).show()
-            }else {
-                //todo
+    private fun validationListener() {
+        binding.txtRecipeTitle.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRecipeTitle.helperText = Validation.titleValidation(binding.txtRecipeTitle.text.toString())
             }
         }
-
-
+        binding.txtRecipeDesc.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRecipeDesc.helperText = Validation.descriptionValidation(binding.txtRecipeDesc.text.toString())
+            }
+        }
     }
+    private fun validationError(): Boolean {
+        binding.containerRecipeTitle.helperText = Validation.titleValidation(binding.txtRecipeTitle.text.toString())
+        binding.containerRecipeDesc.helperText = Validation.descriptionValidation(binding.txtRecipeDesc.text.toString())
+
+        if(binding.containerRecipeTitle.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRecipeTitle.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.containerRecipeDesc.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRecipeDesc.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(ingredientsList.count() < 1)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.noIngredient, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(ingredientsList.contains(""))
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.emptyIngredient, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(methodList.count() < 1)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.noMethod, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(methodList.contains(""))
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.emptyMethod, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
+
 
 
     private  fun loadMethods() {
@@ -122,7 +172,6 @@ class AddFragment : Fragment(), View.OnClickListener {
             view = this.method_parent_linear_layout.getChildAt(i)
             val methods: EditText = view.findViewById(R.id.txtMethods)
             methodList.add(methods.text.toString())
-            //Toast.makeText(context, "Method at $i is ${methodList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private  fun loadIngredients() {
@@ -133,7 +182,6 @@ class AddFragment : Fragment(), View.OnClickListener {
             view = this.ingredient_parent_linear_layout.getChildAt(i)
             val ingredients: EditText = view.findViewById(R.id.txtIngredients)
             ingredientsList.add(ingredients.text.toString())
-            //Toast.makeText(context, "Ingredient at $i is ${ingredientsList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private fun addIngredient() {
@@ -144,9 +192,18 @@ class AddFragment : Fragment(), View.OnClickListener {
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
         }
+        val editTextIngredient: EditText = inflater.findViewById(R.id.txtIngredients) as EditText
+        val containerIngredient: TextInputLayout = inflater.findViewById(R.id.containerIngredients) as TextInputLayout
+
+        editTextIngredient.setOnFocusChangeListener { _, focused ->
+            if (!focused)
+            {
+                containerIngredient.helperText = Validation.ingredientValidation(editTextIngredient.text.toString())
+            }
+        }
+
     }
     private fun addMethod() {
         // this method inflates the single item layout
@@ -156,8 +213,16 @@ class AddFragment : Fragment(), View.OnClickListener {
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed method")
             (inflater.parent as LinearLayout).removeView(inflater)
+        }
+        val editTextMethod: EditText = inflater.findViewById(R.id.txtMethods) as EditText
+        val containerMethod: TextInputLayout = inflater.findViewById(R.id.containerMethods) as TextInputLayout
+
+        editTextMethod.setOnFocusChangeListener { _, focused ->
+            if (!focused)
+            {
+                containerMethod.helperText = Validation.methodValidation(editTextMethod.text.toString())
+            }
         }
     }
 
@@ -179,8 +244,6 @@ class AddFragment : Fragment(), View.OnClickListener {
                     .into(this.image_preview)
                  //Log.e("frag", "ing")
                 imageUrl = selectedImage
-                Log.e("frag", "img url = $imageUrl   img selecred = $selectedImage")
-
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             }

@@ -2,7 +2,6 @@ package com.example.andriod.maeassignment.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,7 +70,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
                                 activity?.finish()
                                 val intent = Intent(activity, AppActivity::class.java)
                                 startActivity(intent)
-
                             } else {
                                 Toast.makeText(context, "Login Failed. Incorrect email or password.", Toast.LENGTH_SHORT).show()
                             }
@@ -107,18 +105,14 @@ class LoginFragment : Fragment(), View.OnClickListener {
         binding.containerLoginEmail.helperText = Validation.emailValidation(binding.txtLoginEmail.text.toString())
         binding.containerLoginPassword.helperText = Validation.passwordValidation(binding.txtLoginPassword.text.toString())
 
-        if(binding.containerLoginEmail.helperText != null || binding.txtLoginEmail.text.toString() == null)
+        if(binding.containerLoginEmail.helperText != null)
         {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerLoginEmail.helperText}", Snackbar.LENGTH_SHORT).show()
-            Log.e("frag", "error ddd")
-
             return false
         }
-        if(binding.containerLoginPassword.helperText != null || binding.txtLoginPassword.text.toString() == null)
+        if(binding.containerLoginPassword.helperText != null)
         {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerLoginPassword.helperText}", Snackbar.LENGTH_SHORT).show()
-            Log.e("frag", "error pwd")
-
             return false
         }
         return true

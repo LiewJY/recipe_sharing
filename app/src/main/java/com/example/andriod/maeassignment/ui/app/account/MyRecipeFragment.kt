@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -64,13 +65,11 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         //delete the recipe
         viewModel.deleteRecipe(recipeId)
         viewModel.deleteRecipeStatus.observe(this) {result ->
-            if(result == true){
-                Log.e("frag", "delete success frag")
+            if (result == 1) {
+                Toast.makeText(context, "Recipe deleted", Toast.LENGTH_SHORT).show()
                 refresh()
-                //fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
-            }else
-            {
-
+            }else if (result == 2) {
+                Toast.makeText(context, "Recipe failed to delete", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -78,7 +77,6 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
     fun refresh() {
 
         viewModel.getRecipeByAuthor()
-
         //load data into recycler view
         viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
             Log.e("frag", "SUCCESS frag get $recipes")

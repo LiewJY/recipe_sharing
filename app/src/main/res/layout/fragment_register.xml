@@ -33,6 +33,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_name"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input
@@ -51,6 +53,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_email"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input
@@ -69,6 +73,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_password"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input
@@ -87,6 +93,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_confirm_password"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input

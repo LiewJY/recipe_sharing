@@ -12,8 +12,8 @@ class MyRecipeViewModel: ViewModel() {
         get() = _myRecipesLiveData
 
     //data passing
-    private var _deleteRecipeLiveData = MutableLiveData<Boolean>()
-    val deleteRecipeStatus: MutableLiveData<Boolean>
+    private var _deleteRecipeLiveData = MutableLiveData<Int>()
+    val deleteRecipeStatus: MutableLiveData<Int>
         get() = _deleteRecipeLiveData
 
     fun getRecipeByAuthor() {

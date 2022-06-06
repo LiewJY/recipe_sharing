@@ -9,8 +9,8 @@ import com.example.andriod.maeassignment.repository.RecipeRepository
 class AddViewModel : ViewModel() {
 
     //data passing
-    private var _addRecipeLiveData = MutableLiveData<Boolean>()
-    val addRecipeStatus: MutableLiveData<Boolean>
+    private var _addRecipeLiveData = MutableLiveData<Int>()
+    val addRecipeStatus: MutableLiveData<Int>
         get() = _addRecipeLiveData
 
 

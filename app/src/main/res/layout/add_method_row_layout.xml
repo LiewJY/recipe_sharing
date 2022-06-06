@@ -21,12 +21,14 @@ android:layout_height="match_parent">
         app:iconTint="#848A7E"
         tools:ignore="SpeakableTextPresentCheck" />
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/containerMethod"
+        android:id="@+id/containerMethods"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@id/btnRemove"
+        app:helperText=""
+        app:helperTextTextColor="@android:color/holo_red_dark"
         android:hint="@string/prompt_method"
         app:errorEnabled="true">
         <!--this is the actual edit text which takes the input

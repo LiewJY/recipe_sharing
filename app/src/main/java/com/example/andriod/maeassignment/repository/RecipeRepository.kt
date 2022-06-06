@@ -160,16 +160,16 @@ class RecipeRepository {
 
 
     //delete a recipe
-    fun deleteRecipe(recipeId: String): MutableLiveData<Boolean> {
-        val deleteRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        deleteRecipeMutableLiveData.value = false
+    fun deleteRecipe(recipeId: String): MutableLiveData<Int> {
+        val deleteRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        deleteRecipeMutableLiveData.value = 0
         mFireStore.collection(Firebase.RECIPES).document(recipeId).delete()
             .addOnSuccessListener {
-                deleteRecipeMutableLiveData.value = true
-                Log.e("frag", "SUCCESS delete")
+                deleteRecipeMutableLiveData.value = 1
             }
-        deleteRecipeMutableLiveData
-
+            .addOnFailureListener {
+                deleteRecipeMutableLiveData.value = 2
+            }
         return deleteRecipeMutableLiveData
     }
 
@@ -219,8 +219,6 @@ class RecipeRepository {
     //get all recipe in database
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
-
-        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
         mFireStore.collection(Firebase.RECIPES).get()
             .addOnSuccessListener { recipes ->
@@ -239,17 +237,16 @@ class RecipeRepository {
     }
 
 
-    fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
-        val addRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        addRecipeMutableLiveData.value = false
+    fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Int> {
+        val addRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        addRecipeMutableLiveData.value = 0
         mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener {
                 userInfo = it.toObject<User>()!!
             }
         //get the uid first
         val uid = mFireStore.collection(Firebase.RECIPES).document()
-        Log.e("frag", "SUCCESS get uid ${uid.id}")
-
+//        Log.e("frag", "SUCCESS get uid ${uid.id}")
         if (imageUrl != null) {
             //image is present
             // upload the image to firebase
@@ -277,15 +274,12 @@ class RecipeRepository {
                         .set(recipe)
                         .addOnCompleteListener{ addRecipe ->
                             if(addRecipe.isSuccessful){
-                                Log.e("frag", "SUCCESS added recipe with image   $imageLink")
-                                addRecipeMutableLiveData.value = true
-
+                                addRecipeMutableLiveData.value = 1
                             }
                         }
                 }
                 downloadUrl.addOnFailureListener {
-                    addRecipeMutableLiveData.value = true
-                    Log.e("frag", "failed to add recipe with image")
+                    addRecipeMutableLiveData.value = 2
                 }
             }
         }else {
@@ -303,8 +297,11 @@ class RecipeRepository {
                 .set(recipe)
                 .addOnCompleteListener{ addRecipe ->
                     if(addRecipe.isSuccessful){
-                        Log.e("frag", "SUCCESS added recipe with no image")
+                        addRecipeMutableLiveData.value = 1
                     }
+                }
+                .addOnFailureListener {
+                    addRecipeMutableLiveData.value = 2
                 }
         }
 

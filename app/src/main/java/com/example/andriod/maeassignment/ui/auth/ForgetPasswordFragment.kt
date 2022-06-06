@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,10 +81,9 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
     }
     private fun validationError(): Boolean {
         binding.containerForgotPasswordEmail.helperText = Validation.emailValidation(binding.txtForgotPasswordEmail.text.toString())
-        if(binding.containerForgotPasswordEmail.helperText != null || binding.txtForgotPasswordEmail.text.toString() == null)
+        if(binding.containerForgotPasswordEmail.helperText != null)
         {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerForgotPasswordEmail.helperText}", Snackbar.LENGTH_SHORT).show()
-            Log.e("frag", "error ddd")
             return false
         }
         return true

@@ -12,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentRegisterBinding
+import com.example.andriod.maeassignment.utils.Validation
 import com.example.andriod.maeassignment.viewmodel.auth.RegisterViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_register.*
 
 
@@ -22,6 +24,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     private val viewModel: RegisterViewModel by lazy {
         ViewModelProvider(this).get(RegisterViewModel::class.java)
     }
+    private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(
 
@@ -29,21 +32,19 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater,
+        binding = DataBindingUtil.inflate<FragmentRegisterBinding>(inflater,
             R.layout.fragment_register,container,false)
-        //(activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
         //register event handler (for the button)
         binding.tvRegisterLogin.setOnClickListener(this)
         binding.btnRegister.setOnClickListener(this)
-
-        // Giving the binding access to the OverviewViewModel
-        //binding.viewModel = viewModel
-        //binding.containerRegisterName.setOnClickListener(this)
-
-
         return binding.root
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        validationListener()
+    }
+
     override fun onClick(v: View?) {
         Log.e("frag", "clicked")
 
@@ -55,32 +56,81 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 }
 
                 R.id.btnRegister -> {
-                    Log.e("frag", "register")
-                    viewModel.register(
-                        txtRegisterName.text.toString(),
-                        txtRegisterEmail.text.toString(),
-                        txtRegisterPassword.text.toString()
-                    )
-                    //validation code
-                    //containerRegisterName.error = "dddd"
-                    viewModel.registerStatus.observe(this) { result ->
-                        if(result == true) {
-                            Log.e("frag", "in frag return $result")
-                            Toast.makeText(context, "Register Success",Toast.LENGTH_SHORT).show()
-                            // todo show success message
-                            v!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                        } else {
-                            Log.e("frag", "in frag return $result")
-                            Toast.makeText(context, "Register Failed",Toast.LENGTH_SHORT).show()
+                    if (validationError() == true) {
+                        viewModel.register(
+                            txtRegisterName.text.toString(),
+                            txtRegisterEmail.text.toString(),
+                            txtRegisterPassword.text.toString()
+                        )
+                        viewModel.registerStatus.observe(this) { result ->
+                            if(result == true) {
+                                Toast.makeText(context, "Register Success",Toast.LENGTH_SHORT).show()
+                                v!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                            } else {
+                                Toast.makeText(context, "Register Failed",Toast.LENGTH_SHORT).show()
+                            }
                         }
-
-
                     }
                 }
             }
         }
     }
 
+    private fun validationListener() {
+        binding.txtRegisterName.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRegisterName.helperText = Validation.nameValidation(binding.txtRegisterName.text.toString())
+            }
+        }
+        binding.txtRegisterEmail.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRegisterEmail.helperText = Validation.emailValidation(binding.txtRegisterEmail.text.toString())
+            }
+        }
+        binding.txtRegisterPassword.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRegisterPassword.helperText = Validation.passwordValidation(binding.txtRegisterPassword.text.toString())
+            }
+        }
+        binding.txtRegisterConfirmPassword.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerRegisterConfirmPassword.helperText = Validation.passwordMatchValidation(binding.txtRegisterPassword.text.toString(),binding.txtRegisterConfirmPassword.text.toString())
+            }
+        }
+    }
+    private fun validationError(): Boolean {
+        binding.containerRegisterName.helperText = Validation.nameValidation(binding.txtRegisterName.text.toString())
+        binding.containerRegisterEmail.helperText = Validation.emailValidation(binding.txtRegisterEmail.text.toString())
+        binding.containerRegisterPassword.helperText = Validation.passwordValidation(binding.txtRegisterPassword.text.toString())
+        binding.containerRegisterConfirmPassword.helperText = Validation.passwordMatchValidation(binding.txtRegisterPassword.text.toString(),binding.txtRegisterConfirmPassword.text.toString())
+
+        if(binding.containerRegisterName.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRegisterName.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.containerRegisterEmail.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRegisterEmail.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.containerRegisterPassword.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRegisterPassword.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.containerRegisterConfirmPassword.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerRegisterConfirmPassword.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
+    }
 }
 
 
