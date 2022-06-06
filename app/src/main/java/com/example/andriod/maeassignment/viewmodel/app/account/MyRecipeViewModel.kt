@@ -18,7 +18,6 @@ class MyRecipeViewModel: ViewModel() {
 
     fun getRecipeByAuthor() {
         _myRecipesLiveData = RecipeRepository().getRecipesByAuthor()
-        //RecipeRepository().getRecipes()
     }
 
     fun deleteRecipe(recipeId: String) {

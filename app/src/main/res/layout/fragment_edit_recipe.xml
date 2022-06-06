@@ -43,6 +43,8 @@ tools:context=".ui.app.account.EditRecipeFragment">
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_recipe_title"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input
@@ -62,6 +64,8 @@ tools:context=".ui.app.account.EditRecipeFragment">
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:helperText=""
+                app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_recipe_desc"
                 app:errorEnabled="true">
                 <!--this is the actual edit text which takes the input

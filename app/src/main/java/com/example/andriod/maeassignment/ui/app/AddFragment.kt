@@ -217,7 +217,6 @@ class AddFragment : Fragment(), View.OnClickListener {
         }
         val editTextMethod: EditText = inflater.findViewById(R.id.txtMethods) as EditText
         val containerMethod: TextInputLayout = inflater.findViewById(R.id.containerMethods) as TextInputLayout
-
         editTextMethod.setOnFocusChangeListener { _, focused ->
             if (!focused)
             {
@@ -242,7 +241,6 @@ class AddFragment : Fragment(), View.OnClickListener {
                 Glide.with(this)
                     .load(selectedImage)
                     .into(this.image_preview)
-                 //Log.e("frag", "ing")
                 imageUrl = selectedImage
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()

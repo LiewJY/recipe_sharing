@@ -61,6 +61,12 @@ class Validation {
             }
             return "Method cannot be empty. Remove if unused"
         }
+        fun mobileNumberValidation(mobile: String): String? {
+            if(mobile.count() > 10) {
+                return null
+            }
+            return "Enter valid mobile number"
+        }
 
 
     }

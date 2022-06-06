@@ -20,7 +20,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentEditRecipeBinding
+import com.example.andriod.maeassignment.utils.Validation
 import com.example.andriod.maeassignment.viewmodel.app.account.EditRecipeViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_add.ingredient_parent_linear_layout
 import kotlinx.android.synthetic.main.fragment_add.method_parent_linear_layout
 import kotlinx.android.synthetic.main.fragment_edit_recipe.*
@@ -33,7 +36,10 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
     private val viewModel: EditRecipeViewModel by lazy {
         ViewModelProvider(this).get(EditRecipeViewModel::class.java)
     }
+    private lateinit var binding: FragmentEditRecipeBinding
 
+    private var ingredientsList = ArrayList<String>()
+    private var methodList = ArrayList<String>()
     //    for image picker
     private  var imageUrl: Uri? = null
 
@@ -42,7 +48,7 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentEditRecipeBinding>(
+        binding = DataBindingUtil.inflate<FragmentEditRecipeBinding>(
             inflater,
             R.layout.fragment_edit_recipe, container, false
         )
@@ -50,9 +56,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
         binding.editRecipeToolbar.setOnClickListener {
             activity?.onBackPressed()
         }
-
-
-
 
         //register event handler (for the button)
         binding.btnEditImage.setOnClickListener(this)
@@ -62,23 +65,17 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
 
         recipeId = arguments?.getString("id")
         viewModel.getRecipe(recipeId.toString())
-        Log.e("frag", "got in edit $recipeId")
-
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val testdata = arrayOf("no 1", "no 2", "no 3", "no 4")
-
-
+        validationListener()
+        ///populate data
         viewModel.recipeData.observe(viewLifecycleOwner) { recipeData ->
             //title and desc
             this.txtEditRecipeTitle.setText(recipeData.title)
             this.txtEditRecipeDesc.setText(recipeData.desc)
-
             //image
             Glide.with(this)
                 .load(recipeData.image)
@@ -88,15 +85,11 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
             //ingredients & methods
             recipeData.ingredients.forEach{ ingredients ->
                 addIngredientFromFirebase(ingredients)
-                Log.e("frag", "for each $ingredients")
             }
             recipeData.methods.forEach{ methods ->
                 addMethodFromFirebase(methods)
-                Log.e("frag", "for each $methods")
             }
-
         }
-
     }
 
     override fun onClick(v: View?) {
@@ -113,46 +106,83 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
                     addMethod()
                 }
                 R.id.btnUpdate -> {
-                    updateRecipe()
+                    //add ingredients and methods into array list
+                    loadIngredients()
+                    loadMethods()
+                    if (validationError() == true) {
+                        viewModel.updateRecipe(
+                            recipeId.toString(),
+                            txtEditRecipeTitle.text.toString(),
+                            txtEditRecipeDesc.text.toString(),
+                            imageUrl,
+                            ingredientsList,
+                            methodList,
+                        )
+                        viewModel.updateRecipeStatus.observe(this) { result ->
+                            if (result == 1) {
+                                Toast.makeText(context, "Recipe updated", Toast.LENGTH_SHORT).show()
+                            }else if (result == 2) {
+                                Toast.makeText(context, "Recipe failed to update", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
                 }
             }
         }
+
     }
-//    fun onDelete(v: View) {
-//        Log.e("frag", "od pressed")
-//        this.ingredient_parent_linear_layout.removeView(v.parent as View)
-//    }
-
-    private var ingredientsList = ArrayList<String>()
-    private var methodList = ArrayList<String>()
-
-    private fun updateRecipe() {
-        Log.e("frag", "update")
-        //add ingredients and methods into array list
-        loadIngredients()
-        loadMethods()
 
 
-        viewModel.updateRecipe(
-            recipeId.toString(),
-            txtEditRecipeTitle.text.toString(),
-            txtEditRecipeDesc.text.toString(),
-            imageUrl,
-            ingredientsList,
-            methodList,
-        )
-        //todo return success message
-        viewModel.updateRecipeStatus.observe(this) { result ->
-            if (result == true) {
-                Toast.makeText(context, "Recipe Added", Toast.LENGTH_SHORT).show()
-            }else {
-                //todo
+    private fun validationListener() {
+        binding.txtEditRecipeTitle.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerEditRecipeTitle.helperText = Validation.titleValidation(binding.txtEditRecipeTitle.text.toString())
             }
         }
-
-
+        binding.txtEditRecipeDesc.setOnFocusChangeListener{_, focused ->
+            if (!focused)
+            {
+                binding.containerEditRecipeDesc.helperText = Validation.descriptionValidation(binding.txtEditRecipeDesc.text.toString())
+            }
+        }
     }
+    private fun validationError(): Boolean {
+        binding.containerEditRecipeTitle.helperText = Validation.titleValidation(binding.txtEditRecipeTitle.text.toString())
+        binding.containerEditRecipeDesc.helperText = Validation.descriptionValidation(binding.txtEditRecipeDesc.text.toString())
 
+        if(binding.containerEditRecipeTitle.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerEditRecipeTitle.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(binding.containerEditRecipeDesc.helperText != null)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerEditRecipeDesc.helperText}", Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(ingredientsList.count() < 1)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.noIngredient, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(ingredientsList.contains(""))
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.emptyIngredient, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(methodList.count() < 1)
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.noMethod, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        if(methodList.contains(""))
+        {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), Validation.emptyMethod, Snackbar.LENGTH_SHORT).show()
+            return false
+        }
+        return true
+    }
 
     private  fun loadMethods() {
         methodList.clear()
@@ -162,7 +192,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
             view = this.method_parent_linear_layout.getChildAt(i)
             val methods: EditText = view.findViewById(R.id.txtMethods)
             methodList.add(methods.text.toString())
-            //Toast.makeText(context, "Method at $i is ${methodList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private  fun loadIngredients() {
@@ -173,7 +202,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
             view = this.ingredient_parent_linear_layout.getChildAt(i)
             val ingredients: EditText = view.findViewById(R.id.txtIngredients)
             ingredientsList.add(ingredients.text.toString())
-            //Toast.makeText(context, "Ingredient at $i is ${ingredientsList[i]}  ", Toast.LENGTH_SHORT).show()
         }
     }
     private fun addIngredientFromFirebase(ingredient : String) {
@@ -210,8 +238,15 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
+        }
+        val editTextIngredient: EditText = inflater.findViewById(R.id.txtIngredients) as EditText
+        val containerIngredient: TextInputLayout = inflater.findViewById(R.id.containerIngredients) as TextInputLayout
+        editTextIngredient.setOnFocusChangeListener { _, focused ->
+            if (!focused)
+            {
+                containerIngredient.helperText = Validation.ingredientValidation(editTextIngredient.text.toString())
+            }
         }
     }
     private fun addMethod() {
@@ -222,8 +257,15 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
+        }
+        val editTextMethod: EditText = inflater.findViewById(R.id.txtMethods) as EditText
+        val containerMethod: TextInputLayout = inflater.findViewById(R.id.containerMethods) as TextInputLayout
+        editTextMethod.setOnFocusChangeListener { _, focused ->
+            if (!focused)
+            {
+                containerMethod.helperText = Validation.methodValidation(editTextMethod.text.toString())
+            }
         }
     }
 
@@ -246,8 +288,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
                     .into(this.image_preview)
                 //Log.e("frag", "ing")
                 imageUrl = selectedImage
-                Log.e("frag", "img url = $imageUrl   img selecred = $selectedImage")
-
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
             }

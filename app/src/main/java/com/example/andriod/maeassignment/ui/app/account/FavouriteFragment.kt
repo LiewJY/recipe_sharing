@@ -2,7 +2,6 @@ package com.example.andriod.maeassignment.ui.app.account
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,16 +15,14 @@ import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentFavouriteBinding
 import com.example.andriod.maeassignment.ui.app.recipe.RecipeActivity
 import com.example.andriod.maeassignment.viewmodel.app.account.FavouriteViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 class FavouriteFragment : Fragment(), FavouriteAdapter.OnItemClickListener {
     private lateinit var recyclerView : RecyclerView
-    private lateinit var binding: FragmentFavouriteBinding
 
     private val viewModel: FavouriteViewModel by lazy {
         ViewModelProvider(this).get(FavouriteViewModel::class.java)
     }
+    private lateinit var binding: FragmentFavouriteBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -45,41 +42,30 @@ class FavouriteFragment : Fragment(), FavouriteAdapter.OnItemClickListener {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //load data into recycler view
         viewModel.favouriteRecipesData.observe(viewLifecycleOwner) { recipes ->
-            Log.e("frag", "SUCCESS frag get $recipes")
-
             recyclerView = view.findViewById(R.id.favouriteRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { FavouriteAdapter(it, recipes, this) }
         }
 
     }
-    private val mFireStore = FirebaseFirestore.getInstance()
-    private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
-
     override fun onRemoveClick(recipeId: String) {
-        Log.e("frag", "test fav remove ")
         viewModel.removeFavouriteRecipes(recipeId)
-        viewModel.removeFavourite.observe(this) { status ->
-            if (status == true) {
-                Toast.makeText(context, "Removed recipe form favourite.", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                Toast.makeText(context, "Failed to remove recipe from favourite.", Toast.LENGTH_SHORT).show()
+        viewModel.removeFavourite.observe(this) { result ->
+            if (result == 1) {
+                refresh()
+                Toast.makeText(context, "Recipe removed from favourite", Toast.LENGTH_SHORT).show()
+            }else if (result == 2) {
+                Toast.makeText(context, "Recipe failed to remove from favourite", Toast.LENGTH_SHORT).show()
             }
         }
-        refresh()
-
     }
 
-    fun refresh() {
+    private fun refresh() {
         viewModel.getFavouriteRecipes()
         //load data into recycler view
         viewModel.favouriteRecipesData.observe(viewLifecycleOwner) { recipes ->
-            Log.e("frag", "SUCCESS frag get $recipes")
-
             recyclerView = requireView().findViewById(R.id.favouriteRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { FavouriteAdapter(it, recipes, this) }
@@ -89,12 +75,10 @@ class FavouriteFragment : Fragment(), FavouriteAdapter.OnItemClickListener {
 
 
     override fun onItemClick(recipeId: String) {
-        Toast.makeText(context, "Item $recipeId clicked", Toast.LENGTH_SHORT).show()
         //open recipe page
         val intent = Intent(activity, RecipeActivity::class.java)
         intent.putExtra("recipeId", recipeId)
         startActivity(intent)
-
     }
 
 

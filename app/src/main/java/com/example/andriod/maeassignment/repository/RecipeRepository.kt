@@ -55,39 +55,38 @@ class RecipeRepository {
         return getFavouriteRecipesMutableLiveData
     }
 
-    fun addFavourite(recipeId: String): MutableLiveData<Boolean> {
-        val addFavouriteRecipesMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        Log.e("frag", "SUCCESS get")
-        addFavouriteRecipesMutableLiveData.value = false
+    fun addFavourite(recipeId: String): MutableLiveData<Int> {
+        val addFavouriteRecipesMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        addFavouriteRecipesMutableLiveData.value = 0
         mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
             .update("favourite", FieldValue.arrayUnion(recipeId))
             .addOnSuccessListener {
-                Log.e("frag", "test fav add SUCCESS")
-                addFavouriteRecipesMutableLiveData.value = true
+                addFavouriteRecipesMutableLiveData.value = 1
+            }
+            .addOnFailureListener {
+                addFavouriteRecipesMutableLiveData.value = 2
             }
         return addFavouriteRecipesMutableLiveData
     }
 
-    fun removeFavourite(recipeId: String): MutableLiveData<Boolean> {
-        val removeFavouriteRecipesMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        Log.e("frag", "SUCCESS get")
-        removeFavouriteRecipesMutableLiveData.value = false
+    fun removeFavourite(recipeId: String): MutableLiveData<Int> {
+        val removeFavouriteRecipesMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        removeFavouriteRecipesMutableLiveData.value = 0
         mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
             .update("favourite", FieldValue.arrayRemove(recipeId))
             .addOnSuccessListener {
-                Log.e("frag", "test fav add SUCCESS")
-                removeFavouriteRecipesMutableLiveData.value = true
+                removeFavouriteRecipesMutableLiveData.value = 1
+            }
+            .addOnFailureListener {
+                removeFavouriteRecipesMutableLiveData.value = 2
             }
         return removeFavouriteRecipesMutableLiveData
     }
 
 
-    fun updateRecipe(recipeId: String ,recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Boolean> {
-        val updateRecipeMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        updateRecipeMutableLiveData.value = false
-        //get the uid first
-        Log.e("frag", "SUCCESS get uid ${recipeId}")
-
+    fun updateRecipe(recipeId: String ,recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Int> {
+        val updateRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        updateRecipeMutableLiveData.value = 0
         if (imageUrl != null) {
             //image is present
             // upload the image to firebase
@@ -118,15 +117,12 @@ class RecipeRepository {
                             "image", recipe.image)
                         .addOnCompleteListener{ updateRecipe ->
                             if(updateRecipe.isSuccessful){
-                                Log.e("frag", "SUCCESS added recipe with image   $imageLink")
-                                updateRecipeMutableLiveData.value = true
-
+                                updateRecipeMutableLiveData.value = 1
                             }
                         }
                 }
                 downloadUrl.addOnFailureListener {
-                    updateRecipeMutableLiveData.value = false
-                    Log.e("frag", "failed to add recipe with image")
+                    updateRecipeMutableLiveData.value = 2
                 }
             }
         }else {
@@ -138,7 +134,6 @@ class RecipeRepository {
                 desc = recipeDesc,
                 ingredients = ingredientsList,
                 methods = methodList,
-//                image = imageLink,
             )
             mFireStore.collection(Firebase.RECIPES)
                 .document(recipeId)
@@ -146,14 +141,13 @@ class RecipeRepository {
             "desc", recipe.desc,
                     "ingredients", recipe.ingredients,
                     "methods", recipe.methods)
-                .addOnCompleteListener{ addRecipe ->
-                    if(addRecipe.isSuccessful){
-                        updateRecipeMutableLiveData.value = true
-                        Log.e("frag", "SUCCESS update recipe with no image")
-                    }
+                .addOnSuccessListener{
+                    updateRecipeMutableLiveData.value = 1
+                }
+                .addOnFailureListener {
+                    updateRecipeMutableLiveData.value = 2
                 }
         }
-
 
         return updateRecipeMutableLiveData
     }
@@ -243,22 +237,45 @@ class RecipeRepository {
         mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener {
                 userInfo = it.toObject<User>()!!
-            }
-        //get the uid first
-        val uid = mFireStore.collection(Firebase.RECIPES).document()
-//        Log.e("frag", "SUCCESS get uid ${uid.id}")
-        if (imageUrl != null) {
-            //image is present
-            // upload the image to firebase
-            var uri = Uri.parse(imageUrl.toString())
-            val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + UUID.randomUUID().toString())
-            val uploadTask = imageRef?.putFile(uri)
-            uploadTask.addOnSuccessListener {
-                //get the url for the image
-                val downloadUrl = imageRef.downloadUrl
-                downloadUrl.addOnSuccessListener {
-                    //store data to firebase with info
-                    imageLink = it.toString()
+                //get the uid first
+                val uid = mFireStore.collection(Firebase.RECIPES).document()
+                if (imageUrl != null) {
+                    //image is present
+                    // upload the image to firebase
+                    var uri = Uri.parse(imageUrl.toString())
+                    val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + UUID.randomUUID().toString())
+                    val uploadTask = imageRef?.putFile(uri)
+                    uploadTask.addOnSuccessListener {
+                        //get the url for the image
+                        val downloadUrl = imageRef.downloadUrl
+                        downloadUrl.addOnSuccessListener {
+                            //store data to firebase with info
+                            imageLink = it.toString()
+                            val recipe = Recipe(
+                                id = uid.id,
+                                userid = currentFirebaseUser!!.uid,
+                                name = userInfo.name,
+                                title = recipeTitle,
+                                desc = recipeDesc,
+                                ingredients = ingredientsList,
+                                methods = methodList,
+                                image = imageLink,
+                            )
+                            mFireStore.collection(Firebase.RECIPES)
+                                .document(uid.id)
+                                .set(recipe)
+                                .addOnCompleteListener{ addRecipe ->
+                                    if(addRecipe.isSuccessful){
+                                        addRecipeMutableLiveData.value = 1
+                                    }
+                                }
+                        }
+                        downloadUrl.addOnFailureListener {
+                            addRecipeMutableLiveData.value = 2
+                        }
+                    }
+                }else {
+                    //no image
                     val recipe = Recipe(
                         id = uid.id,
                         userid = currentFirebaseUser!!.uid,
@@ -267,43 +284,23 @@ class RecipeRepository {
                         desc = recipeDesc,
                         ingredients = ingredientsList,
                         methods = methodList,
-                        image = imageLink,
                     )
                     mFireStore.collection(Firebase.RECIPES)
                         .document(uid.id)
                         .set(recipe)
-                        .addOnCompleteListener{ addRecipe ->
-                            if(addRecipe.isSuccessful){
-                                addRecipeMutableLiveData.value = 1
-                            }
+                        .addOnSuccessListener{
+                            addRecipeMutableLiveData.value = 1
+                        }
+                        .addOnFailureListener {
+                            addRecipeMutableLiveData.value = 2
                         }
                 }
-                downloadUrl.addOnFailureListener {
-                    addRecipeMutableLiveData.value = 2
-                }
+
             }
-        }else {
-            //no image
-            val recipe = Recipe(
-                id = uid.id,
-                userid = currentFirebaseUser!!.uid,
-                title = recipeTitle,
-                desc = recipeDesc,
-                ingredients = ingredientsList,
-                methods = methodList,
-            )
-            mFireStore.collection(Firebase.RECIPES)
-                .document(uid.id)
-                .set(recipe)
-                .addOnCompleteListener{ addRecipe ->
-                    if(addRecipe.isSuccessful){
-                        addRecipeMutableLiveData.value = 1
-                    }
-                }
-                .addOnFailureListener {
-                    addRecipeMutableLiveData.value = 2
-                }
-        }
+            .addOnFailureListener {
+                addRecipeMutableLiveData.value = 2
+           }
+
 
 
         return addRecipeMutableLiveData

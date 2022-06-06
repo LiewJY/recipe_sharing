@@ -66,21 +66,19 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         viewModel.deleteRecipe(recipeId)
         viewModel.deleteRecipeStatus.observe(this) {result ->
             if (result == 1) {
-                Toast.makeText(context, "Recipe deleted", Toast.LENGTH_SHORT).show()
                 refresh()
+                Toast.makeText(context, "Recipe deleted", Toast.LENGTH_SHORT).show()
             }else if (result == 2) {
                 Toast.makeText(context, "Recipe failed to delete", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun refresh() {
+    private fun refresh() {
 
         viewModel.getRecipeByAuthor()
         //load data into recycler view
         viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
-            Log.e("frag", "SUCCESS frag get $recipes")
-
             recyclerView = requireView().findViewById(R.id.myRecipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { MyRecipeAdapter(it, recipes, this) }
@@ -89,7 +87,6 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
 
     override fun onEditClick(recipeId: String) {
         //edit the recipe send data then go to edit page
-        Log.e("frag", "send to edit $recipeId")
         val bundle = bundleOf("id" to recipeId)
         findNavController().navigate(R.id.action_navigation_myRecipe_to_navigation_editRecipe, bundle)
 

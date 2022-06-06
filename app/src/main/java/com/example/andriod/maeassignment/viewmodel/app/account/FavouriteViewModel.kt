@@ -12,8 +12,8 @@ class FavouriteViewModel: ViewModel() {
     val favouriteRecipesData: MutableLiveData<ArrayList<Recipe>>
         get() = _favouriteRecipesLiveData
 
-    private var _removeFavouriteLiveData = MutableLiveData<Boolean>()
-    val removeFavourite: MutableLiveData<Boolean>
+    private var _removeFavouriteLiveData = MutableLiveData<Int>()
+    val removeFavourite: MutableLiveData<Int>
         get() = _removeFavouriteLiveData
 
     fun getFavouriteRecipes() {

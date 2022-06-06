@@ -76,16 +76,14 @@ class RecipeActivity : AppCompatActivity(){
 
         binding.btnFavourite.setOnClickListener{
             viewModel.addFavourite(recipeId)
-            viewModel.addFavourite.observe(this) { status ->
-                if (status == true) {
-                    Toast.makeText(this, "${binding.tvRecipeTitle.text} added to favourite.", Toast.LENGTH_SHORT).show()
-                }
-                else if (status == false){
-//                    Toast.makeText(this, "${binding.tvRecipeTitle.text} is already in favourite.", Toast.LENGTH_SHORT).show()
+            viewModel.addFavourite.observe(this) { result ->
+                if (result == 1) {
+                    Toast.makeText(this, "${binding.tvRecipeTitle.text} added to favourite", Toast.LENGTH_SHORT).show()
+                }else if (result == 2) {
+                    Toast.makeText(this, "${binding.tvRecipeTitle.text} already added to favourite", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
 
     }
 

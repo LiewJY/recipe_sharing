@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <!-- Title, secondary and supporting text -->
 <!--    <com.google.android.material.textview.MaterialTextView-->
@@ -32,6 +33,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:helperText=""
+        app:helperTextTextColor="@android:color/holo_red_dark"
         android:hint="@string/prompt_email"
         app:errorEnabled="true">
         <!--this is the actual edit text which takes the input

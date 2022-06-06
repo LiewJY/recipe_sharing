@@ -1,24 +1,27 @@
 package com.example.andriod.maeassignment.ui.app.account
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentProfileBinding
+import com.example.andriod.maeassignment.utils.Validation
 import com.example.andriod.maeassignment.viewmodel.app.account.EditProfileViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 
 
 class ProfileFragment : Fragment(), View.OnClickListener {
-    private val recipeViewModel: EditProfileViewModel by lazy {
+    private val viewModel: EditProfileViewModel by lazy {
         ViewModelProvider(this).get(EditProfileViewModel::class.java)
     }
 
@@ -50,35 +53,98 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 R.id.btnChangeEmail -> {
                     val dialog = context?.let { BottomSheetDialog(it) }
                     val dialogLayout=layoutInflater.inflate(R.layout.dialog_change_email,null)
+                    val newEmail = dialogLayout.findViewById<EditText>(R.id.txtEditEmail)
+                    val newEmailContainer = dialogLayout.findViewById<TextInputLayout>(R.id.containerEditEmail)
                     dialog?.setContentView(dialogLayout)
                     dialog?.show()
 
                     dialogLayout.findViewById<Button>(R.id.btnEditEmailClose).setOnClickListener {
                         dialog?.dismiss()
                     }
-                    dialogLayout.findViewById<Button>(R.id.btnEditEmail).setOnClickListener {
-                        Log.e("frag" , "change")
-                        val newEmail = dialogLayout.findViewById<EditText>(R.id.txtEditEmail).text.toString()
-                        recipeViewModel.changeEmail(newEmail)
-                        Log.e("frag" , "change to $newEmail")
+                    //validation
+                    newEmail.setOnFocusChangeListener{_, focused ->
+                        if (!focused)
+                        {
+                            newEmailContainer.helperText = Validation.emailValidation(newEmail.text.toString())
+                        }
                     }
+
+                    dialogLayout.findViewById<Button>(R.id.btnEditEmail).setOnClickListener {
+                        newEmailContainer.helperText = Validation.emailValidation(newEmail.text.toString())
+                        var passValidation = true
+                        if(newEmailContainer.helperText != null)
+                        {
+                            passValidation = false
+                            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${newEmailContainer.helperText}", Snackbar.LENGTH_SHORT).show()
+                        }
+                        if(passValidation == true) {
+                            val newEmailString = newEmail.text.toString()
+                            viewModel.changeEmail(newEmailString)
+                            viewModel.changeEmailStatus.observe(this) { result ->
+                                if(result == 1) {
+                                    Toast.makeText(context, "Changed email", Toast.LENGTH_SHORT).show()
+                                } else if (result == 2){
+                                    Toast.makeText(context, "Failed to change email", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+
 
 
                 }
                 R.id.btnChangePassword -> {
                     val dialog = context?.let { BottomSheetDialog(it) }
                     val dialogLayout=layoutInflater.inflate(R.layout.dialog_change_password,null)
+                    val newPassword = dialogLayout.findViewById<EditText>(R.id.txtEditPassword)
+                    val newPasswordConfirm = dialogLayout.findViewById<EditText>(R.id.txtEditPasswordConfirm)
+                    val newPasswordContainer = dialogLayout.findViewById<TextInputLayout>(R.id.containerEditPassword)
+                    val newPasswordConfirmContainer = dialogLayout.findViewById<TextInputLayout>(R.id.containerEditPasswordConfirm)
                     dialog?.setContentView(dialogLayout)
                     dialog?.show()
 
                     dialogLayout.findViewById<Button>(R.id.btnEditPasswordClose).setOnClickListener {
                         dialog?.dismiss()
                     }
+                    //validation
+                    newPassword.setOnFocusChangeListener{_, focused ->
+                        if (!focused)
+                        {
+                            newPasswordContainer.helperText = Validation.passwordValidation(newPassword.text.toString())
+                        }
+                    }
+                    newPasswordConfirm.setOnFocusChangeListener{_, focused ->
+                        if (!focused)
+                        {
+                            newPasswordConfirmContainer.helperText = Validation.passwordMatchValidation(newPassword.text.toString(),newPasswordConfirm.text.toString())
+                        }
+                    }
+
                     dialogLayout.findViewById<Button>(R.id.btnEditPassword).setOnClickListener {
-                        Log.e("frag" , "change")
-                        val newPassword = dialogLayout.findViewById<EditText>(R.id.txtEditPassword).text.toString()
-                        recipeViewModel.changePassword(newPassword)
-                        Log.e("frag" , "change to $newPassword")
+                        newPasswordContainer.helperText = Validation.passwordValidation(newPassword.text.toString())
+                        newPasswordConfirmContainer.helperText = Validation.passwordMatchValidation(newPassword.text.toString(),newPasswordConfirm.text.toString())
+                        var passValidation = true
+                        if(newPasswordContainer.helperText != null)
+                        {
+                            passValidation = false
+                            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${newPasswordContainer.helperText}", Snackbar.LENGTH_SHORT).show()
+                        }
+                        if(newPasswordConfirmContainer.helperText != null)
+                        {
+                            passValidation = false
+                            Snackbar.make(requireActivity().findViewById(android.R.id.content), "${newPasswordConfirmContainer.helperText}", Snackbar.LENGTH_SHORT).show()
+                        }
+                        if(passValidation == true) {
+                            val newPasswordString = newPassword.text.toString()
+                            viewModel.changePassword(newPasswordString)
+                            viewModel.changePassowrdStatus.observe(this) { result ->
+                                if(result == 1) {
+                                    Toast.makeText(context, "Change password", Toast.LENGTH_SHORT).show()
+                                } else if (result == 2){
+                                    Toast.makeText(context, "Failed to change password", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
                     }
 
                 }

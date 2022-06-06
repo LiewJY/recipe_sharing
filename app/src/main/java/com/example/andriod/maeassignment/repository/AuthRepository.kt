@@ -29,12 +29,11 @@ class AuthRepository {
 //         value = firebaseAuth.currentUser
 //    }
 
-    fun updateUserDetails(name: String, mobile: Long): MutableLiveData<Boolean> {
-        val updateUserDetailsMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        Log.e("frag", "SUCCESS get")
+    fun updateUserDetails(name: String, mobile: String): MutableLiveData<Int> {
+        val updateUserDetailsMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         var listRecipe = ArrayList<Recipe>()
         listRecipe.clear()
-        updateUserDetailsMutableLiveData.value = false
+        updateUserDetailsMutableLiveData.value = 0
         auth = FirebaseAuth.getInstance()
         val user = User(
             name = name,
@@ -63,7 +62,10 @@ class AuthRepository {
 //
 //
 //                    .update("name", user.name)
-                updateUserDetailsMutableLiveData.value = true
+                updateUserDetailsMutableLiveData.value = 1
+            }
+            .addOnFailureListener {
+                updateUserDetailsMutableLiveData.value = 2
             }
         return updateUserDetailsMutableLiveData
     }
@@ -82,54 +84,41 @@ class AuthRepository {
 }
 
 
-    fun changePassword(newPassword: String): MutableLiveData<Boolean> {
-    val changePasswordMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-    changePasswordMutableLiveData.value = false
-    auth = FirebaseAuth.getInstance()
-    if (auth.currentUser != null) {
-        Log.e("frag", " email change have user")
-    }
-    auth.currentUser!!.updatePassword(newPassword)?.addOnCompleteListener { changePassword ->
-        if (changePassword.isSuccessful) {
-            Log.e("frag", " email change SUCCESS")
-            changePasswordMutableLiveData.value = true
-        } else {
-            Log.e("frag", "FAIL")
-            changePasswordMutableLiveData.value = false
-
-        }
-    }.addOnFailureListener {
-        Log.e("frag", "FAIL $it")
-
-    }
-    return changePasswordMutableLiveData
-}
-
-
-    fun changeEmail(newEmail: String): MutableLiveData<Boolean> {
-        val changeEmailMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        changeEmailMutableLiveData.value = false
+    fun changePassword(newPassword: String): MutableLiveData<Int> {
+        val changePasswordMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        changePasswordMutableLiveData.value = 0
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             Log.e("frag", " email change have user")
         }
-        auth.currentUser!!.updateEmail(newEmail)?.addOnCompleteListener { changeEmail ->
-            if (changeEmail.isSuccessful) {
-                Log.e("frag", " email change SUCCESS")
-                mFireStore.collection(Firebase.USERS)
-                    .document(auth.currentUser!!.uid)
-                    .update("email", newEmail)
-                    .addOnSuccessListener {
-                        changeEmailMutableLiveData.value = true
-                    }
-            } else {
-                Log.e("frag", "FAIL")
-                changeEmailMutableLiveData.value = false
-
-            }
+        auth.currentUser!!.updatePassword(newPassword)
+            ?.addOnSuccessListener {
+                changePasswordMutableLiveData.value = 1
         }.addOnFailureListener {
-            Log.e("frag", "FAIL $it")
+            changePasswordMutableLiveData.value = 2
+        }
 
+        return changePasswordMutableLiveData
+    }
+
+
+    fun changeEmail(newEmail: String): MutableLiveData<Int> {
+        val changeEmailMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        changeEmailMutableLiveData.value = 0
+        auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null) {
+            Log.e("frag", " email change have user")
+        }
+        auth.currentUser!!.updateEmail(newEmail)
+            ?.addOnSuccessListener {
+            mFireStore.collection(Firebase.USERS)
+                .document(auth.currentUser!!.uid)
+                .update("email", newEmail)
+                .addOnSuccessListener {
+                    changeEmailMutableLiveData.value = 1
+                }
+        }.addOnFailureListener {
+                changeEmailMutableLiveData.value = 2
         }
         return changeEmailMutableLiveData
 

@@ -2,11 +2,9 @@ package com.example.andriod.maeassignment.ui.app
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,13 +19,13 @@ import com.example.andriod.maeassignment.viewmodel.app.HomeViewModel
 
 
 class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
-//    private lateinit var dbref : DatabaseReference
     private lateinit var recyclerView : RecyclerView
     private lateinit var aa : ArrayList<Recipe>
-    private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
     }
+    private lateinit var binding: FragmentHomeBinding
+
     var adapter: HomeAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,26 +45,15 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 
         binding.txtSearch.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                context?.let { HomeAdapter(it, aa, null).filter.filter(query) }
-                Log.e("frag", "submit $query")
-
+//                Log.e("frag", "submit $query")
                 adapter?.filter?.filter(query)
-
                 return true;
             }
-
             override fun onQueryTextChange(query: String?): Boolean {
-                Log.e("frag", "query $query")
-
+//                Log.e("frag", "query $query")
                 adapter?.filter?.filter(query)
-
-//                context?.let { HomeAdapter(it, aa, null).getFilter().filter(query) };
-
-                //context?.let { HomeAdapter(it, aa, null).filter.filter(query) }
-
                 return true;
             }
-
         })
 
         return binding.root
@@ -74,12 +61,9 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val myDataset = Datasource().loadAffirmations()
 
         //load data into recycler view
         viewModel.recipesData.observe(viewLifecycleOwner) { recipes ->
-            Log.e("frag", "SUCCESS frag get $recipes")
-//            aa = recipes;
             adapter = context?.let { HomeAdapter(it, recipes, this) }
             recyclerView = view.findViewById(R.id.recipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
@@ -89,7 +73,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 
     }
     override fun onItemClick(recipeId: String) {
-        Toast.makeText(context, "Item $recipeId clicked", Toast.LENGTH_SHORT).show()
         //open recipe page
         val intent = Intent(activity, RecipeActivity::class.java)
         intent.putExtra("recipeId", recipeId)
