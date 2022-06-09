@@ -76,7 +76,8 @@
                 app:helperText=""
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_password"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true">
                 <!--this is the actual edit text which takes the input
                 the actual useful id is below-->
                 <com.google.android.material.textfield.TextInputEditText
@@ -96,7 +97,8 @@
                 app:helperText=""
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_confirm_password"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true">
                 <!--this is the actual edit text which takes the input
                 the actual useful id is below-->
                 <com.google.android.material.textfield.TextInputEditText

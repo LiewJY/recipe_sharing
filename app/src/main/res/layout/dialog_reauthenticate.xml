@@ -9,7 +9,7 @@
     android:paddingRight="20dp">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnEditPasswordClose"
+        android:id="@+id/btnReAuthClose"
         style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,9 +19,28 @@
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
         app:iconTint="#848A7E"
         tools:ignore="SpeakableTextPresentCheck" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/containerReAuthEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:helperText=""
+        app:helperTextTextColor="@android:color/holo_red_dark"
+        android:hint="@string/prompt_email"
+        app:errorEnabled="true">
+        <!--this is the actual edit text which takes the input
+        the actual useful id is below-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtReAuthEmail"
+            style="@style/TextAppearance.MdcTypographyStyles.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#757575" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/containerEditPassword"
+        android:id="@+id/containerReAuthPassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,28 +52,7 @@
         <!--this is the actual edit text which takes the input
         the actual useful id is below-->
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtEditPassword"
-            style="@style/TextAppearance.MdcTypographyStyles.Body1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColorHint="#757575" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/containerEditPasswordConfirm"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:helperText=""
-        app:helperTextTextColor="@android:color/holo_red_dark"
-        android:hint="@string/prompt_confirm_password"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true">
-        <!--this is the actual edit text which takes the input
-        the actual useful id is below-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtEditPasswordConfirm"
+            android:id="@+id/txtReAuthPassword"
             style="@style/TextAppearance.MdcTypographyStyles.Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,11 +61,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnEditPassword"
+        android:id="@+id/btnReAuth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="@string/action_change_password"
+        android:text="@string/action_sign_in_short"
         android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
 
 

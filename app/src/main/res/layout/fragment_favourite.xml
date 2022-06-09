@@ -41,7 +41,7 @@ tools:context=".ui.app.account.FavouriteFragment">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/recipes_item">
+        tools:listitem="@layout/favourite_item">
         <!--        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"-->
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.models.User
-import com.example.andriod.maeassignment.utils.Firebase
+import com.example.andriod.maeassignment.utils.FirebaseVal
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -34,14 +34,14 @@ class RecipeRepository {
         Log.e("frag", "SUCCESS get")
         var listFavorites = ArrayList<String>()
         listFavorites.add("")
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener { fav ->
                 val  userFavourite = fav.toObject<User>()
                 for (item in userFavourite!!.favourite) {
                     listFavorites.add(item)
                     Log.e("frag", "test get ${item}")
                 }
-                mFireStore.collection(Firebase.RECIPES).whereIn("id", listFavorites).get()
+                mFireStore.collection(FirebaseVal.RECIPES).whereIn("id", listFavorites).get()
                     .addOnSuccessListener { favourite ->
                         if(favourite != null) {
                             val data = favourite.toObjects<Recipe>()
@@ -58,7 +58,7 @@ class RecipeRepository {
     fun addFavourite(recipeId: String): MutableLiveData<Int> {
         val addFavouriteRecipesMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         addFavouriteRecipesMutableLiveData.value = 0
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid)
             .update("favourite", FieldValue.arrayUnion(recipeId))
             .addOnSuccessListener {
                 addFavouriteRecipesMutableLiveData.value = 1
@@ -72,7 +72,7 @@ class RecipeRepository {
     fun removeFavourite(recipeId: String): MutableLiveData<Int> {
         val removeFavouriteRecipesMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         removeFavouriteRecipesMutableLiveData.value = 0
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid)
             .update("favourite", FieldValue.arrayRemove(recipeId))
             .addOnSuccessListener {
                 removeFavouriteRecipesMutableLiveData.value = 1
@@ -108,7 +108,7 @@ class RecipeRepository {
                         methods = methodList,
                         image = imageLink,
                     )
-                    mFireStore.collection(Firebase.RECIPES)
+                    mFireStore.collection(FirebaseVal.RECIPES)
                         .document(recipeId)
                         .update("title", recipe.title,
                             "desc", recipe.desc,
@@ -135,7 +135,7 @@ class RecipeRepository {
                 ingredients = ingredientsList,
                 methods = methodList,
             )
-            mFireStore.collection(Firebase.RECIPES)
+            mFireStore.collection(FirebaseVal.RECIPES)
                 .document(recipeId)
                 .update("title", recipe.title,
             "desc", recipe.desc,
@@ -157,7 +157,7 @@ class RecipeRepository {
     fun deleteRecipe(recipeId: String): MutableLiveData<Int> {
         val deleteRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         deleteRecipeMutableLiveData.value = 0
-        mFireStore.collection(Firebase.RECIPES).document(recipeId).delete()
+        mFireStore.collection(FirebaseVal.RECIPES).document(recipeId).delete()
             .addOnSuccessListener {
                 deleteRecipeMutableLiveData.value = 1
             }
@@ -176,7 +176,7 @@ class RecipeRepository {
 
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
-        mFireStore.collection(Firebase.RECIPES).whereEqualTo("userid", currentFirebaseUser!!.uid).get()
+        mFireStore.collection(FirebaseVal.RECIPES).whereEqualTo("userid", currentFirebaseUser!!.uid).get()
             .addOnSuccessListener { recipes ->
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
@@ -199,7 +199,7 @@ class RecipeRepository {
 
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
-        mFireStore.collection(Firebase.RECIPES).document(recipeId).get()
+        mFireStore.collection(FirebaseVal.RECIPES).document(recipeId).get()
             .addOnSuccessListener { recipe ->
                 if(recipe != null) {
                     getRecipeMutableLiveData.value = recipe.toObject<Recipe>()
@@ -214,7 +214,7 @@ class RecipeRepository {
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
         Log.e("frag", "SUCCESS get")
-        mFireStore.collection(Firebase.RECIPES).get()
+        mFireStore.collection(FirebaseVal.RECIPES).get()
             .addOnSuccessListener { recipes ->
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
@@ -234,11 +234,11 @@ class RecipeRepository {
     fun addRecipe(recipeTitle: String,recipeDesc: String,imageUrl: Uri?,ingredientsList: ArrayList<String>, methodList: ArrayList<String>): MutableLiveData<Int> {
         val addRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         addRecipeMutableLiveData.value = 0
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener {
                 userInfo = it.toObject<User>()!!
                 //get the uid first
-                val uid = mFireStore.collection(Firebase.RECIPES).document()
+                val uid = mFireStore.collection(FirebaseVal.RECIPES).document()
                 if (imageUrl != null) {
                     //image is present
                     // upload the image to firebase
@@ -261,7 +261,7 @@ class RecipeRepository {
                                 methods = methodList,
                                 image = imageLink,
                             )
-                            mFireStore.collection(Firebase.RECIPES)
+                            mFireStore.collection(FirebaseVal.RECIPES)
                                 .document(uid.id)
                                 .set(recipe)
                                 .addOnCompleteListener{ addRecipe ->
@@ -285,7 +285,7 @@ class RecipeRepository {
                         ingredients = ingredientsList,
                         methods = methodList,
                     )
-                    mFireStore.collection(Firebase.RECIPES)
+                    mFireStore.collection(FirebaseVal.RECIPES)
                         .document(uid.id)
                         .set(recipe)
                         .addOnSuccessListener{

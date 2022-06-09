@@ -20,6 +20,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                app:srcCompat="@drawable/logo" />
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/containerLoginEmail"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -47,7 +53,8 @@
                 app:helperText=""
                 app:helperTextTextColor="@android:color/holo_red_dark"
                 android:hint="@string/prompt_password"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:passwordToggleEnabled="true">
                 <!--this is the actual edit text which takes the input
                 the actual useful id is below-->
                 <com.google.android.material.textfield.TextInputEditText

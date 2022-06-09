@@ -23,6 +23,10 @@ class EditProfileViewModel: ViewModel() {
     val changeUserDetailsStatus: MutableLiveData<Int>
         get() = _changeUserDetailsLiveData
 
+    private var _reAuthUserLiveData = MutableLiveData<Int>()
+    val reAuthUserStatus: MutableLiveData<Int>
+        get() = _reAuthUserLiveData
+
 
     fun changeEmail(newEmail : String) {
         _changeEmailLiveData = AuthRepository().changeEmail(newEmail)
@@ -37,6 +41,10 @@ class EditProfileViewModel: ViewModel() {
     }
     fun changeUserDetails(name: String, mobile: String) {
         _changeUserDetailsLiveData = AuthRepository().updateUserDetails(name, mobile)
+    }
+
+    fun reAuthUser(email: String, password: String) {
+        _reAuthUserLiveData = AuthRepository().reAuth(email, password)
     }
 
 

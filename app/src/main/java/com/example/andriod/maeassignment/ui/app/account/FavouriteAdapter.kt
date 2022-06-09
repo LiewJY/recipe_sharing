@@ -35,6 +35,8 @@ class FavouriteAdapter (private val context: Context,
 
         holder.title.text = currentitem.title
         holder.desc.text = currentitem.desc
+        holder.author.text = currentitem.name
+
         Glide.with(context)
             .load(currentitem.image)
             .placeholder(R.mipmap.ic_launcher_round)
@@ -72,9 +74,10 @@ class FavouriteAdapter (private val context: Context,
     }
 
     class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.tvMyRecipeTitle)
-        val desc: TextView = itemView.findViewById(R.id.tvMyRecipeDesc)
-        val image: ImageView = itemView.findViewById(R.id.imageMyRecipe)
+        val title: TextView = itemView.findViewById(R.id.tvFavouriteTitle)
+        val desc: TextView = itemView.findViewById(R.id.tvFavouriteDesc)
+        val author: TextView = itemView.findViewById(R.id.tvFavouriteAuthor)
+        val image: ImageView = itemView.findViewById(R.id.imageFavouriteRecipe)
         val remove: Button = itemView.findViewById(R.id.btnFavouriteRemove)
     }
 

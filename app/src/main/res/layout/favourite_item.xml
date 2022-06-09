@@ -16,7 +16,7 @@
         android:orientation="vertical">
         <!-- media-->
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageMyRecipe"
+            android:id="@+id/imageFavouriteRecipe"
             android:layout_width="match_parent"
             android:layout_height="194dp"
             android:scaleType="centerCrop" />
@@ -29,23 +29,23 @@
 
             <!-- Title, secondary and supporting text -->
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvMyRecipeTitle"
+                android:id="@+id/tvFavouriteTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/prompt_recipe_title"
                 android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline6" />
 
-            <!--            <com.google.android.material.textview.MaterialTextView-->
-            <!--                android:id="@+id/tvHomeName"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="16dp"-->
-            <!--                android:text="@string/prompt_name"-->
-            <!--                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"-->
-            <!--                android:textColor="?android:attr/textColorSecondary" />-->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvFavouriteAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/prompt_name"
+                android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body2"
+                android:textColor="?android:attr/textColorSecondary" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvMyRecipeDesc"
+                android:id="@+id/tvFavouriteDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

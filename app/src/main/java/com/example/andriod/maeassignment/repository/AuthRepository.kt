@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.models.User
-import com.example.andriod.maeassignment.utils.Firebase
+import com.example.andriod.maeassignment.utils.FirebaseVal
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,7 +40,7 @@ class AuthRepository {
             name = name,
             mobile = mobile,
         )
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid)
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid)
             .update("user", user.name,
             "mobile", user.mobile)
             .addOnSuccessListener {
@@ -74,14 +75,28 @@ class AuthRepository {
         val getUserDetailsMutableLiveData: MutableLiveData<User> = MutableLiveData<User>()
         Log.e("frag", "SUCCESS get")
         auth = FirebaseAuth.getInstance()
-        mFireStore.collection(Firebase.USERS).document(currentFirebaseUser!!.uid).get()
+        mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener { user ->
                 if(user != null) {
                     getUserDetailsMutableLiveData.value = user.toObject<User>()
                 }
             }
         return getUserDetailsMutableLiveData
-}
+    }
+
+    fun reAuth(email: String, password: String): MutableLiveData<Int> {
+        val reAuthMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        reAuthMutableLiveData.value = 0
+        auth = FirebaseAuth.getInstance()
+        val credential = EmailAuthProvider.getCredential(email, password)
+        auth.currentUser!!.reauthenticate(credential).addOnSuccessListener {
+            reAuthMutableLiveData.value = 1
+        }
+        .addOnFailureListener {
+            reAuthMutableLiveData.value = 2
+        }
+        return reAuthMutableLiveData
+    }
 
 
     fun changePassword(newPassword: String): MutableLiveData<Int> {
@@ -111,7 +126,7 @@ class AuthRepository {
         }
         auth.currentUser!!.updateEmail(newEmail)
             ?.addOnSuccessListener {
-            mFireStore.collection(Firebase.USERS)
+            mFireStore.collection(FirebaseVal.USERS)
                 .document(auth.currentUser!!.uid)
                 .update("email", newEmail)
                 .addOnSuccessListener {
@@ -194,7 +209,7 @@ class AuthRepository {
                         email
                     )
                     //add additional information into database
-                    mFireStore.collection(Firebase.USERS)
+                    mFireStore.collection(FirebaseVal.USERS)
                         .document(user.id)
                         .set(user, SetOptions.merge())
                         .addOnCompleteListener { addDetails ->
