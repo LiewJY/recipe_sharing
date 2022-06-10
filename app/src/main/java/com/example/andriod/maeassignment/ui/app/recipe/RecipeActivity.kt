@@ -52,7 +52,7 @@ class RecipeActivity : AppCompatActivity(){
                 binding.tvRecipeAuthor.text = recipe.name
                 Glide.with(this)
                     .load(recipe.image)
-                    .placeholder(R.mipmap.ic_launcher_round)
+                    .placeholder(R.drawable.logo)
                     .into(binding.imageRecipes)
 
                 binding.tvRecipeDesc.text = recipe.desc

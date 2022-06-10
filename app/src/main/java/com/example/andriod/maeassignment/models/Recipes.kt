@@ -1,6 +1,8 @@
-package com.example.andriod.maeassignment.models
+package com.example.andriod.maeassignment.model
 
-data class Recipe(
+import com.google.firebase.firestore.FieldValue
+
+data class Recipes(
     val id: String = "",
     val userid: String = "", //done
     val name: String? = "", //done
@@ -9,7 +11,8 @@ data class Recipe(
     val image: String? = "", //done
     val ingredients: ArrayList<String> = ArrayList(), //done
     val methods: ArrayList<String> = ArrayList(),
-//    val timestamp: FieldValue? = FieldValue.serverTimestamp(), //done
+    val timestamp: FieldValue? = FieldValue.serverTimestamp(), //done
     )
+
 
 

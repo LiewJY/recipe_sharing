@@ -36,7 +36,7 @@ class MyRecipeAdapter (private val context: Context,
         holder.desc.text = currentitem.desc
         Glide.with(context)
             .load(currentitem.image)
-            .placeholder(R.mipmap.ic_launcher_round)
+            .placeholder(R.drawable.logo)
             .into(holder.image)
 
         holder.edit.setOnClickListener {

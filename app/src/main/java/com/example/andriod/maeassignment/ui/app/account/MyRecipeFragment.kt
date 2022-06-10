@@ -40,6 +40,10 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
             recyclerView = view.findViewById(R.id.myRecipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { MyRecipeAdapter(it, recipes, this) }
+
+            if(recipes.isEmpty()) {
+                Toast.makeText(context, "You have no published recipe", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -82,6 +86,9 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
             recyclerView = requireView().findViewById(R.id.myRecipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { MyRecipeAdapter(it, recipes, this) }
+            if(recipes.isEmpty()) {
+                Toast.makeText(context, "You have no published recipe", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

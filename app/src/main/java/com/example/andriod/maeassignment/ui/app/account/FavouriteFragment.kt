@@ -47,7 +47,11 @@ class FavouriteFragment : Fragment(), FavouriteAdapter.OnItemClickListener {
             recyclerView = view.findViewById(R.id.favouriteRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { FavouriteAdapter(it, recipes, this) }
+            if(recipes.isEmpty()) {
+                Toast.makeText(context, "You have no favourite recipe", Toast.LENGTH_SHORT).show()
+            }
         }
+
 
     }
     override fun onRemoveClick(recipeId: String) {
@@ -69,6 +73,7 @@ class FavouriteFragment : Fragment(), FavouriteAdapter.OnItemClickListener {
             recyclerView = requireView().findViewById(R.id.favouriteRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = context?.let { FavouriteAdapter(it, recipes, this) }
+            Toast.makeText(context, "You have no favourite recipe", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -3,16 +3,17 @@ package com.example.andriod.maeassignment.repository
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.andriod.maeassignment.model.Recipes
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.models.User
 import com.example.andriod.maeassignment.utils.FirebaseVal
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.storage.FirebaseStorage
-import java.util.*
 
 
 class RecipeRepository {
@@ -91,7 +92,7 @@ class RecipeRepository {
             //image is present
             // upload the image to firebase
             var uri = Uri.parse(imageUrl.toString())
-            val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + UUID.randomUUID().toString())
+            val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + recipeId)
             val uploadTask = imageRef?.putFile(uri)
             uploadTask.addOnSuccessListener {
                 //get the url for the image
@@ -104,9 +105,9 @@ class RecipeRepository {
 //                        userid = currentFirebaseUser!!.uid,
                         title = recipeTitle,
                         desc = recipeDesc,
+                        image = imageLink,
                         ingredients = ingredientsList,
                         methods = methodList,
-                        image = imageLink,
                     )
                     mFireStore.collection(FirebaseVal.RECIPES)
                         .document(recipeId)
@@ -175,8 +176,10 @@ class RecipeRepository {
         val getRecipesByAuthorMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
 
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
-        Log.e("frag", "SUCCESS get")
-        mFireStore.collection(FirebaseVal.RECIPES).whereEqualTo("userid", currentFirebaseUser!!.uid).get()
+        Log.e("frag", "SUCCESS get author" )
+        mFireStore.collection(FirebaseVal.RECIPES)
+            .whereEqualTo("userid", currentFirebaseUser!!.uid)
+            .get()
             .addOnSuccessListener { recipes ->
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
@@ -196,7 +199,6 @@ class RecipeRepository {
     //get a single recipe
     fun getRecipe(recipeId: String): MutableLiveData<Recipe> {
         val getRecipeMutableLiveData: MutableLiveData<Recipe> = MutableLiveData<Recipe>()
-
         //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
         Log.e("frag", "SUCCESS get")
         mFireStore.collection(FirebaseVal.RECIPES).document(recipeId).get()
@@ -214,7 +216,8 @@ class RecipeRepository {
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
         Log.e("frag", "SUCCESS get")
-        mFireStore.collection(FirebaseVal.RECIPES).get()
+        mFireStore.collection(FirebaseVal.RECIPES).orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
             .addOnSuccessListener { recipes ->
                 if(recipes != null) {
                     val data = recipes.toObjects<Recipe>()
@@ -243,7 +246,7 @@ class RecipeRepository {
                     //image is present
                     // upload the image to firebase
                     var uri = Uri.parse(imageUrl.toString())
-                    val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + UUID.randomUUID().toString())
+                    val  imageRef = storageReference.child("images/" + currentFirebaseUser!!.uid + "/" + uid.id)
                     val uploadTask = imageRef?.putFile(uri)
                     uploadTask.addOnSuccessListener {
                         //get the url for the image
@@ -251,7 +254,7 @@ class RecipeRepository {
                         downloadUrl.addOnSuccessListener {
                             //store data to firebase with info
                             imageLink = it.toString()
-                            val recipe = Recipe(
+                            val recipe = Recipes(
                                 id = uid.id,
                                 userid = currentFirebaseUser!!.uid,
                                 name = userInfo.name,
@@ -260,7 +263,8 @@ class RecipeRepository {
                                 ingredients = ingredientsList,
                                 methods = methodList,
                                 image = imageLink,
-                            )
+                                timestamp = FieldValue.serverTimestamp(),
+                                )
                             mFireStore.collection(FirebaseVal.RECIPES)
                                 .document(uid.id)
                                 .set(recipe)
@@ -276,7 +280,7 @@ class RecipeRepository {
                     }
                 }else {
                     //no image
-                    val recipe = Recipe(
+                    val recipe = Recipes(
                         id = uid.id,
                         userid = currentFirebaseUser!!.uid,
                         name = userInfo.name,
@@ -284,6 +288,7 @@ class RecipeRepository {
                         desc = recipeDesc,
                         ingredients = ingredientsList,
                         methods = methodList,
+                        timestamp = FieldValue.serverTimestamp(),
                     )
                     mFireStore.collection(FirebaseVal.RECIPES)
                         .document(uid.id)

@@ -60,7 +60,7 @@ class AddFragment : Fragment(), View.OnClickListener {
 
         Glide.with(this)
             .load("http://via.placeholder.com/300.png")
-            .placeholder(android.R.drawable.ic_menu_report_image)
+            .placeholder(R.drawable.logo)
             .into(binding.imagePreview)
 
         return binding.root

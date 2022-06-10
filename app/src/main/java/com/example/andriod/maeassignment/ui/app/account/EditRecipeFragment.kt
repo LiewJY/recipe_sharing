@@ -79,7 +79,7 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
             //image
             Glide.with(this)
                 .load(recipeData.image)
-                .placeholder(R.mipmap.ic_launcher_round)
+                .placeholder(R.drawable.logo)
                 .into(image_preview)
 
             //ingredients & methods
@@ -285,6 +285,7 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
             try {
                 Glide.with(this)
                     .load(selectedImage)
+                    .placeholder(R.drawable.logo)
                     .into(this.image_preview)
                 //Log.e("frag", "ing")
                 imageUrl = selectedImage

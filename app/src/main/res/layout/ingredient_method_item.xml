@@ -23,9 +23,13 @@
             android:id="@+id/tvIngMetItem"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="@string/prompt_ingredient_method"
+            android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Body1"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textColor="?android:attr/textColorSecondary"
+            tools:ignore="RtlCompat"
+            android:paddingEnd="10dp"/>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
