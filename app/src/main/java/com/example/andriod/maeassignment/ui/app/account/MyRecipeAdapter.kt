@@ -41,6 +41,9 @@ class MyRecipeAdapter (private val context: Context,
         holder.edit.setOnClickListener {
             listener.onEditClick(currentitem.id)
         }
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            listener?.onItemClick(currentitem.id)
+        })
         holder.delete.setOnClickListener {
             MaterialAlertDialogBuilder(context,
                 com.google.android.material.R.style.Animation_AppCompat_Dialog)
@@ -72,6 +75,7 @@ class MyRecipeAdapter (private val context: Context,
     interface OnItemClickListener {
         fun onDeleteClick(recipeId: String)
         fun onEditClick(recipeId: String)
+        fun onItemClick(recipeId: String)
     }
 
 }

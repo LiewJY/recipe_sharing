@@ -15,24 +15,10 @@ class LoginViewModel: ViewModel() {
         get() = _isLoginLiveData
 
     fun login(email: String, password: String) {
-        // todo add validation
-
         _loginUserLiveData = AuthRepository().login(email, password)
     }
 
     fun isLogin() {
         _isLoginLiveData= AuthRepository().isLogin()
     }
-
-
-//    val authenticationState = FirebaseUserLiveData().map { user ->
-//        if (user != null) {
-//            AuthenticationState.AUTHENTICATED
-//        } else {
-//            AuthenticationState.UNAUTHENTICATED
-//        }
-//    }
-
-
-
 }

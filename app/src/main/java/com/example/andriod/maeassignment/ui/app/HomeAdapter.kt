@@ -51,7 +51,6 @@ class HomeAdapter(private val context: Context,
         return recipeFilterList.size
     }
 
-
      class RecipesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title : TextView = itemView.findViewById(R.id.tvHomeRecipeTitle)
         val user : TextView = itemView.findViewById(R.id.tvHomeName)

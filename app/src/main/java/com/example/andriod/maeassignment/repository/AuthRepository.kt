@@ -32,25 +32,6 @@ class AuthRepository {
             .update("user", user.name,
             "mobile", user.mobile)
             .addOnSuccessListener {
-//                mFireStore.collection(Firebase.RECIPES).whereEqualTo("userid", currentFirebaseUser!!.uid).get()
-//                    .addOnSuccessListener { recipes ->
-//                        val  userRecipe = recipes.toObjects<Recipe>()
-//                        for (item in userRecipe) {
-//                            listRecipe.add(item)
-//                            Log.e("frag", "test get ${item}")
-//                        }
-//                        mFireStore.collection(Firebase.RECIPES).whereIn("id", listRecipe).get()
-//                            .addOnSuccessListener { favourite ->
-//                                if(favourite != null) {
-//                                    val data = favourite.toObjects<Recipe>()
-//                                    Log.e("frag", "SUCCESS get ${data.toList()}")
-//                                    Log.e("frag", "SUCCESS get $data")
-//                                }
-//                            }
-//                    }
-//
-//
-//                    .update("name", user.name)
                 updateUserDetailsMutableLiveData.value = 1
             }
             .addOnFailureListener {

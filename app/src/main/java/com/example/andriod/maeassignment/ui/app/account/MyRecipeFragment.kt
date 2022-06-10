@@ -1,5 +1,6 @@
 package com.example.andriod.maeassignment.ui.app.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.andriod.maeassignment.R
 import com.example.andriod.maeassignment.databinding.FragmentMyRecipeBinding
+import com.example.andriod.maeassignment.ui.app.recipe.RecipeActivity
 import com.example.andriod.maeassignment.viewmodel.app.account.MyRecipeViewModel
 
 
@@ -91,6 +93,14 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         //edit the recipe send data then go to edit page
         val bundle = bundleOf("id" to recipeId)
         findNavController().navigate(R.id.action_navigation_myRecipe_to_navigation_editRecipe, bundle)
+
+    }
+
+    override fun onItemClick(recipeId: String) {
+        //open recipe page
+        val intent = Intent(activity, RecipeActivity::class.java)
+        intent.putExtra("recipeId", recipeId)
+        startActivity(intent)
 
     }
 

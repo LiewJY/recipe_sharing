@@ -212,7 +212,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
-
     }
 
     fun resetPassword() {
@@ -241,7 +240,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 newPasswordConfirmContainer.helperText = Validation.passwordMatchValidation(newPassword.text.toString(),newPasswordConfirm.text.toString())
             }
         }
-
         dialogLayout.findViewById<Button>(R.id.btnEditPassword).setOnClickListener {
             newPasswordContainer.helperText = Validation.passwordValidation(newPassword.text.toString())
             newPasswordConfirmContainer.helperText = Validation.passwordMatchValidation(newPassword.text.toString(),newPasswordConfirm.text.toString())

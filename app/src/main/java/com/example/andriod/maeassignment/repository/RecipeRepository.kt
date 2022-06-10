@@ -93,8 +93,6 @@ class RecipeRepository {
                     //store data to firebase with info
                     imageLink = it.toString()
                     val recipe = Recipe(
-//                        id = recipeId,
-//                        userid = currentFirebaseUser!!.uid,
                         title = recipeTitle,
                         desc = recipeDesc,
                         image = imageLink,
@@ -121,8 +119,6 @@ class RecipeRepository {
         }else {
             //no image update
             val recipe = Recipe(
-//                id = recipeId,
-//                userid = currentFirebaseUser!!.uid,
                 title = recipeTitle,
                 desc = recipeDesc,
                 ingredients = ingredientsList,
@@ -141,7 +137,6 @@ class RecipeRepository {
                     updateRecipeMutableLiveData.value = 2
                 }
         }
-
         return updateRecipeMutableLiveData
     }
 
@@ -277,9 +272,6 @@ class RecipeRepository {
             .addOnFailureListener {
                 addRecipeMutableLiveData.value = 2
            }
-
-
-
         return addRecipeMutableLiveData
     }
 

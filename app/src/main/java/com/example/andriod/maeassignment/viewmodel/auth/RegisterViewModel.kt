@@ -12,15 +12,6 @@ class RegisterViewModel: ViewModel() {
         get() = _createdUserLiveData
 
     fun register(name: String, email: String,password: String) {
-       // Log.e("frag", "in view model$name  $email  $password")
-
-        // TODO: add validation
-
-//        if (name.isEmpty()) {
-//            Log.e("frag", "no name")
-//
-//            return
-//        }
         _createdUserLiveData = AuthRepository().register(name, email, password)
     }
 
