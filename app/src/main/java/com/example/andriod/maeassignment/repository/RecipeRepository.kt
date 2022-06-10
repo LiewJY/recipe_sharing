@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.repository
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.model.Recipes
 import com.example.andriod.maeassignment.models.Recipe
@@ -19,12 +18,9 @@ import com.google.firebase.storage.FirebaseStorage
 class RecipeRepository {
 
     private val mFireStore = FirebaseFirestore.getInstance()
-
-    //private lateinit var  auth: FirebaseAuth
-
-    //for firestore image
     private var storageReference = FirebaseStorage.getInstance().reference
     private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
+
     private lateinit var imageLink: String
     private lateinit var  userInfo: User
 
@@ -32,7 +28,6 @@ class RecipeRepository {
     //get favourite recipe from this logged in user
     fun getFavourite(): MutableLiveData<ArrayList<Recipe>> {
         val getFavouriteRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
-        Log.e("frag", "SUCCESS get")
         var listFavorites = ArrayList<String>()
         listFavorites.add("")
         mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid).get()
@@ -40,7 +35,6 @@ class RecipeRepository {
                 val  userFavourite = fav.toObject<User>()
                 for (item in userFavourite!!.favourite) {
                     listFavorites.add(item)
-                    Log.e("frag", "test get ${item}")
                 }
                 mFireStore.collection(FirebaseVal.RECIPES).whereIn("id", listFavorites).get()
                     .addOnSuccessListener { favourite ->
@@ -48,8 +42,6 @@ class RecipeRepository {
                             val data = favourite.toObjects<Recipe>()
                             data.toList()
                             getFavouriteRecipesMutableLiveData.value = ArrayList(data)
-                            Log.e("frag", "SUCCESS get ${data.toList()}")
-                            Log.e("frag", "SUCCESS get $data")
                         }
                     }
             }
@@ -153,7 +145,6 @@ class RecipeRepository {
         return updateRecipeMutableLiveData
     }
 
-
     //delete a recipe
     fun deleteRecipe(recipeId: String): MutableLiveData<Int> {
         val deleteRecipeMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
@@ -174,9 +165,6 @@ class RecipeRepository {
     //get recipe from this logged in user
     fun getRecipesByAuthor(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesByAuthorMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
-
-        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
-        Log.e("frag", "SUCCESS get author" )
         mFireStore.collection(FirebaseVal.RECIPES)
             .whereEqualTo("userid", currentFirebaseUser!!.uid)
             .get()
@@ -185,11 +173,6 @@ class RecipeRepository {
                     val data = recipes.toObjects<Recipe>()
                     data.toList()
                     getRecipesByAuthorMutableLiveData.value = ArrayList(data)
-                    //recipeArrayList = ArrayList(data)
-                    Log.e("frag", "SUCCESS get ${data.toList()}")
-                    //Log.e("frag", "SUCCESS get $recipeArrayList")
-                    Log.e("frag", "SUCCESS get ${getRecipesByAuthorMutableLiveData.value}")
-                    Log.e("frag", "SUCCESS get $data")
                 }
             }
         return getRecipesByAuthorMutableLiveData
@@ -199,14 +182,10 @@ class RecipeRepository {
     //get a single recipe
     fun getRecipe(recipeId: String): MutableLiveData<Recipe> {
         val getRecipeMutableLiveData: MutableLiveData<Recipe> = MutableLiveData<Recipe>()
-        //var recipeArrayList : ArrayList<Recipe> = ArrayList<Recipe>()
-        Log.e("frag", "SUCCESS get")
         mFireStore.collection(FirebaseVal.RECIPES).document(recipeId).get()
             .addOnSuccessListener { recipe ->
                 if(recipe != null) {
                     getRecipeMutableLiveData.value = recipe.toObject<Recipe>()
-
-
                 }
             }
         return getRecipeMutableLiveData
@@ -215,7 +194,6 @@ class RecipeRepository {
     //get all recipe in database
     fun getRecipes(): MutableLiveData<ArrayList<Recipe>> {
         val getRecipesMutableLiveData: MutableLiveData<ArrayList<Recipe>> = MutableLiveData<ArrayList<Recipe>>()
-        Log.e("frag", "SUCCESS get")
         mFireStore.collection(FirebaseVal.RECIPES).orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { recipes ->
@@ -223,11 +201,6 @@ class RecipeRepository {
                     val data = recipes.toObjects<Recipe>()
                     data.toList()
                     getRecipesMutableLiveData.value = ArrayList(data)
-                    //recipeArrayList = ArrayList(data)
-                    Log.e("frag", "SUCCESS get ${data.toList()}")
-                    //Log.e("frag", "SUCCESS get $recipeArrayList")
-                    Log.e("frag", "SUCCESS get ${getRecipesMutableLiveData.value}")
-                    Log.e("frag", "SUCCESS get $data")
                 }
             }
         return getRecipesMutableLiveData
@@ -300,7 +273,6 @@ class RecipeRepository {
                             addRecipeMutableLiveData.value = 2
                         }
                 }
-
             }
             .addOnFailureListener {
                 addRecipeMutableLiveData.value = 2

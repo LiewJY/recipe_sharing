@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.app
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +19,6 @@ class HomeAdapter(private val context: Context,
                   private val listener: OnItemClickListener?
 )
     : RecyclerView.Adapter<HomeAdapter.RecipesViewHolder>(), Filterable{
-
-    //lateinit var listdataSearch:ArrayList<Recipe>
     var recipeFilterList = ArrayList<Recipe>()
     init {
         recipeFilterList = recipeList as ArrayList<Recipe>
@@ -46,7 +43,6 @@ class HomeAdapter(private val context: Context,
             .into(holder.image)
 
         holder.itemView.setOnClickListener(View.OnClickListener {
-            Log.e("frag", "test ${currentitem.title} ${currentitem.id}")
             listener?.onItemClick(currentitem.id)
         })
     }
@@ -61,8 +57,6 @@ class HomeAdapter(private val context: Context,
         val user : TextView = itemView.findViewById(R.id.tvHomeName)
         val desc : TextView = itemView.findViewById(R.id.tvHomeDesc)
         val image : ImageView = itemView.findViewById(R.id.imageRecipes)
-        // val search: TextView = itemView.findViewById(R.id.txtSearch)
-
      }
     interface OnItemClickListener {
         fun onItemClick(recipeId: String)
@@ -71,13 +65,10 @@ class HomeAdapter(private val context: Context,
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
-                //var listFilter=ArrayList<Recipe>();
                 val charSearch = p0.toString()
                 if(charSearch.isEmpty())
                 {
                     recipeFilterList.addAll(recipeList)
-                    Log.e("frag", " show allll ")
-
                 }else
                 {
                     val resultList = ArrayList<Recipe>()
@@ -85,23 +76,17 @@ class HomeAdapter(private val context: Context,
                     for (item in recipeList) {
                         if (item.title.lowercase(Locale.getDefault()).contains(filterPattern)) {
                             resultList.add(item)
-                            Log.e("frag", " filter title ${item.title}")
-
                         }
                     }
                     recipeFilterList = resultList
                 }
                 val results = FilterResults()
                 results.values = recipeFilterList
-                return  results;
+                return  results
             }
 
             override fun publishResults(p0: CharSequence?, p1: Filter.FilterResults?) {
-                Log.e("frag", " publish result $p0")
-
                 recipeFilterList = p1?.values as ArrayList<Recipe>
-                Log.e("frag", " publish result ${recipeFilterList.size}")
-
                 notifyDataSetChanged()
             }
         }

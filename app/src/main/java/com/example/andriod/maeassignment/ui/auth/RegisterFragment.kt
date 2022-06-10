@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.auth
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +45,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        Log.e("frag", "clicked")
-
         if (v != null) {
             when(v.id){
                 R.id.tvRegisterLogin -> {
-                    Log.e("frag", "reg")
                     v!!.findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                 }
 

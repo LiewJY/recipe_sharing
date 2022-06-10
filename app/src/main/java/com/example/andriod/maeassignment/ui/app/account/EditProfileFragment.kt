@@ -101,7 +101,6 @@ class EditProfileFragment : Fragment(), View.OnClickListener {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), "${binding.containerEditPhoneNumber.helperText}", Snackbar.LENGTH_SHORT).show()
             return false
         }
-
         return true
     }
 

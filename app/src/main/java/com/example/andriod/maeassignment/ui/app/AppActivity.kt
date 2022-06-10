@@ -18,11 +18,7 @@ class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //hide default bar
-//        (this as AppCompatActivity?)!!.supportActionBar!!.hide()
         supportActionBar?.hide()
-
-        //setSupportActionBar(AppToolbar)
-
 
         binding = ActivityAppBinding.inflate(layoutInflater)
         setContentView(binding.root)

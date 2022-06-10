@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.app.account
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,16 +25,12 @@ class MyRecipeFragment : Fragment(), MyRecipeAdapter.OnItemClickListener {
         ViewModelProvider(this).get(MyRecipeViewModel::class.java)
     }
 
-//    private val editViewModel: EditRecipeViewModel by lazy {
-//        ViewModelProvider(this).get(EditRecipeViewModel::class.java)
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //load data into recycler view
         viewModel.myrecipesData.observe(viewLifecycleOwner) { recipes ->
-            Log.e("frag", "SUCCESS frag get $recipes")
 
             recyclerView = view.findViewById(R.id.myRecipeRecyclerView)
             recyclerView.layoutManager = LinearLayoutManager(context)

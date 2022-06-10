@@ -1,6 +1,5 @@
 package com.example.andriod.maeassignment.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.andriod.maeassignment.models.Recipe
 import com.example.andriod.maeassignment.models.User
@@ -18,17 +17,6 @@ class AuthRepository {
 
     private lateinit var  auth: FirebaseAuth
     private var currentFirebaseUser = FirebaseAuth.getInstance().currentUser
-
-    //private  var itemMutableList: MutableLiveData<User> = MutableLiveData()
-    //private var authenticatedUserMutableLiveData = MutableLiveData<Boolean>()
-//
-//    //passdata
-//    private var userLiveData: MutableLiveData<FirebaseUser>? = null
-
-//    private
-//    val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-//         value = firebaseAuth.currentUser
-//    }
 
     fun updateUserDetails(name: String, mobile: String): MutableLiveData<Int> {
         val updateUserDetailsMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
@@ -73,7 +61,6 @@ class AuthRepository {
 
     fun getUserDetails(): MutableLiveData<User> {
         val getUserDetailsMutableLiveData: MutableLiveData<User> = MutableLiveData<User>()
-        Log.e("frag", "SUCCESS get")
         auth = FirebaseAuth.getInstance()
         mFireStore.collection(FirebaseVal.USERS).document(currentFirebaseUser!!.uid).get()
             .addOnSuccessListener { user ->
@@ -103,16 +90,12 @@ class AuthRepository {
         val changePasswordMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         changePasswordMutableLiveData.value = 0
         auth = FirebaseAuth.getInstance()
-        if (auth.currentUser != null) {
-            Log.e("frag", " email change have user")
-        }
         auth.currentUser!!.updatePassword(newPassword)
             ?.addOnSuccessListener {
                 changePasswordMutableLiveData.value = 1
         }.addOnFailureListener {
             changePasswordMutableLiveData.value = 2
         }
-
         return changePasswordMutableLiveData
     }
 
@@ -121,9 +104,6 @@ class AuthRepository {
         val changeEmailMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
         changeEmailMutableLiveData.value = 0
         auth = FirebaseAuth.getInstance()
-        if (auth.currentUser != null) {
-            Log.e("frag", " email change have user")
-        }
         auth.currentUser!!.updateEmail(newEmail)
             ?.addOnSuccessListener {
             mFireStore.collection(FirebaseVal.USERS)
@@ -136,22 +116,18 @@ class AuthRepository {
                 changeEmailMutableLiveData.value = 2
         }
         return changeEmailMutableLiveData
-
-
     }
 
-    fun forgotPassword(email: String): MutableLiveData<String> {
-        val forgotPasswordMutableLiveData: MutableLiveData<String> = MutableLiveData<String>()
-        forgotPasswordMutableLiveData.value = ""
+    fun forgotPassword(email: String): MutableLiveData<Int> {
+        val forgotPasswordMutableLiveData: MutableLiveData<Int> = MutableLiveData<Int>()
+        forgotPasswordMutableLiveData.value = 0
         auth = FirebaseAuth.getInstance()
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener{ sentEmail ->
                 if (sentEmail.isSuccessful) {
-                    forgotPasswordMutableLiveData.value = "success"
-                    Log.e("frag", "sent email SUCCESS")
+                    forgotPasswordMutableLiveData.value = 1
                 } else {
-                    Log.e("frag", "FAIL")
-                    forgotPasswordMutableLiveData.value = "failed"
+                    forgotPasswordMutableLiveData.value = 2
                 }
             }
         return forgotPasswordMutableLiveData
@@ -178,26 +154,19 @@ class AuthRepository {
         val loginMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         auth = FirebaseAuth.getInstance()
         auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { authLogin ->
-                if (authLogin.isSuccessful) {
-                    loginMutableLiveData.value = true
-                    Log.e("frag", "login SUCCESS")
-                } else {
-                    Log.e("frag", "FAIL")
-                    loginMutableLiveData.value = false
-                }
+            .addOnSuccessListener {
+                loginMutableLiveData.value = true
+            }
+            .addOnFailureListener {
+                loginMutableLiveData.value = false
             }
         return loginMutableLiveData
     }
 
 
     fun register(name: String ,email: String, password: String): MutableLiveData<Boolean> {
+        val newUserMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         auth = FirebaseAuth.getInstance()
-          //pass data
-          val newUserMutableLiveData: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-
-        //Log.e("frag", "in repo $name   $email  $password")
-
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { authRegister ->
                 if (authRegister.isSuccessful) {
@@ -214,17 +183,11 @@ class AuthRepository {
                         .set(user, SetOptions.merge())
                         .addOnCompleteListener { addDetails ->
                             if (addDetails.isSuccessful) {
-                                //pass data
                                 newUserMutableLiveData.value = true
-                                Log.e("frag", "SUCCESS")
                             }
                         }
-
                 } else {
-                    Log.e("frag", "FAIL")
-                    //pass data
                     newUserMutableLiveData.value = false
-                    //Toast.makeText(applicationContext, "Fail to register", Toast.LENGTH_SHORT).show()
                 }
             }
         return newUserMutableLiveData

@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.app.account
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,24 +39,19 @@ class MyRecipeAdapter (private val context: Context,
             .into(holder.image)
 
         holder.edit.setOnClickListener {
-            Log.e("frag", "edit ${currentitem.title} ${currentitem.id}")
             listener.onEditClick(currentitem.id)
-
         }
         holder.delete.setOnClickListener {
-            Log.e("frag", "delete ${currentitem.title} ${currentitem.id}")
             MaterialAlertDialogBuilder(context,
                 com.google.android.material.R.style.Animation_AppCompat_Dialog)
                 .setTitle("Delete recipe")
                 .setMessage("Once deleted recipe cannot be recovered")
                 .setNegativeButton("Cancel") { dialog, which ->
                     // do nothing
-                    Log.e("frag", "delete negative ${currentitem.title} ${currentitem.id}")
                 }
                 .setPositiveButton("Delete") { dialog, which ->
                     //send file id to fragment
                     listener.onDeleteClick(currentitem.id)
-                    Log.e("frag", "delete positive ${currentitem.title} ${currentitem.id}")
                 }
                 .show()
 

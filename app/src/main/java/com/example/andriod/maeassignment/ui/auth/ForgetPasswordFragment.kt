@@ -58,10 +58,10 @@ class ForgetPasswordFragment : Fragment(), View.OnClickListener {
                             txtForgotPasswordEmail.text.toString()
                         )
                         viewModel.forgotPasswordStatus.observe(this) { result ->
-                            if(result == "success") {
+                            if(result == 1) {
                                 Toast.makeText(context, "Reset Success. Please check your email.", Toast.LENGTH_SHORT).show()
 
-                            } else if (result == "failed") {
+                            } else if (result == 2) {
                                 Toast.makeText(context, "Reset failed. Please try again.", Toast.LENGTH_SHORT).show()
                             }
                         }

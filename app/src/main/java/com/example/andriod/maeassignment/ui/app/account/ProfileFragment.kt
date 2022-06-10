@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.app.account
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -175,7 +174,6 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     fun resetEmail() {
-        Log.e("frag", "show email")
         val dialog = context?.let { BottomSheetDialog(it) }
         val dialogLayout=layoutInflater.inflate(R.layout.dialog_change_email,null)
         val newEmail = dialogLayout.findViewById<EditText>(R.id.txtEditEmail)
@@ -272,62 +270,4 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         }
     }
 
-//    fun reauth(): Boolean{
-//        val dialog = context?.let { BottomSheetDialog(it) }
-//        val dialogLayout=layoutInflater.inflate(R.layout.dialog_reauthenticate,null)
-//        val email = dialogLayout.findViewById<EditText>(R.id.txtReAuthEmail)
-//        val emailContainer = dialogLayout.findViewById<TextInputLayout>(R.id.containerReAuthEmail)
-//        val password = dialogLayout.findViewById<EditText>(R.id.txtReAuthPassword)
-//        val passwordContainer = dialogLayout.findViewById<TextInputLayout>(R.id.containerReAuthPassword)
-//        dialog?.setContentView(dialogLayout)
-//        dialog?.show()
-//        //validation
-//        email.setOnFocusChangeListener{_, focused ->
-//            if (!focused)
-//            {
-//                emailContainer.helperText = Validation.emailValidation(email.text.toString())
-//            }
-//        }
-//        password.setOnFocusChangeListener{_, focused ->
-//            if (!focused)
-//            {
-//                passwordContainer.helperText = Validation.passwordValidation(password.text.toString())
-//            }
-//        }
-//        dialogLayout.findViewById<Button>(R.id.btnReAuth).setOnClickListener {
-//            emailContainer.helperText = Validation.emailValidation(email.text.toString())
-//            passwordContainer.helperText = Validation.passwordValidation(password.text.toString())
-//
-//            var passValidation = true
-//            if(emailContainer.helperText != null)
-//            {
-//                passValidation = false
-//                Snackbar.make(requireActivity().findViewById(android.R.id.content), "${emailContainer.helperText}", Snackbar.LENGTH_SHORT).show()
-//            }
-//            if(passwordContainer.helperText != null)
-//            {
-//                passValidation = false
-//                Snackbar.make(requireActivity().findViewById(android.R.id.content), "${passwordContainer.helperText}", Snackbar.LENGTH_SHORT).show()
-//            }
-//
-//            if(passValidation == true) {
-//                val emailString = email.text.toString()
-//                val passwordstring = password.text.toString()
-//                viewModel.reAuthUser(emailString, passwordstring)
-//                viewModel.reAuthUserStatus.observe(this) { result ->
-//                    if(result == 1) {
-//                        Toast.makeText(context, "Authentication success", Toast.LENGTH_SHORT).show()
-//                        passAuth = true
-//
-//                    } else if (result == 2){
-//                        Toast.makeText(context, "Failed to authenticate. Please try again later", Toast.LENGTH_SHORT).show()
-//                        passAuth = false
-//                    }
-//                }
-//            }
-//        }
-//        dialogLayout.findViewById<Button>(R.id.btnReAuthClose).setOnClickListener {
-//            dialog?.dismiss()
-//        }
-//    }
 }

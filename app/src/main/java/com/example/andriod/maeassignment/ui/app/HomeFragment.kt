@@ -45,12 +45,10 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 
         binding.txtSearch.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                Log.e("frag", "submit $query")
                 adapter?.filter?.filter(query)
                 return true;
             }
             override fun onQueryTextChange(query: String?): Boolean {
-//                Log.e("frag", "query $query")
                 adapter?.filter?.filter(query)
                 return true;
             }

@@ -18,7 +18,6 @@ class FavouriteViewModel: ViewModel() {
 
     fun getFavouriteRecipes() {
         _favouriteRecipesLiveData = RecipeRepository().getFavourite()
-        //RecipeRepository().getRecipes()
     }
 
     fun removeFavouriteRecipes(recipeId: String) {
