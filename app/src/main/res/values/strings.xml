@@ -1,3 +1,147 @@
 <resources>
-    <string name="app_name">MAE Assignment</string>
+    <string name="app_name">PrepMeal</string>
+    <!--text field hint-->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_name">Name</string>
+    <!--action -->
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_register">Not registered yet? <u>Register now!</u></string>
+    <string name="action_forget_password">Forgot password</string>
+    <string name="action_register_short">Register</string>
+    <string name="t_and_c">I Agree To The <u>Terms &amp; Condition</u></string>
+    <string name="already_have_an_account">Already have an account? <u>Login here</u></string>
+    <string name="action_send_email">Send Email</string>
+    <string name="action_go_back_to_login">Return to Login</string>
+
+
+    <!--title-->
+    <string name="title_register">Create An Account</string>
+    <string name="title_forgot_password">Password Recovery</string>
+
+
+    <!--for bottom navigation-->
+    <string name="title_home">Home</string>
+    <string name="title_add">Add</string>
+    <string name="title_Profile">Profile</string>
+
+    <!--for search-->
+    <string name="prompt_search">Search Recipe</string>
+
+
+    <!--for add recipe page-->
+    <!--text field hint-->
+    <string name="prompt_recipe_title">Recipe Title</string>
+    <string name="prompt_recipe_desc">Recipe Description</string>
+    <string name="prompt_ingredient">Ingredient</string>
+    <string name="prompt_method">Method</string>
+    <!--action -->
+    <string name="action_select_image">Select Image</string>
+    <string name="action_add">+ Add</string>
+    <string name="action_remove">Remove</string>
+    <string name="action_publish">Publish</string>
+    <!--title-->
+    <string name="title_add_recipe">Add Recipe</string>
+    <string name="title_add_ingredients"><u>Add Ingredients</u></string>
+    <string name="title_add_method"><u>Add Methods</u></string>
+
+    <!--for view recipe page-->
+    <!--action -->
+    <string name="action_add_favourite">Favourite</string>
+
+    <!--text field hint-->
+    <string name="prompt_ingredient_method">Ingredient / Method</string>
+    <!--title-->
+    <string name="title_ingredients"><u>Ingredients</u></string>
+    <string name="title_method"><u>Methods</u></string>
+    <string name="title_comment"><u>Comments</u></string>
+
+    <!--for account page-->
+    <!--text field hint-->
+    <!--action -->
+    <string name="action_logout">Logout</string>
+    <string name="action_profile">Profile</string>
+    <string name="action_my_recipe">My Recipe</string>
+    <string name="action_favourite">Favourite</string>
+    <string name="action_Post">Post</string>
+
+    <!--text field hint-->
+    <string name="prompt_comment">Comment</string>
+    <!--title-->
+    <string name="title_account">Account</string>
+    <string name="title_manage_account">Manage My Account</string>
+
+
+    <!--for profile page-->
+    <!--text field hint-->
+    <!--action -->
+    <string name="action_edit_profile">Edit Profile</string>
+
+    <string name="action_change_email">Change Email</string>
+    <string name="action_change_password">Change Password</string>
+    <!--    <string name="action_favourite">Favourite</string>-->
+    <!--    <string name="action_favourite">Favourite</string>-->
+    <!--text field hint-->
+    <string name="prompt_phone_number">Phone Number</string>
+    <!--title-->
+    <string name="title_profile">My Profile</string>
+    <string name="title_change_email">Change Email Address</string>
+    <string name="title_edit_profile">Edit Profile</string>
+
+
+    <!--for edit recipe (my recipe) page-->
+    <!--text field hint-->
+    <!--action -->
+    <string name="action_edit">Edit</string>
+    <string name="action_update">Update</string>
+    <string name="action_delete">Delete</string>
+    <!--title-->
+    <string name="title_my_recipe">My Recipe</string>
+    <string name="title_edit_recipe">Edit Recipe</string>
+    <string name="title_edit_ingredients"><u>Ingredients</u></string>
+    <string name="title_edit_method"><u>Methods</u></string>
+
+
+    <!--for favourite page-->
+    <!--text field hint-->
+    <!--action -->
+    <!--    <string name="action_edit">Edit</string>-->
+    <!--    <string name="action_delete">Delete</string>-->
+    <!--title-->
+    <string name="title_favourite">Favourite</string>
+
+
+    <!--    general action (shared)-->
+    <string name="action_save">Save</string>
+    <string name="action_favourite_remove">Remove</string>
+
+
+<!--    &lt;!&ndash;not in use&ndash;&gt;-->
+<!--    <string name="title_activity_login">LoginActivity</string>-->
+
+<!--    <string name="action_sign_in">Sign in or register</string>-->
+<!--    <string name="welcome">"Welcome !"</string>-->
+<!--    <string name="invalid_username">Not a valid username</string>-->
+<!--    <string name="invalid_password">Password must be >5 characters</string>-->
+<!--    <string name="login_failed">"Login failed"</string>-->
+
+
+<!--    &lt;!&ndash; Strings used for fragments for navigation &ndash;&gt;-->
+<!--    <string name="first_fragment_label">First Fragment</string>-->
+<!--    <string name="second_fragment_label">Second Fragment</string>-->
+<!--    <string name="next">Next</string>-->
+<!--    <string name="previous">Previous</string>-->
+
+<!--    <string name="hello_first_fragment">Hello first fragment</string>-->
+<!--    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>-->
+<!--    <string name="title_activity_home">HomeActivity</string>-->
+<!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+<!--    <string name="title_activity_primary">PrimaryActivity</string>-->
+<!--    <string name="logout">logout</string>-->
+<!--    <string name="title_activity_app_acrivity">AppAcrivity</string>-->
+<!--    <string name="title_dashboard">Dashboard</string>-->
+<!--    <string name="title_notifications">Notifications</string>-->
+
 </resources>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/AddRecipeBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/AddRecipeToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/md_theme_light_primary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:title="@string/title_add_recipe"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAddRecipe"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:paddingBottom="20dp"-->
+<!--                    android:text="@string/title_add_recipe"-->
+<!--                    android:textAlignment="viewStart"-->
+<!--                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Headline5"-->
+<!--                    android:textStyle="bold" />-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/containerRecipeTitle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:helperText=""
+                    app:helperTextTextColor="@android:color/holo_red_dark"
+                    android:hint="@string/prompt_recipe_title"
+                    app:errorEnabled="true">
+                    <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRecipeTitle"
+                        style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColorHint="#757575" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/containerRecipeDesc"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:helperText=""
+                    app:helperTextTextColor="@android:color/holo_red_dark"
+                    android:hint="@string/prompt_recipe_desc"
+                    app:errorEnabled="true">
+                    <!--this is the actual edit text which takes the input
+                the actual useful id is below-->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtRecipeDesc"
+                        style="@style/TextAppearance.MdcTypographyStyles.Body1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColorHint="#757575" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    android:scaleType="centerCrop" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/action_select_image"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+<!--                adding ingredient-->
+                <TextView
+                    android:id="@+id/tvAddIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="@string/title_add_ingredients"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/ingredient_parent_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddIngredient"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/action_add"
+                        android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+<!--                adding method-->
+                <TextView
+                    android:id="@+id/tvAddMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="@string/title_add_method"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Subtitle1"
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/method_parent_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddMethod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/action_add"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPublish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/action_publish"
+                    android:textAppearance="@style/TextAppearance.MdcTypographyStyles.Button"
+                    />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
