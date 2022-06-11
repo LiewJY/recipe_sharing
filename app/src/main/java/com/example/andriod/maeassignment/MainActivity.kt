@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         //forced light mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 //        FirebaseApp.initializeApp(applicationContext)
-
         supportActionBar?.hide()
         //setContentView(R.layout.activity_main)
 
@@ -29,32 +28,10 @@ class MainActivity : AppCompatActivity() {
                 finish()
                 val startApp = Intent(applicationContext, AppActivity::class.java)
                 startActivity(startApp)
-            //Log.e("frag", "home")
             } else {
-                //supportActionBar?.hide()
-//                val startAuth = Intent(applicationContext, AuthActivity::class.java)
-//                startActivity(startAuth)
-                // Log.e("frag", "auth")
                 setContentView(R.layout.activity_main)
             }
         }
-
-
-        //hide action bar
-
-//        val handler = Handler()
-//        handler.postDelayed(setContentView(R.layout.activity_auth) ,5000)
-
-        //startNewActivity(AuthActivity::class.java)
-
-//        userPreferences.accessToken.asLiveData().observe(this, Observer {
-//            val activity = if (it == null) AuthActivity::class.java else HomeActivity::class.java
-//            startNewActivity(activity)
-//        })
     }
-
 }
 
-//private fun Handler.postDelayed(contentView: Unit, l: Long) {
-//
-//}

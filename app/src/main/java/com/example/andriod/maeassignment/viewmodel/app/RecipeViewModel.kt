@@ -18,7 +18,6 @@ class RecipeViewModel : ViewModel() {
 
     fun getRecipe(recipeId: String) {
         _recipesLiveData = RecipeRepository().getRecipe(recipeId)
-
     }
 
     fun addFavourite(recipeId: String) {

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -213,7 +212,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
 //        add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
         }
     }
@@ -226,7 +224,6 @@ class EditRecipeFragment : Fragment(), View.OnClickListener {
         //add control for remove button
         val buttonRemove: Button = inflater.findViewById(R.id.btnRemove) as Button
         buttonRemove.setOnClickListener{
-            Log.e("frag", "remove pressed")
             (inflater.parent as LinearLayout).removeView(inflater)
         }
     }

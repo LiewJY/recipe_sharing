@@ -3,9 +3,6 @@ package com.example.andriod.maeassignment.utils
 import android.util.Patterns
 
 class Validation {
-//    val noIngredient: String = "At least one ingredient is needed"
-//    val emptyIngredient: String = "Please remove unused ingredient box"
-
     companion object{
         const val noIngredient: String = "At least one ingredient is needed"
         const val emptyIngredient: String = "Please remove unused ingredient box"

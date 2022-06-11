@@ -41,16 +41,15 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
             inflater,
             R.layout.fragment_home, container, false
         )
+        //load recipes
         viewModel.getRecipes()
 
         binding.txtSearch.setOnQueryTextListener( object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-//                Log.e("frag", "submit $query")
                 adapter?.filter?.filter(query)
                 return true;
             }
             override fun onQueryTextChange(query: String?): Boolean {
-//                Log.e("frag", "query $query")
                 adapter?.filter?.filter(query)
                 return true;
             }
@@ -61,7 +60,6 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         //load data into recycler view
         viewModel.recipesData.observe(viewLifecycleOwner) { recipes ->
             adapter = context?.let { HomeAdapter(it, recipes, this) }
@@ -69,15 +67,13 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
         }
-
-
     }
+
     override fun onItemClick(recipeId: String) {
         //open recipe page
         val intent = Intent(activity, RecipeActivity::class.java)
         intent.putExtra("recipeId", recipeId)
         startActivity(intent)
-
         }
 
 }

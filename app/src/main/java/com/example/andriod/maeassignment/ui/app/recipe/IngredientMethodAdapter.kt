@@ -1,6 +1,5 @@
 package com.example.andriod.maeassignment.ui.app.recipe
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,8 +25,6 @@ class IngredientMethodAdapter(
         holder.field.text = currentitem
 
         holder.itemView.setOnClickListener(View.OnClickListener {
-            Log.e("frag", "test $currentitem")
-            //listener.onItemClick(currentitem)
         })
     }
 

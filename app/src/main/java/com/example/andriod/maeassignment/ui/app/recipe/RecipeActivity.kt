@@ -1,7 +1,6 @@
 package com.example.andriod.maeassignment.ui.app.recipe
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -28,11 +27,6 @@ class RecipeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         //hide actiton bar
         supportActionBar?.hide()
-        //recipeToolbar.setNavigationIcon(R.drawable.ic_notifications_black_24dp)
-//        supportActionBar?.title = "test"
-//        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_home_black_24dp)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        //action bar
 
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -43,11 +37,9 @@ class RecipeActivity : AppCompatActivity(){
             finish()
         }
         val recipeId = intent.getStringExtra("recipeId")
-        //Log.e("frag", "$recipeId")
         viewModel.getRecipe(recipeId!!)
         viewModel.recipesData.observe(this) { recipe ->
             if (recipe != null) {
-                Log.e("frag", "obserce $recipe")
                 binding.tvRecipeTitle.text = recipe.title
                 binding.tvRecipeAuthor.text = recipe.name
                 Glide.with(this)
@@ -66,11 +58,6 @@ class RecipeActivity : AppCompatActivity(){
                 methodRecyclerView.adapter = IngredientMethodAdapter( recipe.methods)
                 methodRecyclerView.isNestedScrollingEnabled = false
                 methodRecyclerView.layoutManager = LinearLayoutManager(this)
-                //binding.tvRecipeIngredient.text = recipe.ingredients.toString()
-
-                //binding.txtRecipeDesc.setText(recipe.title)
-
-
             }
         }
 

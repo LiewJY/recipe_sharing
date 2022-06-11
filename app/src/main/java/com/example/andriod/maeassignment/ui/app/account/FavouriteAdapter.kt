@@ -43,12 +43,10 @@ class FavouriteAdapter (private val context: Context,
             .into(holder.image)
 
         holder.itemView.setOnClickListener(View.OnClickListener {
-            Log.e("frag", "click on ${currentitem.title} ${currentitem.id}")
             listener.onItemClick(currentitem.id)
         })
 
         holder.remove.setOnClickListener {
-            Log.e("frag", "remove ${currentitem.title} ${currentitem.id}")
             MaterialAlertDialogBuilder(
                 context,
                 com.google.android.material.R.style.Animation_AppCompat_Dialog

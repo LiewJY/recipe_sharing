@@ -13,7 +13,6 @@ class HomeViewModel: ViewModel() {
 
     fun getRecipes() {
         _recipesLiveData = RecipeRepository().getRecipes()
-        //RecipeRepository().getRecipes()
     }
 
 }
